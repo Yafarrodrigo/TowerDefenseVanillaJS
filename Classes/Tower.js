@@ -8,27 +8,93 @@ export default class Tower{
         this.target = null
         this.range = 100
         this.damage = 1
+        if(type === "slow"){
+            this.slow = 0.5
+        }
+    }
+
+    create(){
+        let tile = {
+            x:(this.x -25) /50,
+            y:(this.y -25 ) /50
+        }
+        let color
+        switch(this.type){
+            case "normal":
+                color = "black"
+                this.damage = 1
+                break;
+            
+            case "slow":
+                color = "lightblue"
+                this.damage = 0.25
+                break;
+            
+            default:
+                color = "black"
+                this.damage = 1
+                break;
+        }
+        this.game.graphics.changeTile(tile.x, tile.y, color)
+        this.game.map.tiles[tile.x][tile.y].tower = true
+        this.game.graphics.updateTowers()
+
+        if(this.type === "normal"){
+            this.game.player.money -= 50
+        }
+        else if(this.type === "slow"){
+            this.game.player.money -= 50
+        }
+        this.game.infoMoney.innerText = `PLATITA: ${this.game.player.money}`
     }
 
     upgrade(){
-        this.range += 10
-        this.damgage += 1
+
+        if(this.type === "normal"){
+            this.game.player.money -= 25
+            this.range += 10
+            this.damage += 0.5
+        }
+        else if(this.type === "slow"){
+            this.game.player.money -= 75
+            this.damage += 0.1
+            this.slow += 0.25
+        }
+
+        this.game.infoMoney.innerText = `PLATITA: ${this.game.player.money}`
     }
 
     shoot(){
-        if(this.game.activeEnemies[this.target].dead === false){
-            this.game.activeEnemies[this.target].health -= 1
-        }else{
-            this.target = null
+
+        let attackedEnemy = this.game.activeEnemies[this.target]
+
+        if(attackedEnemy !== undefined && attackedEnemy !== null){
+            if(this.game.activeEnemies[this.target].dead === false){
+                if(attackedEnemy.towerAttacking !== this) { attackedEnemy.towerAttacking = this }
+                attackedEnemy.health -= this.damage
+            }else{
+                this.target = null
+            }
+
+            if(this.distance(this.x,attackedEnemy.x + 25,this.y,attackedEnemy.y + 25) >= this.range){
+                attackedEnemy.towerAttacking = null
+                this.target = null
+            }
+        }
+        else{
+            this.targetNearestEnemy()
         }
     }
 
     targetNearestEnemy(){
-        if(this.target === null){
+        if((this.target === null || this.target === undefined) ||
+            this.game.activeEnemies[this.target] === null || this.game.activeEnemies[this.target] === undefined ){
+            
             let posibleTargets = []
+
             this.game.activeEnemies.forEach((enemy)=>{
                 let distance = this.distance(this.x+12,enemy.x+12,this.y+12,enemy.y+12)
-                if( distance < this.range  && enemy.dead === false){
+                if( distance <= this.range  && enemy.dead === false){
                     posibleTargets.push({enemy, distance})
                 }
             })
@@ -40,13 +106,25 @@ export default class Tower{
                         candidate = target
                     }
                 })
-                this.target = candidate.enemy.id
+                if(this.game.activeEnemies.length !== 0){
+                    if(this.game.activeEnemies[candidate.enemy.id] !== null || this.game.activeEnemies[candidate.enemy.id] !== undefined){
+                        this.target = candidate.enemy.id
+                    }else{
+                        this.target = null
+                    }
+                }
             }
+            else return
         }
         else{
-            if(this.distance(this.x,this.game.activeEnemies[this.target].x + 25,this.y,this.game.activeEnemies[this.target].y + 25) >= this.range){
+            let attackedEnemy = this.game.activeEnemies[this.target]
+
+            if(this.game.activeEnemies.length !== 0 && attackedEnemy !== undefined){
+                if(this.distance(this.x,attackedEnemy.x + 25,attackedEnemy.y + 25) > this.range){
+                    attackedEnemy.towerAttacking = null
                     this.target = null
                 }
+            }
         }
     }
 

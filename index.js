@@ -10,46 +10,47 @@ game.graphics.createRoad()
 
 game.startClock()
 
-
 // CREAR TORRES
 game.graphics.bgCanvas.addEventListener("click", (e)=>{
+
     const XY = getMousePos(game.graphics.bgCanvas, e)
+    const type = document.querySelector("input[name='towerType']:checked").id
 
+        // CREATE
     if(game.map.tiles[XY.x][XY.y].road === false &&
-        game.map.tiles[XY.x][XY.y].tower === false){
+        game.map.tiles[XY.x][XY.y].tower === false &&
+        game.player.checkIfMoney(true, type)) {
 
-        game.graphics.changeTile(XY.x, XY.y, "blue")
-        game.map.tiles[XY.x][XY.y].tower = true
-        let newTower = new Tower(game, XY.x, XY.y ,"normal")
+        let newTower = new Tower(game, XY.x, XY.y , type)
         game.activeTowers.push(newTower)
-        game.graphics.updateTowers()
+        newTower.create()
+
+        // UPGRADE
     }else{
         if(game.map.tiles[XY.x][XY.y].tower === true && game.activeTowers.length !== 0){
             game.activeTowers.forEach((tower)=>{
-                if(Math.floor(tower.x/50) === XY.x && Math.floor(tower.y/50) === XY.y){
+                if(Math.floor(tower.x/50) === XY.x && Math.floor(tower.y/50) === XY.y && game.player.checkIfMoney(false,tower.type)){
                     tower.upgrade()
                 }
             })
             game.graphics.updateTowers()
         }
     }
-
-    
 })
 
-/* document.addEventListener("keyup", (e)=>{
+document.addEventListener("keyup", (e)=>{
     e.preventDefault()
     e.stopPropagation()
     if(e.code  === "Space"){
-        game.stopClock()
-        game.activeEnemies.forEach((enemy)=>{
-            enemy.spawned = true
-            enemy.dead = true
-        })
-        game.nextLevel()
-        game.startClock()
+        if(game.stopped === true){
+            game.stopped = false
+            game.startClock()
+        }else{
+            game.stopped = true
+            game.stopClock()
+        }
     }
-}) */
+})
 
 //////// MOUSE X,Y
 function getMousePos(canvas, evt) {

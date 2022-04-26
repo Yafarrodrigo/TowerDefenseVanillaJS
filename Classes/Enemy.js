@@ -10,12 +10,14 @@ export default class Enemy{
         this.health = health
         this.maxHealth = health
         this.direction = direction
-        this.speed = speed
+        this.maxSpeed = speed
+        this.currentSpeed = speed
         this.currentWaypoint = 0
         this.targetWaypoint = 1
         this.dead = false
         this.spawned = false
         this.stopped = false
+        this.towerAttacking = null
     }   
 
     changeDirection(pointA, pointB){
@@ -48,16 +50,63 @@ export default class Enemy{
             }
         }
     }
-    
-    update(){
 
+    checkIfDead(){
+        if(this.spawned === true){
+            if(this.x > 800 || this.y > 600){
+                this.death(true)
+            }
+            else if(this.health <= 0){
+                this.death(false)
+                this.game.player.money += 5
+                this.game.infoMoney.innerText = `PLATITA: ${this.game.player.money}`
+            }
+            else return
+        }
+    }
 
-        // DEAD ?
-        if(this.x > 800 || this.y > 600){
-            this.dead = true
+    death(outOfBounds){
+        this.game.stopClock()
+        this.dead = true
+        this.game.activeEnemies = this.game.activeEnemies.filter((el)=>{
+            if(el.id !== this.id) return true
+        })
+        for(let i = 0; i < this.game.activeEnemies.length; i++){
+            this.game.activeEnemies[i].id = i
+        }
+
+        this.game.activeTowers.forEach((tower)=>{
+            if(tower.target === this.id){
+                tower.target = null
+            }
+        })
+
+        if(outOfBounds === true){
             this.game.player.lives -= 1
             this.game.infoLives.innerText = `LIVES: ${this.game.player.lives}`
+            this.game.startClock()
+            return
         }
+        
+        this.game.startClock()
+    }
+
+    checkIfSlowed(){
+        if(this.towerAttacking === null){
+            this.currentSpeed = this.maxSpeed
+        }else{
+            if(this.towerAttacking.type === "slow"){
+                
+                if((this.maxSpeed - this.towerAttacking.slow) > 0){
+                    this.currentSpeed = this.maxSpeed - this.towerAttacking.slow
+                }
+            }else{
+                this.currentSpeed = this.maxSpeed
+            }
+        }
+    }
+    
+    update(){
 
         let pointA = this.waypoints[this.currentWaypoint]
         let pointB = this.waypoints[this.targetWaypoint]
@@ -104,24 +153,25 @@ export default class Enemy{
             }
         }
 
-
         if(this.stopped === true){
             this.changeDirection(pointA,pointB)
             return
         }
 
+        this.checkIfSlowed()
+
         // MOVE
         if(this.direction === "right"){
-            this.x += this.speed
+            this.x += this.currentSpeed
         }
         else if(this.direction === "left"){
-            this.x -= this.speed
+            this.x -= this.currentSpeed
         }
         else if(this.direction === "up"){
-            this.y -= this.speed
+            this.y -= this.currentSpeed
         }
         else if(this.direction === "down"){
-            this.y += this.speed
+            this.y += this.currentSpeed
         }
         else return
     }

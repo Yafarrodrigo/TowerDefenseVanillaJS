@@ -16,5 +16,29 @@ canvas{
     color: black;
     position: absolute;
     top: 600px;
-    left: 200px;
+    left: 310px;
+}
+
+#money{
+    color: black;
+    position: absolute;
+    top: 600px;
+    left: 600px;
+}
+
+label{
+    font-size: 1.5rem;
+    margin-bottom: 25px;
+}
+
+input[type="radio"]{
+    transform: scale(1.5);
+    width: 25px;
+    margin-bottom: 25px;
+}
+
+#towerSpawner{
+    position: absolute;
+    left: 820px;
+    top: 300px;
 }

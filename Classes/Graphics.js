@@ -123,7 +123,7 @@ export default class Graphics{
                 this.fxCtx.arc(tower.x, tower.y, tower.range, 0, 2*Math.PI)
                 this.fxCtx.stroke()
 
-                if(tower.target !== null){
+                if(this.game.activeEnemies[tower.target] !== null && this.game.activeEnemies[tower.target] !== undefined){
                     this.fxCtx.strokeStyle = "gold"
                     this.fxCtx.beginPath();
                     this.fxCtx.moveTo(tower.x, tower.y);
