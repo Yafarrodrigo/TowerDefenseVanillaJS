@@ -1,3 +1,7 @@
+*{
+    user-select: none;
+}
+
 canvas{
     position: absolute;
 }
@@ -19,11 +23,43 @@ canvas{
     left: 310px;
 }
 
+#towerInfo{
+    background-color:chocolate;
+    margin-bottom: 25px;
+    padding: 2px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+#towerInfo h3{
+    display: flex;
+    justify-content:space-around;
+    margin: 2px;
+    background-color:rgb(243, 193, 131);
+}
+
+#towerInfo button{
+    background-color: crimson;
+    margin: 2px;
+    border: solid 1px orange;
+    color: white;
+    height: 50px;
+    border-radius: 5px;
+}
+
 #money{
     color: black;
     position: absolute;
     top: 600px;
     left: 600px;
+}
+
+#pause{
+    color: black;
+    position: absolute;
+    top: 100px;
+    left: 825px;
 }
 
 label{
@@ -40,5 +76,5 @@ input[type="radio"]{
 #towerSpawner{
     position: absolute;
     left: 820px;
-    top: 300px;
+    top: 200px;
 }

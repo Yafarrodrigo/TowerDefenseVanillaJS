@@ -118,10 +118,12 @@ export default class Graphics{
                 this.fxCtx.fillStyle = "lightgreen"
                 this.fxCtx.fillRect(tower.x,tower.y,1,1)
 
-                this.fxCtx.strokeStyle = "black"
-                this.fxCtx.beginPath()
-                this.fxCtx.arc(tower.x, tower.y, tower.range, 0, 2*Math.PI)
-                this.fxCtx.stroke()
+                if(this.game.towerSelected !== null && tower.showRadius === true){
+                    this.fxCtx.strokeStyle = "black"
+                    this.fxCtx.beginPath()
+                    this.fxCtx.arc(tower.x, tower.y, tower.range, 0, 2*Math.PI)
+                    this.fxCtx.stroke()
+                }
 
                 if(this.game.activeEnemies[tower.target] !== null && this.game.activeEnemies[tower.target] !== undefined){
                     this.fxCtx.strokeStyle = "gold"

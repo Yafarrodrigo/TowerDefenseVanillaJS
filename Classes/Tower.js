@@ -8,6 +8,8 @@ export default class Tower{
         this.target = null
         this.range = 100
         this.damage = 1
+        this.level = 1
+        this.showRadius = false
         if(type === "slow"){
             this.slow = 0.5
         }
@@ -22,16 +24,19 @@ export default class Tower{
         switch(this.type){
             case "normal":
                 color = "black"
+                this.desc = "damages enemies"
                 this.damage = 1
                 break;
             
             case "slow":
                 color = "lightblue"
+                this.desc = "slows enemies"
                 this.damage = 0.25
                 break;
             
             default:
                 color = "black"
+                this.desc = "damages enemies"
                 this.damage = 1
                 break;
         }
@@ -45,10 +50,13 @@ export default class Tower{
         else if(this.type === "slow"){
             this.game.player.money -= 50
         }
-        this.game.infoMoney.innerText = `PLATITA: ${this.game.player.money}`
+        this.game.infoPanel.money.innerText = `PLATITA: ${this.game.player.money}`
+        this.game.towerSelected = this
+        this.game.infoPanel.updateTowerInfo(this)
     }
 
     upgrade(){
+        if(this.level >= 5) return
 
         if(this.type === "normal"){
             this.game.player.money -= 25
@@ -61,7 +69,7 @@ export default class Tower{
             this.slow += 0.25
         }
 
-        this.game.infoMoney.innerText = `PLATITA: ${this.game.player.money}`
+        this.game.infoPanel.money.innerText = `PLATITA: ${this.game.player.money}`
     }
 
     shoot(){
@@ -70,7 +78,7 @@ export default class Tower{
 
         if(attackedEnemy !== undefined && attackedEnemy !== null){
             if(this.game.activeEnemies[this.target].dead === false){
-                if(attackedEnemy.towerAttacking !== this) { attackedEnemy.towerAttacking = this }
+                if(attackedEnemy.towerAttacking === null || attackedEnemy.towerAttacking.type !== "slow") { attackedEnemy.towerAttacking = this }
                 attackedEnemy.health -= this.damage
             }else{
                 this.target = null

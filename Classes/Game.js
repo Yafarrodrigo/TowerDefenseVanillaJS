@@ -3,11 +3,13 @@ import Graphics from "./Graphics.js"
 import Map from "./Map.js"
 import player from "./Player.js"
 import Level from "./Level.js"
+import InfoPanel from "./InfoPanel.js"
 
 export default class Game{
     graphics = new Graphics(this)
     map = new Map(this)
     player = new player(this)
+    infoPanel = new InfoPanel(this)
     activeTowers = []
     activeBullets= []
     allLevels = [new Level(this,1,5, {health: 100, speed: 1})]
@@ -17,9 +19,7 @@ export default class Game{
     spawnCounter = 0
     spawnFreq = 75
     stopped = false
-    infoLevel= document.getElementById("level")
-    infoLives= document.getElementById("lives")
-    infoMoney= document.getElementById("money")
+    towerSelected = null
 
     createEnemies(enemyData){
         const {health, speed} = enemyData
@@ -38,7 +38,7 @@ export default class Game{
             this.spawnFreq -= 5
         }
         this.level = newLevel
-        this.infoLevel.innerText = `LEVEL: ${newLevel.id}`
+        this.infoPanel.level.innerText = `LEVEL: ${newLevel.id}`
         this.enemiesToSpawn = newLevel.qtyEnemies
         this.activeEnemies = this.createEnemies(newLevel.enemyData)
         this.startClock()

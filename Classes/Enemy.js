@@ -59,7 +59,7 @@ export default class Enemy{
             else if(this.health <= 0){
                 this.death(false)
                 this.game.player.money += 5
-                this.game.infoMoney.innerText = `PLATITA: ${this.game.player.money}`
+                this.game.infoPanel.money.innerText = `PLATITA: ${this.game.player.money}`
             }
             else return
         }
@@ -83,7 +83,7 @@ export default class Enemy{
 
         if(outOfBounds === true){
             this.game.player.lives -= 1
-            this.game.infoLives.innerText = `LIVES: ${this.game.player.lives}`
+            this.game.infoPanel.lives.innerText = `LIVES: ${this.game.player.lives}`
             this.game.startClock()
             return
         }

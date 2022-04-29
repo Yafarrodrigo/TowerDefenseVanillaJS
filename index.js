@@ -27,15 +27,33 @@ game.graphics.bgCanvas.addEventListener("click", (e)=>{
 
         // UPGRADE
     }else{
+        
         if(game.map.tiles[XY.x][XY.y].tower === true && game.activeTowers.length !== 0){
             game.activeTowers.forEach((tower)=>{
-                if(Math.floor(tower.x/50) === XY.x && Math.floor(tower.y/50) === XY.y && game.player.checkIfMoney(false,tower.type)){
-                    tower.upgrade()
+                if(Math.floor(tower.x/50) === XY.x && Math.floor(tower.y/50) === XY.y){
+                    game.infoPanel.updateTowerInfo(tower)
+                    game.towerSelected = tower
                 }
             })
             game.graphics.updateTowers()
         }
     }
+})
+
+game.graphics.bgCanvas.addEventListener("mousemove", (e)=>{
+    e.preventDefault()
+    e.stopPropagation()
+
+    const XY = getMousePos(game.graphics.bgCanvas, e)
+    game.activeTowers.forEach((tower)=>{
+        tower.showRadius = false
+            if(game.map.tiles[XY.x][XY.y].tower === true && game.activeTowers.length !== 0){
+                if(Math.floor(tower.x/50) === XY.x && Math.floor(tower.y/50) === XY.y){
+                    tower.showRadius = true
+                }
+            }
+        })
+
 })
 
 document.addEventListener("keyup", (e)=>{
