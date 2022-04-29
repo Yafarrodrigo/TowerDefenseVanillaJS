@@ -25,7 +25,7 @@ game.graphics.bgCanvas.addEventListener("click", (e)=>{
         game.activeTowers.push(newTower)
         newTower.create()
 
-        // UPGRADE
+        // SELECT TOWER
     }else{
         
         if(game.map.tiles[XY.x][XY.y].tower === true && game.activeTowers.length !== 0){
@@ -36,6 +36,9 @@ game.graphics.bgCanvas.addEventListener("click", (e)=>{
                 }
             })
             game.graphics.updateTowers()
+        }
+        else{
+            game.towerSelected = null
         }
     }
 })

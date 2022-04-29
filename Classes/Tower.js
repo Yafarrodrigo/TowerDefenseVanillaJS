@@ -10,13 +10,14 @@ export default class Tower{
         this.damage = 1
         this.level = 1
         this.showRadius = false
+        this.sellPrice = 0
         if(type === "slow"){
             this.slow = 0.5
         }
     }
 
     create(){
-        let tile = {
+        this.tile = {
             x:(this.x -25) /50,
             y:(this.y -25 ) /50
         }
@@ -40,15 +41,17 @@ export default class Tower{
                 this.damage = 1
                 break;
         }
-        this.game.graphics.changeTile(tile.x, tile.y, color)
-        this.game.map.tiles[tile.x][tile.y].tower = true
+        this.game.graphics.changeTile(this.tile.x, this.tile.y, color)
+        this.game.map.tiles[this.tile.x][this.tile.y].tower = true
         this.game.graphics.updateTowers()
 
         if(this.type === "normal"){
             this.game.player.money -= 50
+            this.sellPrice += 25
         }
         else if(this.type === "slow"){
             this.game.player.money -= 50
+            this.sellPrice += 25
         }
         this.game.infoPanel.money.innerText = `PLATITA: ${this.game.player.money}`
         this.game.towerSelected = this
@@ -56,15 +59,18 @@ export default class Tower{
     }
 
     upgrade(){
-        if(this.level >= 5) return
+        if(this.level >= 10) return
+        else this.level +=1
 
         if(this.type === "normal"){
             this.game.player.money -= 25
+            this.sellPrice += 12
             this.range += 10
             this.damage += 0.5
         }
         else if(this.type === "slow"){
             this.game.player.money -= 75
+            this.sellPrice += 12
             this.damage += 0.1
             this.slow += 0.25
         }

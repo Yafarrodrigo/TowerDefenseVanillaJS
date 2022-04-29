@@ -118,14 +118,27 @@ export default class Graphics{
                 this.fxCtx.fillStyle = "lightgreen"
                 this.fxCtx.fillRect(tower.x,tower.y,1,1)
 
-                if(this.game.towerSelected !== null && tower.showRadius === true){
-                    this.fxCtx.strokeStyle = "black"
+                if(tower.showRadius === true || this.game.infoPanel.showRadiusCheckbox.checked){
+                    if(this.game.towerSelected !== null && this.game.towerSelected.id === tower.id){
+                        this.fxCtx.beginPath();
+                        this.fxCtx.lineWidth = 2
+                        this.fxCtx.setLineDash([10, 10]);
+                        this.fxCtx.strokeStyle = "red"    
+                    }else{
+                        this.fxCtx.beginPath();
+                        this.fxCtx.lineWidth = 0.5
+                        this.fxCtx.setLineDash([]);
+                        this.fxCtx.strokeStyle = "black"
+                    }
                     this.fxCtx.beginPath()
                     this.fxCtx.arc(tower.x, tower.y, tower.range, 0, 2*Math.PI)
                     this.fxCtx.stroke()
                 }
 
                 if(this.game.activeEnemies[tower.target] !== null && this.game.activeEnemies[tower.target] !== undefined){
+                    this.fxCtx.beginPath();
+                    this.fxCtx.lineWidth = 1
+                    this.fxCtx.setLineDash([]);
                     this.fxCtx.strokeStyle = "gold"
                     this.fxCtx.beginPath();
                     this.fxCtx.moveTo(tower.x, tower.y);
