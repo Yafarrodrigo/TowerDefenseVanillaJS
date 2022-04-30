@@ -147,5 +147,10 @@ export default class Graphics{
                 }
             })
         }
+
+        if(this.game.placingTower === true && this.game.map.tiles[this.game.cursorAt.x][this.game.cursorAt.y].road === false){
+            this.fxCtx.fillStyle = "yellow"
+            this.fxCtx.fillRect(this.game.cursorAt.x*50,this.game.cursorAt.y*50,50,50)
+        }
     }
 }

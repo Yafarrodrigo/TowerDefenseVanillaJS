@@ -20,6 +20,8 @@ export default class Game{
     spawnFreq = 75
     stopped = false
     towerSelected = null
+    placingTower = true
+    cursorAt = {x:0, y:0}
 
     createEnemies(enemyData){
         const {health, speed} = enemyData
@@ -61,7 +63,7 @@ export default class Game{
             return
         }
 
-         if(this.level.isDone() === true  && this.player.lives !== 0){
+        if(this.level.isDone() === true  && this.player.lives !== 0){
             this.stopClock()
             console.log(`LEVEL ${this.level.id +1}`)
             this.nextLevel()

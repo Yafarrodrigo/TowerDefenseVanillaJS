@@ -7,6 +7,23 @@ export default class Map{
         this.game = game
     }
 
+    checkForRoad(x,y){
+        if(this.tiles[x][y].road === true){
+            return true
+        }else{
+            return false
+        }
+        game.map.tiles[XY.x][XY.y].tower
+    }
+
+    checkForTower(x,y){
+        if(this.tiles[x][y].tower === true){
+            return true
+        }else{
+            return false
+        }
+    }
+
     create(){
 
         let bigArray = []
