@@ -13,7 +13,6 @@ export default class Map{
         }else{
             return false
         }
-        game.map.tiles[XY.x][XY.y].tower
     }
 
     checkForTower(x,y){

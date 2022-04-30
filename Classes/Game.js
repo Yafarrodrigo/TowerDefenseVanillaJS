@@ -16,11 +16,11 @@ export default class Game{
     level = this.allLevels[0]
     activeEnemies = this.createEnemies(this.level.enemyData)
     enemiesToSpawn = this.level.qtyEnemies
+    levelStarted = false
     spawnCounter = 0
     spawnFreq = 75
-    stopped = false
     towerSelected = null
-    placingTower = true
+    placingTower = false
     cursorAt = {x:0, y:0}
 
     createEnemies(enemyData){
@@ -43,7 +43,6 @@ export default class Game{
         this.infoPanel.level.innerText = `LEVEL: ${newLevel.id}`
         this.enemiesToSpawn = newLevel.qtyEnemies
         this.activeEnemies = this.createEnemies(newLevel.enemyData)
-        this.startClock()
     }
 
     startClock(){
@@ -63,24 +62,28 @@ export default class Game{
             return
         }
 
-        if(this.level.isDone() === true  && this.player.lives !== 0){
-            this.stopClock()
-            console.log(`LEVEL ${this.level.id +1}`)
+        if(this.level.isDone() === true  && this.player.lives !== 0 && this.levelStarted === true){
+            this.levelStarted = false
             this.nextLevel()
+            if(this.infoPanel.autoNextLevelCheckbox.checked === true){
+                this.levelStarted = true
+            }
         }
 
-        if(this.spawnCounter === (this.level.qtyEnemies * this.spawnFreq)+this.spawnFreq){
-            this.spawnCounter = 0
-        }else{
-            this.spawnCounter += 1
-        }
-
-        if(this.enemiesToSpawn > 0){
-            if(this.spawnCounter % this.spawnFreq === 0){
-                
-                this.activeEnemies[this.enemiesToSpawn-1].spawned = true
-                this.enemiesToSpawn -= 1
-                return
+        if(this.levelStarted === true){
+            if(this.spawnCounter === (this.level.qtyEnemies * this.spawnFreq)+this.spawnFreq){
+                this.spawnCounter = 0
+            }else{
+                this.spawnCounter += 1
+            }
+    
+            if(this.enemiesToSpawn > 0){
+                if(this.spawnCounter % this.spawnFreq === 0){
+                    
+                    this.activeEnemies[this.enemiesToSpawn-1].spawned = true
+                    this.enemiesToSpawn -= 1
+                    return
+                }
             }
         }
         

@@ -19,11 +19,12 @@ export default class player{
                 // CREATE
             if(this.game.map.checkForRoad(x, y) === false &&
                 this.game.map.checkForTower(x,y) === false &&
-                this.game.player.checkIfMoney(true, type)) {
+                this.game.placingTower === true) {
 
                 let newTower = new Tower(this.game, x, y , type)
                 this.game.activeTowers.push(newTower)
                 newTower.create()
+                this.game.placingTower = false
 
                 // SELECT TOWER
             }else{
@@ -63,20 +64,6 @@ export default class player{
                     }
                 })
         
-        })
-
-        document.addEventListener("keyup", (e)=>{
-            e.preventDefault()
-            e.stopPropagation()
-            if(e.code  === "Space"){
-                if(this.game.stopped === true){
-                    this.game.stopped = false
-                    this.game.startClock()
-                }else{
-                    this.game.stopped = true
-                    this.game.stopClock()
-                }
-            }
         })
     }
 

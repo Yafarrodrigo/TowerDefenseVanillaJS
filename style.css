@@ -1,5 +1,6 @@
 *{
     user-select: none;
+    outline: none;
 }
 
 canvas{
@@ -57,6 +58,26 @@ canvas{
     border-radius: 5px;
 }
 
+#buyTower{
+    background-color: greenyellow;
+    margin: 2px;
+    border: solid 1px green;
+    color: black;
+    height: 50px;
+    width: 100%;
+    border-radius: 5px;
+}
+
+#startButton{
+    background-color:rgb(78, 78, 78);
+    margin-bottom: 5px;
+    border: solid 1px black;
+    color: rgb(255, 255, 255);
+    height: 50px;
+    width: 100%;
+    border-radius: 5px;
+}
+
 #money{
     color: black;
     position: absolute;
@@ -71,6 +92,13 @@ canvas{
     left: 825px;
 }
 
+#pauseAlert{
+    color: red;
+    position: absolute;
+    top: 50px;
+    left: 825px;
+}
+
 #showRadius{
     position: absolute;
     top: 150px;
@@ -78,10 +106,23 @@ canvas{
     transform: scale(2);
 }
 
+#autoNextLevel{
+    position: absolute;
+    top: 150px;
+    left: 1050px;
+    transform: scale(2);
+}
+
+#autoNextLevelLabel{
+    position: absolute;
+    top: 150px;
+    left: 1080px;
+}
+
 #showRadiusLabel{
     position: absolute;
     top: 150px;
-    left: 850px;
+    left: 855px;
 }
 
 label{

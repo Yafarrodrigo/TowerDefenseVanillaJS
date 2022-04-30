@@ -9,10 +9,12 @@ export default class InfoPanel{
     towerRange = document.getElementById("towerRange")
     towerDesc = document.getElementById("towerDesc")
     showRadiusCheckbox = document.getElementById("showRadius")
+    autoNextLevelCheckbox = document.getElementById("autoNextLevel")
 
-
+    startButton = document.getElementById("startButton")
     upgradeButton = document.getElementById("upgradeTower")
     sellButton = document.getElementById("sellTower")
+    buyButton = document.getElementById("buyTower")
 
     constructor(game){
         this.game = game
@@ -48,6 +50,30 @@ export default class InfoPanel{
                 if(tower.id !== this.game.towerSelected.id) return true
             })
             this.game.towerSelected = null
+        })
+
+        this.buyButton.addEventListener("click" , (e)=>{
+
+            e.preventDefault()
+            e.stopPropagation()
+
+            const type = document.querySelector("input[name='towerType']:checked").id
+
+            if(this.game.placingTower === false && this.game.player.checkIfMoney(true, type)){
+                this.game.placingTower = true
+            }else{
+                this.game.placingTower = false
+            }
+        })
+
+        this.startButton.addEventListener("click", (e)=>{
+            e.preventDefault()
+            e.stopPropagation()
+
+            if(game.levelStarted === false){
+                this.game.levelStarted = true
+                this.startButton.innerText = "Next Wave"
+            }
         })
     }
 
