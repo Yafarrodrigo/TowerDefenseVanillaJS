@@ -43,7 +43,6 @@ export default class Tower{
         }
         this.game.graphics.changeTile(this.tile.x, this.tile.y, color)
         this.game.map.tiles[this.tile.x][this.tile.y].tower = true
-        this.game.graphics.updateTowers()
 
         if(this.type === "normal"){
             this.game.player.money -= 50

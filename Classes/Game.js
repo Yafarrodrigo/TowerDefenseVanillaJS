@@ -111,7 +111,6 @@ export default class Game{
             }
         })
 
-        this.graphics.updateTowers()
-        this.graphics.displayEnemies()
+        this.graphics.update()
     }
 }

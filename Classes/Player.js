@@ -11,7 +11,7 @@ export default class player{
     addListeners(){
         
         // CREAR TORRES
-        this.game.graphics.bgCanvas.addEventListener("click", (e)=>{
+        this.game.graphics.canvas.addEventListener("click", (e)=>{
 
             const {x,y} = this.game.player.getMousePos(e)
             const type = document.querySelector("input[name='towerType']:checked").id
@@ -28,7 +28,7 @@ export default class player{
 
                 // SELECT TOWER
             }else{
-                
+                this.game.placingTower = false
                 if(this.game.map.checkForTower(x,y) === true && this.game.activeTowers.length !== 0){
                     this.game.activeTowers.forEach((tower)=>{
                         if(Math.floor(tower.x/50) === x && Math.floor(tower.y/50) === y){
@@ -45,7 +45,7 @@ export default class player{
         })
 
         // UPDATE CURSOR POSITION
-        this.game.graphics.bgCanvas.addEventListener("mousemove", (e)=>{
+        this.game.graphics.canvas.addEventListener("mousemove", (e)=>{
             e.preventDefault()
             e.stopPropagation()
         
@@ -68,7 +68,7 @@ export default class player{
     }
 
     getMousePos(evt){
-        const rect = this.game.graphics.fxCanvas.getBoundingClientRect();
+        const rect = this.game.graphics.extraCanvas.getBoundingClientRect();
         return {
             x: Math.floor((evt.clientX - rect.left)/50),
             y: Math.floor((evt.clientY - rect.top)/50)
