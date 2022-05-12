@@ -21,7 +21,7 @@ export default class player{
                 if((500 < (x*50)+12 && (x*50)+12 < 600) && 
                     (307 < (y*50)+12 && (y*50)+12 < 357)){
 
-                       alert("Go!")
+                       location.reload()
                    }   
                }
             
