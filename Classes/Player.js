@@ -1,3 +1,4 @@
+import _TOWERS from "../towersConfig.js"
 import Tower from "./Tower.js"
 
 export default class player{
@@ -9,12 +10,21 @@ export default class player{
     }
 
     addListeners(){
-        
+
         // CREAR TORRES
         this.game.graphics.canvas.addEventListener("click", (e)=>{
 
             const {x,y} = this.game.player.getMousePos(e)
             const type = document.querySelector("input[name='towerType']:checked").id
+
+            if(this.game.lost === true){
+                if((500 < (x*50)+12 && (x*50)+12 < 600) && 
+                    (307 < (y*50)+12 && (y*50)+12 < 357)){
+
+                       alert("Go!")
+                   }   
+               }
+            
 
                 // CREATE
             if(this.game.map.checkForRoad(x, y) === false &&
@@ -25,10 +35,12 @@ export default class player{
                 this.game.activeTowers.push(newTower)
                 newTower.create()
                 this.game.placingTower = false
+                this.game.placingTowerType = null
 
                 // SELECT TOWER
             }else{
                 this.game.placingTower = false
+                this.game.placingTowerType = null
                 if(this.game.map.checkForTower(x,y) === true && this.game.activeTowers.length !== 0){
                     this.game.activeTowers.forEach((tower)=>{
                         if(Math.floor(tower.x/50) === x && Math.floor(tower.y/50) === y){
@@ -76,61 +88,14 @@ export default class player{
     }
 
     checkIfMoney(buy, type){
-        switch(type){
-            case "normal":
-                if(buy){
-                    if(this.money >= 50){
-                        return true
-                    }
-                    else return false
-                }else{
-                    if(this.money >= 25){
-                        return true
-                    }
-                    else return false
-                }
-                
-            
-            case "slow":
-                if(buy){
-                    if(this.money >= 50){
-                        return true
-                    }
-                    else return false
-                }else{
-                    if(this.money >= 75){
-                        return true
-                    }
-                    else return false
-                }
-            
-            case "projectiles":
-                if(buy){
-                    if(this.money >= 50){
-                        return true
-                    }
-                    else return false
-                }else{
-                    if(this.money >= 50){
-                        return true
-                    }
-                    else return false
-                }
-            
-            case "aoe":
-                if(buy){
-                    if(this.money >= 50){
-                        return true
-                    }
-                    else return false
-                }else{
-                    if(this.money >= 50){
-                        return true
-                    }
-                    else return false
-                }
+        if(buy){
+            if(this.money >= _TOWERS[type].buyCost) return true
+            else return false
         }
 
-        return false
+        else{
+            if(this.money >= _TOWERS[type].upgradeCost) return true
+            else return false
+        }
     }
 }

@@ -21,7 +21,9 @@ export default class Game{
     spawnFreq = 40
     towerSelected = null
     placingTower = false
+    placingTowerType = null
     cursorAt = {x:0, y:0}
+    lost = false
 
     createEnemies(enemyData){
         const {health, speed} = enemyData
@@ -57,8 +59,8 @@ export default class Game{
     update(){
         if(this.player.lives === 0) {
             this.stopClock()
-            alert("PERDISTE")
-            location.reload()
+            this.lost = true
+            this.graphics.lostGame()
             return
         }
 

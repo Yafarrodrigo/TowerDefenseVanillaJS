@@ -97,7 +97,7 @@ export default class Enemy{
         }else{
             if(this.towerAttacking.type === "slow"){
                 
-                if((this.maxSpeed - this.towerAttacking.slow) > 0){
+                if((this.maxSpeed - this.towerAttacking.slow) > 0.15){
                     this.currentSpeed = this.maxSpeed - this.towerAttacking.slow
                 }
             }else{

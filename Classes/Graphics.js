@@ -1,3 +1,5 @@
+import _TOWERS from "../towersConfig.js"
+
 export default class Graphics{
     canvas = document.getElementById("bg-canvas")
     ctx = this.canvas.getContext("2d")
@@ -119,7 +121,6 @@ export default class Graphics{
         }
     }
 
-    //////////// TEST 
     updateTowers(){
         //this.fxCtx.clearRect(0, 0, this.fxCanvas.width, this.fxCanvas.height);
         if(this.game.activeTowers.length !== 0){
@@ -150,7 +151,7 @@ export default class Graphics{
                 }
 
                 // attacks
-                if(this.game.activeEnemies[tower.target] !== null && this.game.activeEnemies[tower.target] !== undefined && tower.type !== "projectiles" && tower.type !== "aoe"){
+                if(this.game.activeEnemies[tower.target] !== null && this.game.activeEnemies[tower.target] !== undefined && tower.projectiles === false){
                     this.extraCtx.beginPath();
                     this.extraCtx.lineWidth = 1
                     this.extraCtx.setLineDash([]);
@@ -164,9 +165,29 @@ export default class Graphics{
         }
 
         if(this.game.placingTower === true && this.game.map.tiles[this.game.cursorAt.x][this.game.cursorAt.y].road === false){
-            this.ctx.fillStyle = "yellow"
+            this.ctx.fillStyle = _TOWERS[this.game.placingTowerType].color
             this.ctx.fillRect(this.game.cursorAt.x*50,this.game.cursorAt.y*50,50,50)
         }
+    }
+
+    lostGame(){
+        this.extraCtx.clearRect(0, 0, this.extraCanvas.width, this.extraCanvas.height);
+        this.extraCtx.fillStyle = "darkred"
+        this.extraCtx.fillRect(100,100,600,400)
+
+        this.extraCtx.fillStyle = "white"
+        this.extraCtx.font = "65px Comic Sans MS";
+        this.extraCtx.textAlign = "center";
+        
+        this.extraCtx.fillText("YOU LOST", this.extraCanvas.width/2, (this.extraCanvas.height/2) -75);
+        this.extraCtx.fillText("play again?", this.extraCanvas.width/2 - 100 , (this.extraCanvas.height/2) + 50);
+
+        this.extraCtx.fillStyle = "white"
+        this.extraCtx.fillRect(500,307, 100,50)
+
+        this.extraCtx.font = "35px Arial";
+        this.extraCtx.fillStyle = "black"
+        this.extraCtx.fillText("Go !", 550, 345);
     }
 
     update(){

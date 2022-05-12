@@ -1,3 +1,4 @@
+import _TOWERS from "../towersConfig.js"
 import Bullet from "./Bullet.js"
 
 export default class Tower{
@@ -8,15 +9,21 @@ export default class Tower{
         this.y = (y * 50) + 25
         this.type = type
         this.target = null
-        this.range = 100
-        this.damage = 1
         this.level = 1
+        this.timer = 1
         this.showRadius = false
         this.sellPrice = 0
 
-        if(type === "slow"){
-            this.slow = 0.5
-        }
+        this.damage = _TOWERS[type].damage
+        this.secondaryDamage = _TOWERS[type].secondaryDamage
+        this.range = _TOWERS[type].range
+        this.color = _TOWERS[type].color
+        this.description = _TOWERS[type].description
+        this.projectiles = _TOWERS[type].projectiles
+        this.slow = _TOWERS[type].slow
+
+        this.buyCost = _TOWERS[type].buyCost
+        this.upgradeCost = _TOWERS[type].upgradeCost
     }
 
 
@@ -25,61 +32,12 @@ export default class Tower{
             x:(this.x -25) /50,
             y:(this.y -25 ) /50
         }
-        let color
-        switch(this.type){
-            case "normal":
-                color = "black"
-                this.desc = "damages enemies"
-                this.damage = 1
-                break;
-            
-            case "slow":
-                color = "lightblue"
-                this.desc = "slows enemies"
-                this.damage = 0.25
-                break;
-
-            case "projectiles":
-                color = "lightgreen"
-                this.desc = "shoots projectiles"
-                this.range = 100
-                this.damage = 25
-                this.timer = 1
-                break;
-
-            case "aoe":
-                color = "purple"
-                this.desc = "damage in aoe"
-                this.range = 100
-                this.damage = 25
-                this.timer = 1
-                break;
-            
-            default:
-                color = "black"
-                this.desc = "damages enemies"
-                this.damage = 1
-                break;
-        }
-        this.game.graphics.changeTile(this.tile.x, this.tile.y, color)
+        this.game.graphics.changeTile(this.tile.x, this.tile.y, this.color)
         this.game.map.tiles[this.tile.x][this.tile.y].tower = true
 
-        if(this.type === "normal"){
-            this.game.player.money -= 50
-            this.sellPrice += 25
-        }
-        else if(this.type === "slow"){
-            this.game.player.money -= 50
-            this.sellPrice += 25
-        }
-        else if(this.type === "projectiles"){
-            this.game.player.money -= 50
-            this.sellPrice += 25
-        }
-        else if(this.type === "aoe"){
-            this.game.player.money -= 50
-            this.sellPrice += 25
-        }
+        this.game.player.money -= this.buyCost
+        this.sellPrice += Math.round(this.buyCost/2)
+
         this.game.infoPanel.money.innerText = `PLATITA: ${this.game.player.money}`
         this.game.towerSelected = this
         this.game.infoPanel.updateTowerInfo(this)
@@ -89,30 +47,12 @@ export default class Tower{
         if(this.level >= 10) return
         else this.level +=1
 
-        if(this.type === "normal"){
-            this.game.player.money -= 25
-            this.sellPrice += 12
-            this.range += 10
-            this.damage += 0.5
-        }
-        else if(this.type === "slow"){
-            this.game.player.money -= 75
-            this.sellPrice += 12
-            this.damage += 0.1
-            this.slow += 0.25
-        }
-        else if(this.type === "projectiles"){
-            this.game.player.money -= 50
-            this.sellPrice += 25
-            this.range += 15
-            this.damage += 10
-        }
-        else if(this.type === "aoe"){
-            this.game.player.money -= 50
-            this.sellPrice += 25
-            this.range += 15
-            this.damage += 10
-        }
+        this.game.player.money -= _TOWERS[this.type].upgradeCost
+        this.sellPrice += Math.round(_TOWERS[this.type].upgradeCost/2)
+
+        this.damage += _TOWERS[this.type].upgradeDamage
+        this.range += _TOWERS[this.type].upgradeRange
+        this.slow += _TOWERS[this.type].upgradeSlow
 
         this.game.infoPanel.money.innerText = `PLATITA: ${this.game.player.money}`
     }

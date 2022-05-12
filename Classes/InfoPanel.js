@@ -61,8 +61,10 @@ export default class InfoPanel{
 
             if(this.game.placingTower === false && this.game.player.checkIfMoney(true, type)){
                 this.game.placingTower = true
+                this.game.placingTowerType = type
             }else{
                 this.game.placingTower = false
+                this.game.placingTowerType = null
             }
         })
 
