@@ -18,7 +18,7 @@ export default class Game{
     enemiesToSpawn = this.level.qtyEnemies
     levelStarted = false
     spawnCounter = 0
-    spawnFreq = 75
+    spawnFreq = 40
     towerSelected = null
     placingTower = false
     cursorAt = {x:0, y:0}
@@ -37,7 +37,7 @@ export default class Game{
         let oldEnemyData = this.level.enemyData
         let newLevel = new Level(this,this.level.id+1,this.level.qtyEnemies+5, {health: oldEnemyData.health + 50, speed: oldEnemyData.speed + 0.1})
         if(this.spawnFreq > 10){
-            this.spawnFreq -= 5
+            this.spawnFreq -= 2
         }
         this.level = newLevel
         this.infoPanel.level.innerText = `LEVEL: ${newLevel.id}`
@@ -90,6 +90,7 @@ export default class Game{
         if(this.activeTowers.length !== 0){
             this.activeTowers.forEach((tower)=>{
 
+
                 if(this.activeEnemies.length !== 0){
                     if((tower.target === null || tower.target === undefined) && 
                         (this.activeEnemies[tower.target] === null || this.activeEnemies[tower.target] === undefined)) {
@@ -97,10 +98,32 @@ export default class Game{
                             tower.target = null
                             tower.targetNearestEnemy()
                     }
-                    else{tower.shoot()}
+                    else{
+
+                        if(tower.type === "projectiles" || tower.type === "aoe"){
+                            if(tower.timer === 30){
+                                tower.timer = 1
+                                tower.shootProjectile()
+                            }else{
+                                tower.timer += 1
+                            }
+                        }else{
+                            tower.shoot()
+                        }
+                    }
                 }
             })
         }  
+        this.activeBullets.forEach((bullet)=>{
+            if(bullet.dead !== true){
+                bullet.update()
+            }
+            else{
+                this.activeBullets = this.activeBullets.filter((bullet)=>{
+                    if(bullet.dead === false) return true
+                })
+            }
+        })
 
         this.activeEnemies.forEach((enemy)=>{
 

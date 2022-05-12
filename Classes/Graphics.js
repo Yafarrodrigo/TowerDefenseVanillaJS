@@ -110,6 +110,15 @@ export default class Graphics{
         }
     }
 
+    displayBullets(){
+        if(this.game.activeBullets.length !== 0){
+            this.game.activeBullets.forEach((bullet)=>{
+                this.ctx.fillStyle = "red"
+                this.ctx.fillRect(bullet.x,bullet.y,5,5)
+            })
+        }
+    }
+
     //////////// TEST 
     updateTowers(){
         //this.fxCtx.clearRect(0, 0, this.fxCanvas.width, this.fxCanvas.height);
@@ -141,7 +150,7 @@ export default class Graphics{
                 }
 
                 // attacks
-                if(this.game.activeEnemies[tower.target] !== null && this.game.activeEnemies[tower.target] !== undefined){
+                if(this.game.activeEnemies[tower.target] !== null && this.game.activeEnemies[tower.target] !== undefined && tower.type !== "projectiles" && tower.type !== "aoe"){
                     this.extraCtx.beginPath();
                     this.extraCtx.lineWidth = 1
                     this.extraCtx.setLineDash([]);
@@ -168,6 +177,7 @@ export default class Graphics{
         this.drawBg()
         this.drawRoad()
         this.displayEnemies()
+        this.displayBullets()
         this.updateTowers()
     }
 

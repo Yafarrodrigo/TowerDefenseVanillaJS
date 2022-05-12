@@ -1,3 +1,5 @@
+import Bullet from "./Bullet.js"
+
 export default class Tower{
     id = Math.floor(Math.random()*10000)
     constructor(game,x, y, type){
@@ -11,10 +13,12 @@ export default class Tower{
         this.level = 1
         this.showRadius = false
         this.sellPrice = 0
+
         if(type === "slow"){
             this.slow = 0.5
         }
     }
+
 
     create(){
         this.tile = {
@@ -34,6 +38,22 @@ export default class Tower{
                 this.desc = "slows enemies"
                 this.damage = 0.25
                 break;
+
+            case "projectiles":
+                color = "lightgreen"
+                this.desc = "shoots projectiles"
+                this.range = 100
+                this.damage = 25
+                this.timer = 1
+                break;
+
+            case "aoe":
+                color = "purple"
+                this.desc = "damage in aoe"
+                this.range = 100
+                this.damage = 25
+                this.timer = 1
+                break;
             
             default:
                 color = "black"
@@ -49,6 +69,14 @@ export default class Tower{
             this.sellPrice += 25
         }
         else if(this.type === "slow"){
+            this.game.player.money -= 50
+            this.sellPrice += 25
+        }
+        else if(this.type === "projectiles"){
+            this.game.player.money -= 50
+            this.sellPrice += 25
+        }
+        else if(this.type === "aoe"){
             this.game.player.money -= 50
             this.sellPrice += 25
         }
@@ -73,8 +101,42 @@ export default class Tower{
             this.damage += 0.1
             this.slow += 0.25
         }
+        else if(this.type === "projectiles"){
+            this.game.player.money -= 50
+            this.sellPrice += 25
+            this.range += 15
+            this.damage += 10
+        }
+        else if(this.type === "aoe"){
+            this.game.player.money -= 50
+            this.sellPrice += 25
+            this.range += 15
+            this.damage += 10
+        }
 
         this.game.infoPanel.money.innerText = `PLATITA: ${this.game.player.money}`
+    }
+
+    shootProjectile(){
+        let attackedEnemy = this.game.activeEnemies[this.target]
+        if(attackedEnemy !== undefined && attackedEnemy !== null){
+            
+            if(attackedEnemy.dead === false){
+                if(attackedEnemy.towerAttacking === null || attackedEnemy.towerAttacking.type !== "slow") { attackedEnemy.towerAttacking = this}
+                const newBullet = new Bullet(this.game, this, attackedEnemy)
+                this.game.activeBullets.push(newBullet)
+            }else{
+                this.target = null
+            }
+
+
+            if(this.distance(this.x,attackedEnemy.x + 25,this.y,attackedEnemy.y + 25) >= this.range){
+                attackedEnemy.towerAttacking = null
+                this.target = null
+            }
+        }else{
+            this.targetNearestEnemy()
+        }
     }
 
     shoot(){
@@ -82,7 +144,7 @@ export default class Tower{
         let attackedEnemy = this.game.activeEnemies[this.target]
 
         if(attackedEnemy !== undefined && attackedEnemy !== null){
-            if(this.game.activeEnemies[this.target].dead === false){
+            if(attackedEnemy.dead === false){
                 if(attackedEnemy.towerAttacking === null || attackedEnemy.towerAttacking.type !== "slow") { attackedEnemy.towerAttacking = this }
                 attackedEnemy.health -= this.damage
             }else{

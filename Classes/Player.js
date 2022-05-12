@@ -103,6 +103,32 @@ export default class player{
                     }
                     else return false
                 }
+            
+            case "projectiles":
+                if(buy){
+                    if(this.money >= 50){
+                        return true
+                    }
+                    else return false
+                }else{
+                    if(this.money >= 50){
+                        return true
+                    }
+                    else return false
+                }
+            
+            case "aoe":
+                if(buy){
+                    if(this.money >= 50){
+                        return true
+                    }
+                    else return false
+                }else{
+                    if(this.money >= 50){
+                        return true
+                    }
+                    else return false
+                }
         }
 
         return false
