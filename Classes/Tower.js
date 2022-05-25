@@ -9,10 +9,12 @@ export default class Tower{
         this.y = (y * 50) + 25
         this.type = type
         this.target = null
+        this.targetInfo = null
         this.level = 1
         this.timer = 1
         this.showRadius = false
         this.sellPrice = 0
+        this.turretAngle = Math.PI
 
         this.damage = _TOWERS[type].damage
         this.secondaryDamage = _TOWERS[type].secondaryDamage
@@ -51,6 +53,7 @@ export default class Tower{
         this.sellPrice += Math.round(_TOWERS[this.type].upgradeCost/2)
 
         this.damage += _TOWERS[this.type].upgradeDamage
+        this.secondaryDamage += _TOWERS[this.type].upgradeSecondaryDamage
         this.range += _TOWERS[this.type].upgradeRange
         this.slow += _TOWERS[this.type].upgradeSlow
 
@@ -124,8 +127,10 @@ export default class Tower{
                 if(this.game.activeEnemies.length !== 0){
                     if(this.game.activeEnemies[candidate.enemy.id] !== null || this.game.activeEnemies[candidate.enemy.id] !== undefined){
                         this.target = candidate.enemy.id
+                        this.targetInfo = this.game.activeEnemies[this.target]
                     }else{
                         this.target = null
+                        this.targetInfo = null
                     }
                 }
             }
@@ -138,6 +143,7 @@ export default class Tower{
                 if(this.distance(this.x,attackedEnemy.x + 25,attackedEnemy.y + 25) > this.range){
                     attackedEnemy.towerAttacking = null
                     this.target = null
+                    this.targetInfo = null
                 }
             }
         }
@@ -145,5 +151,11 @@ export default class Tower{
 
     distance(x0,x1,y0,y1){
         return Math.sqrt((x1-x0)*(x1-x0) + (y1-y0)*(y1-y0))
+    }
+
+    update(){
+        if(this.targetInfo !== null && this.targetInfo !== undefined){
+            this.turretAngle = (Math.atan2((this.targetInfo.y+10 - this.y) , (this.targetInfo.x+10 - this.x)))
+        }
     }
 }

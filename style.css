@@ -7,7 +7,7 @@ canvas{
     position: absolute;
 }
 
-#enemies-canvas, #fx-canvas{
+#extra-canvas{
     pointer-events: none;
 }
 
@@ -31,6 +31,7 @@ canvas{
     border-radius: 5px;
     display: flex;
     flex-direction: column;
+    
 }
 
 #towerInfo h3{
@@ -68,6 +69,36 @@ canvas{
     border-radius: 5px;
 }
 
+#towerButtons{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    background-color: black;
+    border-radius: 15px;
+}
+
+#towerButtons button{
+    width: 75px;
+    height: 50px;
+    margin-right: 2px;
+    background-color: white;
+}
+
+#towerButtons button:hover{
+    background-color: #aaa;
+}
+
+#towerButtons button:first-child{
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+#towerButtons button:last-child{
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
 #startButton{
     background-color:rgb(78, 78, 78);
     margin-bottom: 5px;
@@ -89,13 +120,6 @@ canvas{
     color: black;
     position: absolute;
     top: 100px;
-    left: 825px;
-}
-
-#pauseAlert{
-    color: red;
-    position: absolute;
-    top: 50px;
     left: 825px;
 }
 
@@ -138,6 +162,8 @@ input[type="radio"]{
 
 #towerSpawner{
     position: absolute;
+    width: 450px;
     left: 820px;
     top: 200px;
+    
 }

@@ -9,38 +9,25 @@
     <title>TowerDefense</title>
 </head>
 <body>
-    <canvas width="800" height="600" id="bg-canvas"></canvas>
-    <canvas width="800" height="600" id="enemies-canvas"></canvas>
-    <canvas width="800" height="600" id="fx-canvas"></canvas>
-    <h1 id="level">LEVEL: 1</h1> <h1 id="lives">LIVES: 10</h1> <h1 id="money">PLATITA: 100</h1>
-    <label id="showRadiusLabel" for="showRadius">Show Radius</label>
-    <input type="checkbox" name="showRadius" id="showRadius" checked="true">
-    <label id="autoNextLevelLabel" for="autoNextLevel">Auto level up</label>
-    <input type="checkbox" name="autoNextLevel" id="autoNextLevel" checked="false">
-    <form id="towerSpawner">
-        <button id="startButton">START GAME</button>
-        <div id="towerInfo">
-            <h3>Type: <span id="towerType"> - </span></h3>
-            <h3>Level: <span id="towerLevel" > - </span></h3>
-            <h3>Damage: <span id="towerDamage"> - </span></h3>
-            <h3>Range: <span id="towerRange"> - </span></h3>
-            <h3>Description: <span id="towerDesc"> - </span></h3>
-            <button id="upgradeTower">UPGRADE</button>
-            <button id="sellTower">SELL</button>
-        </div>
-        <input type="radio" name="towerType" name="laser" id="laser" checked="true">
-        <label for="laser"> Laser Tower (buy: $50, upgrade: $25)</label>
-        <br>
-        <input type="radio" name="towerType" name="slow" id="slow">
-        <label for="slow"> Slow Tower (buy: $50, upgrade: $75)</label>
-        <br>
-        <input type="radio" name="towerType" name="projectiles" id="projectiles">
-        <label for="projectiles"> Projectiles Tower (buy: $50, upgrade: $50)</label>
-        <br>
-        <input type="radio" name="towerType" name="aoe" id="aoe">
-        <label for="aoe"> AoE Tower (buy: $50, upgrade: $50)</label>
-        <br>
-        <button id="buyTower">BUY</button>
-    </form>
+        <canvas width="800" height="600" id="canvas"></canvas>
+        <canvas width="800" height="600" id="extra-canvas"></canvas>
+        <h1 id="level">LEVEL: 1</h1> <h1 id="lives">LIVES: 10</h1> <h1 id="money">PLATITA: 100</h1>
+        <label id="showRadiusLabel" for="showRadius">Show Radius</label>
+        <input type="checkbox" name="showRadius" id="showRadius" checked="true">
+        <label id="autoNextLevelLabel" for="autoNextLevel">Auto level up</label>
+        <input type="checkbox" name="autoNextLevel" id="autoNextLevel" checked="false">
+        <form id="towerSpawner">
+            <button id="startButton">START GAME</button>
+            <div id="towerInfo">
+                <h3>Type: <span id="towerType"> - </span></h3>
+                <h3>Level: <span id="towerLevel" > - </span></h3>
+                <h3>Damage: <span id="towerDamage"> - </span></h3>
+                <h3>Range: <span id="towerRange"> - </span></h3>
+                <h3>Description: <span id="towerDesc"> - </span></h3>
+                <button id="upgradeTower">UPGRADE</button>
+                <button id="sellTower">SELL</button>
+            </div>
+            <did id="towerButtons"></did>
+        </form>
 </body>
 </html>

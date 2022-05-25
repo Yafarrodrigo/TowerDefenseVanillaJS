@@ -1,21 +1,47 @@
 import _TOWERS from "../towersConfig.js"
 
 export default class Graphics{
-    canvas = document.getElementById("bg-canvas")
+    canvas = document.getElementById("canvas")
     ctx = this.canvas.getContext("2d")
 
-    extraCanvas = document.getElementById("enemies-canvas")
+    extraCanvas = document.getElementById("extra-canvas")
     extraCtx = this.extraCanvas.getContext("2d")
+
+    floorTile = new Image()
+    openFloorTile = new Image()
+    turretTile = new Image()
+    
 
     constructor(game){
         this.game = game
+        this.floorTile.src = "../Assets/floorTile.jpg"
+        this.openFloorTile.src = "../Assets/openFloorTile.jpg"
+        this.turretTile.src = "../Assets/turret.png"
     }
 
     changeTile(x, y, color){
+        
+
         this.ctx.fillStyle = color
         if(color === "white"){this.tiles[x][y].isRoad = true}
         this.game.map.tiles[x][y].color = color
         this.ctx.fillRect((x*50)+1,(y*50)+1,49,49)
+
+        if(color === "grey"){
+            this.ctx.drawImage(this.floorTile,x*50,y*50)
+        }
+        else if(color === "black"){
+            this.ctx.drawImage(this.openFloorTile,x*50,y*50)
+        }
+        else if(color === "purple"){
+            this.ctx.drawImage(this.openFloorTile,x*50,y*50)
+        }
+        else if(color === "green"){
+            this.ctx.drawImage(this.openFloorTile,x*50,y*50)
+        }
+        else if(color === "lightblue"){
+            this.ctx.drawImage(this.openFloorTile,x*50,y*50)
+        }
     }
 
     drawBg(){
@@ -34,7 +60,7 @@ export default class Graphics{
     }
     
     drawRoad(){
-        this.ctx.fillStyle = "white"
+        this.ctx.fillStyle = "#333"
         for(let i = 0; i < this.game.map.road.length-1; i++){
             let firstPoint = this.game.map.road[i]
             let secondPoint = this.game.map.road[i+1]
@@ -161,11 +187,20 @@ export default class Graphics{
                     this.extraCtx.lineTo(this.game.activeEnemies[tower.target].x+12, this.game.activeEnemies[tower.target].y+12);
                     this.extraCtx.stroke();
                 }
+
+                // turrets
+                this.extraCtx.save();
+                this.extraCtx.translate(tower.x,tower.y);
+                this.extraCtx.rotate(tower.turretAngle)
+                this.extraCtx.translate(-tower.x, -tower.y); 
+                this.extraCtx.drawImage(this.turretTile, tower.x-25, tower.y-25)
+                this.extraCtx.restore();
+
             })
         }
 
         if(this.game.placingTower === true && this.game.map.tiles[this.game.cursorAt.x][this.game.cursorAt.y].road === false){
-            this.ctx.fillStyle = _TOWERS[this.game.placingTowerType].color
+            this.ctx.fillStyle = "lightblue"
             this.ctx.fillRect(this.game.cursorAt.x*50,this.game.cursorAt.y*50,50,50)
         }
     }

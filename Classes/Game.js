@@ -92,6 +92,7 @@ export default class Game{
         if(this.activeTowers.length !== 0){
             this.activeTowers.forEach((tower)=>{
 
+               
 
                 if(this.activeEnemies.length !== 0){
                     if((tower.target === null || tower.target === undefined) && 
@@ -102,6 +103,8 @@ export default class Game{
                     }
                     else{
 
+                        tower.update()
+                        
                         if(tower.type === "projectiles" || tower.type === "aoe"){
                             if(tower.timer === 30){
                                 tower.timer = 1
@@ -110,12 +113,25 @@ export default class Game{
                                 tower.timer += 1
                             }
                         }else{
+                            
                             tower.shoot()
                         }
                     }
+
+                    
                 }
             })
         }  
+
+        this.activeEnemies.forEach((enemy)=>{
+
+            enemy.checkIfDead()
+
+            if(enemy.dead === false && enemy.spawned === true){
+                 enemy.update()
+            }
+        })
+
         this.activeBullets.forEach((bullet)=>{
             if(bullet.dead !== true){
                 bullet.update()
@@ -124,15 +140,6 @@ export default class Game{
                 this.activeBullets = this.activeBullets.filter((bullet)=>{
                     if(bullet.dead === false) return true
                 })
-            }
-        })
-
-        this.activeEnemies.forEach((enemy)=>{
-
-            enemy.checkIfDead()
-
-            if(enemy.dead === false && enemy.spawned === true){
-                 enemy.update()
             }
         })
 

@@ -1,3 +1,5 @@
+import _TOWERS from "../towersConfig.js"
+
 export default class InfoPanel{
     level = document.getElementById("level")
     lives = document.getElementById("lives")
@@ -52,22 +54,6 @@ export default class InfoPanel{
             this.game.towerSelected = null
         })
 
-        this.buyButton.addEventListener("click" , (e)=>{
-
-            e.preventDefault()
-            e.stopPropagation()
-
-            const type = document.querySelector("input[name='towerType']:checked").id
-
-            if(this.game.placingTower === false && this.game.player.checkIfMoney(true, type)){
-                this.game.placingTower = true
-                this.game.placingTowerType = type
-            }else{
-                this.game.placingTower = false
-                this.game.placingTowerType = null
-            }
-        })
-
         this.startButton.addEventListener("click", (e)=>{
             e.preventDefault()
             e.stopPropagation()
@@ -77,6 +63,36 @@ export default class InfoPanel{
                 this.startButton.innerText = "Next Wave"
             }
         })
+
+        this.createTowerButtons()
+    }
+
+    buyTower(type){
+
+        if(this.game.placingTower === false && this.game.player.checkIfMoney(true, type)){
+            this.game.placingTower = true
+            this.game.placingTowerType = type
+        }else{
+            this.game.placingTower = false
+            this.game.placingTowerType = null
+        }
+    }
+
+
+    createTowerButtons(){
+        const container = document.getElementById("towerButtons")
+
+        for(let tower in _TOWERS){
+            const button = document.createElement("button")
+            button.id = `${tower}Tower`
+            button.innerText = `${tower}`
+            button.addEventListener("click", (e)=>{
+                e.preventDefault()
+                e.stopPropagation()
+                this.buyTower(tower)
+            })
+            container.append(button)
+        }
     }
 
     updateTowerInfo(tower){
@@ -84,6 +100,6 @@ export default class InfoPanel{
         this.towerLevel.innerText = tower.level
         this.towerDamage.innerText = tower.damage
         this.towerRange.innerText = tower.range
-        this.towerDesc.innerText = tower.desc
+        this.towerDesc.innerText = tower.description
     }
 }

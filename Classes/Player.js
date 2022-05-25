@@ -15,7 +15,7 @@ export default class player{
         this.game.graphics.canvas.addEventListener("click", (e)=>{
 
             const {x,y} = this.game.player.getMousePos(e)
-            const type = document.querySelector("input[name='towerType']:checked").id
+            const type = this.game.placingTowerType
 
             if(this.game.lost === true){
                 if((500 < (x*50)+12 && (x*50)+12 < 600) && 
@@ -23,8 +23,7 @@ export default class player{
 
                        location.reload()
                    }   
-               }
-            
+               }            
 
                 // CREATE
             if(this.game.map.checkForRoad(x, y) === false &&
