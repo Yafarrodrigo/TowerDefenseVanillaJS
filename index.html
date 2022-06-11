@@ -21,13 +21,9 @@
         </div>
     
         <div id="panel">
-            <label id="showRadiusLabel" for="showRadius">Show Radius</label>
-            <input type="checkbox" name="showRadius" id="showRadius" checked="true">
-            <br>
-            <label id="autoNextLevelLabel" for="autoNextLevel">Auto level up</label>
-            <input type="checkbox" name="autoNextLevel" id="autoNextLevel" checked="false">
-
-
+            <label id="showRadiusLabel" for="showRadius">Show Radius <input type="checkbox" name="showRadius" id="showRadius" checked="true"></label>
+            <label id="autoNextLevelLabel" for="autoNextLevel">Auto level up <input type="checkbox" name="autoNextLevel" id="autoNextLevel" checked="false"></label>
+            
             <form id="towerSpawner">
                 <button id="startButton">START GAME</button>
                 <div id="towerInfo">
@@ -37,8 +33,8 @@
                     <h3>Range: <span id="towerRange"> - </span></h3>
                     <h3>Description: <span id="towerDesc"> - </span></h3>
                     <div id="twobuttons">
-                        <button id="upgradeTower">UPGRADE</button>
-                        <button id="sellTower">SELL</button>
+                        <button class="disabledButton" id="upgradeTower">UPGRADE</button>
+                        <button class="disabledButton" id="sellTower">SELL</button>
                     </div>
                 </div>
                 <did id="towerButtons"></did>

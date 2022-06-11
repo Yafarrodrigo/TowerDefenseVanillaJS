@@ -1,6 +1,7 @@
 const _TOWERS = {
 
     laser:{
+        type: "laser",
         buyCost: 50,
         upgradeCost: 25,
         projectiles: false,
@@ -12,11 +13,11 @@ const _TOWERS = {
         upgradeDamage: 0.5,
         upgradeRange: 10,
         upgradeSlow: 0,
-        range: 100,
-        color: "black"
+        range: 100
     },
 
     slow:{
+        type: "slow",
         buyCost: 35,
         upgradeCost: 50,
         projectiles: false,
@@ -28,11 +29,11 @@ const _TOWERS = {
         upgradeDamage: 0.1,
         upgradeRange: 0,
         upgradeSlow: 0.05,
-        range: 115,
-        color: "lightblue"
+        range: 115
     },
 
     projectiles:{
+        type: "projectiles",
         buyCost: 75,
         upgradeCost: 50,
         projectiles: true,
@@ -44,11 +45,11 @@ const _TOWERS = {
         upgradeSecondaryDamage: 0,
         upgradeRange: 15,
         upgradeSlow: 0,
-        range: 100,
-        color: "lightgreen"
+        range: 100
     },
 
     aoe:{
+        type: "aoe",
         buyCost: 50,
         upgradeCost: 50,
         projectiles: true,
@@ -60,8 +61,7 @@ const _TOWERS = {
         upgradeSecondaryDamage: 15,
         upgradeRange: 15,
         upgradeSlow: 0,
-        range: 100,
-        color: "purple"
+        range: 100
     }
 
 }

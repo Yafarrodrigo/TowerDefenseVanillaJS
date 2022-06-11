@@ -35,7 +35,7 @@ export default class Tower{
             x:(this.x -25) /50,
             y:(this.y -25 ) /50
         }
-        this.game.graphics.changeTile(this.tile.x, this.tile.y, this.color)
+        this.game.graphics.changeTile(this.tile.x, this.tile.y, this.type)
         this.game.map.tiles[this.tile.x][this.tile.y].tower = true
 
         this.game.player.money -= this.buyCost
@@ -59,6 +59,8 @@ export default class Tower{
         this.slow += _TOWERS[this.type].upgradeSlow
 
         this.game.infoPanel.money.innerText = `PLATITA: ${this.game.player.money}`
+
+        this.game.graphics.updateButtons()
     }
 
     shootProjectile(){

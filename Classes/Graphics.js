@@ -19,27 +19,22 @@ export default class Graphics{
         this.turretTile.src = "../Assets/turret.png"
     }
 
-    changeTile(x, y, color){
-        
+    changeTile(x, y, type){
 
-        this.ctx.fillStyle = color
-        if(color === "white"){this.tiles[x][y].isRoad = true}
-        this.game.map.tiles[x][y].color = color
-        this.ctx.fillRect((x*50)+1,(y*50)+1,49,49)
-
-        if(color === "grey"){
+        this.game.map.tiles[x][y].type = type
+        if(type === "floor"){
             this.ctx.drawImage(this.floorTile,x*50,y*50)
         }
-        else if(color === "black"){
+        else if(type === "laser"){
             this.ctx.drawImage(this.openFloorTile,x*50,y*50)
         }
-        else if(color === "purple"){
+        else if(type === "slow"){
             this.ctx.drawImage(this.openFloorTile,x*50,y*50)
         }
-        else if(color === "lightgreen"){
+        else if(type === "projectiles"){
             this.ctx.drawImage(this.openFloorTile,x*50,y*50)
         }
-        else if(color === "lightblue"){
+        else if(type === "aoe"){
             this.ctx.drawImage(this.openFloorTile,x*50,y*50)
         }
     }
@@ -51,9 +46,9 @@ export default class Graphics{
         for(let x = 0; x < 16; x++){
             for(let y = 0; y < 12; y++){
                 if(this.game.map.tiles[x][y].tower !== true){
-                    this.changeTile(x,y,"grey")
+                    this.changeTile(x,y,"floor")
                 }else{
-                    this.changeTile(x,y, this.game.map.tiles[x][y].color)
+                    this.changeTile(x,y, this.game.map.tiles[x][y].type)
                 }
             }
         }
@@ -111,8 +106,6 @@ export default class Graphics{
 
     displayEnemies(){
 
-        //this.ctx.clearRect(0, 0, this.enemyCanvas.width, this.enemyCanvas.height);
-
         let enemies = this.game.activeEnemies
 
         for(let i = 0; i < enemies.length; i++){
@@ -148,11 +141,10 @@ export default class Graphics{
     }
 
     updateTowers(){
-        //this.fxCtx.clearRect(0, 0, this.fxCanvas.width, this.fxCanvas.height);
         if(this.game.activeTowers.length !== 0){
             this.game.activeTowers.forEach((tower)=>{
 
-                this.ctx.fillStyle = "lightgreen"
+                this.ctx.fillStyle = "black"
                 this.ctx.fillRect(tower.x,tower.y,1,1)
 
                 if(tower.showRadius === true || this.game.infoPanel.showRadiusCheckbox.checked){
@@ -225,6 +217,49 @@ export default class Graphics{
         this.extraCtx.fillText("Go !", 550, 345);
     }
 
+    updateButtons(){
+
+        if(!this.game.levelStarted){
+            if(this.game.infoPanel.startButton.classList.contains("disabledButton")){
+                this.game.infoPanel.startButton.classList.remove("disabledButton")
+            }
+        }
+        else{
+            if(!this.game.infoPanel.startButton.classList.contains("disabledButton")){
+                this.game.infoPanel.startButton.classList.add("disabledButton")
+            }
+        }
+
+
+        if(this.game.towerSelected !== null && this.game.towerSelected.level < 10){
+            if(this.game.infoPanel.upgradeButton.classList.contains("disabledButton")){
+                this.game.infoPanel.upgradeButton.classList.remove("disabledButton")
+            }
+            if(this.game.infoPanel.sellButton.classList.contains("disabledButton")){
+                this.game.infoPanel.sellButton.classList.remove("disabledButton")
+            }
+        }
+        else if (this.game.towerSelected !== null && this.game.towerSelected.level >= 10){
+
+            if(!this.game.infoPanel.upgradeButton.classList.contains("disabledButton")){
+                this.game.infoPanel.upgradeButton.classList.add("disabledButton")
+            }
+
+            if(this.game.infoPanel.sellButton.classList.contains("disabledButton")){
+                this.game.infoPanel.sellButton.classList.remove("disabledButton")
+            }
+        }
+        else{
+
+            if(!this.game.infoPanel.upgradeButton.classList.contains("disabledButton")){
+                this.game.infoPanel.upgradeButton.classList.add("disabledButton")
+            }
+            if(!this.game.infoPanel.sellButton.classList.contains("disabledButton")){
+                this.game.infoPanel.sellButton.classList.add("disabledButton")
+            }
+        }
+    }
+
     update(){
 
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -235,6 +270,7 @@ export default class Graphics{
         this.displayEnemies()
         this.displayBullets()
         this.updateTowers()
+        this.updateButtons()
     }
 
 }

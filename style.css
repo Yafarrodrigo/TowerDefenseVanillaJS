@@ -77,26 +77,31 @@
 }
 
 #panel label, #panel input{
+    background-color: #aaa;
+    padding-left: 10px;
+    border-radius: 15px;
     font-size: 1.4rem;
     margin-top: 15px;
     margin-bottom: 10px;
 }
 
 #panel label {
-    margin-left: 20%;
-    width: 80%;
+    margin-left: 18%;
+    width: 88%;
 }
 
 #panel input{
-    width: 20%;
+    width: 15%;
     margin-left: 20px;
+    margin-right: 0px;
     margin-top: 10px;
     transform: scale(1.5);
 }
 
 #startButton{
     background-color:rgb(78, 78, 78);
-    margin-bottom: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     border: solid 1px black;
     color: rgb(255, 255, 255);
     height: 50px;
@@ -122,13 +127,13 @@
     display: flex;
     justify-content:space-around;
     margin: 2px;
-    background-color:rgb(243, 193, 131);
+    background-color: #aaa;
 }
 
 #twobuttons{
     width: 100%;
+    margin-top: 10px;
     display: flex;
-    background-color: green;
 }
 
 #upgradeTower{
@@ -139,6 +144,7 @@
     width: 50%;
     border-radius: 5px;
 }
+
 
 #upgradeTower:hover{
     background-color:rgb(150, 187, 255);
@@ -186,4 +192,16 @@
     background-color: #aaa;
 }
 
+
+.disabledButton{
+    background-color: #777 !important;
+    border: solid 1px #666 !important;
+    color:rgb(146, 146, 146) !important; 
+}
+
+.disabledButton:hover{
+    background-color: #777 !important;
+    border: solid 1px #666 !important;
+    color:rgb(146, 146, 146) !important; 
+}
 
