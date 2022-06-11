@@ -1,5 +1,6 @@
 import _TOWERS from "../towersConfig.js"
 import Bullet from "./Bullet.js"
+import Status from "./Status.js"
 
 export default class Tower{
     id = Math.floor(Math.random()*10000)
@@ -63,34 +64,28 @@ export default class Tower{
         this.game.graphics.updateButtons()
     }
 
-    shootProjectile(){
+    shoot(){
+        if(this.type === "projectiles" || this.type === "aoe"){
 
-        if(this.target !== undefined && this.target !== null){
-            
-            if(this.target.dead === false){
-                if(this.target.towerAttacking === null || this.target.towerAttacking.type !== "slow") { this.target.towerAttacking = this}
+            if(this.target && this.target.dead === false){
                 const newBullet = new Bullet(this.game, this, this.target)
                 this.game.activeBullets.push(newBullet)
             }else{
                 this.target = null
             }
 
-
-            if(this.target && this.distance(this.x,this.target.x + 25,this.y,this.target.y + 25) >= this.range){
-                this.target.towerAttacking = null
-                this.target = null
-            }
-        }else{
-            this.targetNearestEnemy()
-        }
-    }
-
-    shoot(){
-        if(this.validTarget(this.target)){
-            this.target.health -= this.damage
         }
         else{
-            this.target = null
+            if(this.validTarget(this.target)){
+                this.target.health -= this.damage
+                if(this.type === "slow"){
+                    let newStatus = new Status("slow",this,this.slow)
+                    this.target.applyStatus(newStatus)
+                }
+            }
+            else{
+                this.target = null
+            }
         }
     }
 
@@ -170,7 +165,7 @@ export default class Tower{
         if(this.type === "projectiles" || this.type === "aoe"){
             if(this.timer === 30){
                 this.timer = 1
-                this.shootProjectile()
+                this.shoot()
             }else{
                 this.timer += 1
             }

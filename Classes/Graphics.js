@@ -173,7 +173,8 @@ export default class Graphics{
                     this.extraCtx.beginPath();
                     this.extraCtx.lineWidth = 1
                     this.extraCtx.setLineDash([]);
-                    this.extraCtx.strokeStyle = "gold"
+                    if(tower.type === "slow") {this.extraCtx.strokeStyle = "lightblue"; this.extraCtx.lineWidth = 5}
+                    else this.extraCtx.strokeStyle = "gold"
                     this.extraCtx.beginPath();
                     this.extraCtx.moveTo(tower.x, tower.y);
                     this.extraCtx.lineTo(tower.target.x+12, tower.target.y+12);

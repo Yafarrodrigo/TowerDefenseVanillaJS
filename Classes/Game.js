@@ -12,7 +12,7 @@ export default class Game{
     infoPanel = new InfoPanel(this)
     activeTowers = []
     activeBullets= []
-    allLevels = [new Level(this,1,5, {health: 100, speed: 1})]
+    allLevels = [new Level(this,1,1, {health: 100, speed: 1})]
     level = this.allLevels[0]
     activeEnemies = this.createEnemies(this.level.enemyData)
     enemiesToSpawn = this.level.qtyEnemies

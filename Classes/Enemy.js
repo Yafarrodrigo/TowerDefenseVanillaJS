@@ -10,6 +10,7 @@ export default class Enemy{
         this.health = health
         this.maxHealth = health
         this.direction = direction
+        this.statuses = []
         this.maxSpeed = speed
         this.currentSpeed = speed
         this.currentWaypoint = 0
@@ -17,7 +18,6 @@ export default class Enemy{
         this.dead = false
         this.spawned = false
         this.stopped = false
-        this.towerAttacking = null
     }   
 
     changeDirection(pointA, pointB){
@@ -89,19 +89,48 @@ export default class Enemy{
         this.game.startClock()
     }
 
-    checkIfSlowed(){
-        if(this.towerAttacking === null){
-            this.currentSpeed = this.maxSpeed
-        }else{
-            if(this.towerAttacking.type === "slow"){
-                
-                if((this.maxSpeed - this.towerAttacking.slow) > 0.15){
-                    this.currentSpeed = this.maxSpeed - this.towerAttacking.slow
-                }
-            }else{
-                this.currentSpeed = this.maxSpeed
-            }
+    applyStatus(newStatus){
+
+        if(this.checkStatus(newStatus.type) === false){
+            this.statuses.push(newStatus)
         }
+    }
+
+    checkStatus(statusType){
+        let found = false
+        if(this.statuses.length < 1) return false
+        this.statuses.forEach((status)=>{
+            if(status.type === statusType){
+                found = true
+            }
+        })
+        
+        if(found) return true
+        else return false
+    }
+
+    removeStatus(statusToRemove){
+        this.statuses = this.statuses.filter((status)=>{
+            if(status.type !== statusToRemove.type) return true
+        })
+    }
+
+    statusesEffect(){
+        if(this.statuses.length < 1) return
+        this.statuses.forEach((status)=>{
+
+            if(status.type === "slow"){
+                if(status.tower.target === null){
+                    this.currentSpeed = this.maxSpeed
+                    this.removeStatus(status)
+                    return
+                }else{
+                    this.currentSpeed = this.maxSpeed - status.qtySlow
+                }
+
+            }
+        })
+        
     }
     
     update(){
@@ -156,7 +185,10 @@ export default class Enemy{
             return
         }
 
-        this.checkIfSlowed()
+        
+        if(this.dead === false){
+            this.statusesEffect()
+        }
 
         // MOVE
         if(this.direction === "right"){
