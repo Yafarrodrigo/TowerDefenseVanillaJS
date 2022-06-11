@@ -3,29 +3,113 @@
     outline: none;
 }
 
-canvas{
-    position: absolute;
+
+#container{
+    position: relative;
+    display: grid;
+    grid-template-areas: "header header"
+                        "canvas panel";
+    width: 1100px;
+    height: 650px;
+    border-radius: 0.5rem;
+    border: #999 solid 1px;
 }
 
-#extra-canvas{
-    pointer-events: none;
+#header{
+    display: flex;
+    grid-area: header;
+    height: 50px;
+    
+    background-color: #333;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    border-bottom: 1px solid #999;
+}
+
+#header > h1{
+    color: white;
 }
 
 #level{
-    color: black;
     position: absolute;
-    top: 600px;
+    left: 50px;
+    top: -12px;
 }
 
 #lives{
-    color: black;
     position: absolute;
-    top: 600px;
-    left: 310px;
+    left: 300px;
+    top: -12px;
+}
+
+#money{
+    position: absolute;
+    left: 550px;
+    top: -12px;
+}
+
+#panel{
+    width: 300px;
+    grid-area: panel;
+    background-color: #777;
+    border-bottom-right-radius: 0.5rem;
+    border-left: 1px solid #999;
+}
+
+#canvas-group{
+    width: 800px;
+    height: 600px;
+    grid-area: canvas;
+}
+
+#canvas{
+    width: inherit;
+    height: inherit;
+    position: absolute;
+    border-bottom-left-radius: 0.5rem;
+}
+#extra-canvas{
+    width: inherit;
+    height: inherit;
+    position: absolute;
+    pointer-events: none;
+    border-bottom-left-radius: 0.5rem;
+}
+
+#panel label, #panel input{
+    font-size: 1.4rem;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+#panel label {
+    margin-left: 20%;
+    width: 80%;
+}
+
+#panel input{
+    width: 20%;
+    margin-left: 20px;
+    margin-top: 10px;
+    transform: scale(1.5);
+}
+
+#startButton{
+    background-color:rgb(78, 78, 78);
+    margin-bottom: 5px;
+    border: solid 1px black;
+    color: rgb(255, 255, 255);
+    height: 50px;
+    width: 100%;
+    border-radius: 5px;
+}
+
+#startButton:hover{
+    background-color:rgb(146, 146, 146);
 }
 
 #towerInfo{
-    background-color:chocolate;
+    position: relative;
     margin-bottom: 25px;
     padding: 2px;
     border-radius: 5px;
@@ -41,22 +125,36 @@ canvas{
     background-color:rgb(243, 193, 131);
 }
 
-#towerInfo #upgradeTower{
+#twobuttons{
+    width: 100%;
+    display: flex;
+    background-color: green;
+}
+
+#upgradeTower{
     background-color:cornflowerblue;
-    margin: 2px;
     border: solid 1px blue;
     color: white;
     height: 50px;
+    width: 50%;
     border-radius: 5px;
 }
 
-#towerInfo #sellTower{
+#upgradeTower:hover{
+    background-color:rgb(150, 187, 255);
+}
+
+#sellTower{
     background-color: crimson;
-    margin: 2px;
     border: solid 1px darkred;
     color: white;
     height: 50px;
-    border-radius: 5px;
+    width: 50%;
+    border-radius: 5px;   
+}
+
+#sellTower:hover{
+    background-color: rgb(255, 85, 119);
 }
 
 #buyTower{
@@ -65,7 +163,6 @@ canvas{
     border: solid 1px green;
     color: black;
     height: 50px;
-    width: 100%;
     border-radius: 5px;
 }
 
@@ -75,95 +172,18 @@ canvas{
     flex-wrap: wrap;
     width: 100%;
     background-color: black;
-    border-radius: 15px;
+
 }
 
 #towerButtons button{
-    width: 75px;
+    width: 50px;
     height: 50px;
-    margin-right: 2px;
     background-color: white;
+    
 }
 
 #towerButtons button:hover{
     background-color: #aaa;
 }
 
-#towerButtons button:first-child{
-    border-top-left-radius: 15px;
-    border-bottom-left-radius: 15px;
-}
 
-#towerButtons button:last-child{
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
-}
-
-#startButton{
-    background-color:rgb(78, 78, 78);
-    margin-bottom: 5px;
-    border: solid 1px black;
-    color: rgb(255, 255, 255);
-    height: 50px;
-    width: 100%;
-    border-radius: 5px;
-}
-
-#money{
-    color: black;
-    position: absolute;
-    top: 600px;
-    left: 600px;
-}
-
-#pause{
-    color: black;
-    position: absolute;
-    top: 100px;
-    left: 825px;
-}
-
-#showRadius{
-    position: absolute;
-    top: 150px;
-    left: 825px;
-    transform: scale(2);
-}
-
-#autoNextLevel{
-    position: absolute;
-    top: 150px;
-    left: 1050px;
-    transform: scale(2);
-}
-
-#autoNextLevelLabel{
-    position: absolute;
-    top: 150px;
-    left: 1080px;
-}
-
-#showRadiusLabel{
-    position: absolute;
-    top: 150px;
-    left: 855px;
-}
-
-label{
-    font-size: 1.5rem;
-    margin-bottom: 25px;
-}
-
-input[type="radio"]{
-    transform: scale(1.5);
-    width: 25px;
-    margin-bottom: 25px;
-}
-
-#towerSpawner{
-    position: absolute;
-    width: 450px;
-    left: 820px;
-    top: 200px;
-    
-}

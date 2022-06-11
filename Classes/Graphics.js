@@ -36,7 +36,7 @@ export default class Graphics{
         else if(color === "purple"){
             this.ctx.drawImage(this.openFloorTile,x*50,y*50)
         }
-        else if(color === "green"){
+        else if(color === "lightgreen"){
             this.ctx.drawImage(this.openFloorTile,x*50,y*50)
         }
         else if(color === "lightblue"){
