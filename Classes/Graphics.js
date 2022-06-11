@@ -177,14 +177,14 @@ export default class Graphics{
                 }
 
                 // attacks
-                if(this.game.activeEnemies[tower.target] !== null && this.game.activeEnemies[tower.target] !== undefined && tower.projectiles === false){
+                if(tower.target !== null && tower.target !== undefined && tower.projectiles === false){
                     this.extraCtx.beginPath();
                     this.extraCtx.lineWidth = 1
                     this.extraCtx.setLineDash([]);
                     this.extraCtx.strokeStyle = "gold"
                     this.extraCtx.beginPath();
                     this.extraCtx.moveTo(tower.x, tower.y);
-                    this.extraCtx.lineTo(this.game.activeEnemies[tower.target].x+12, this.game.activeEnemies[tower.target].y+12);
+                    this.extraCtx.lineTo(tower.target.x+12, tower.target.y+12);
                     this.extraCtx.stroke();
                 }
 

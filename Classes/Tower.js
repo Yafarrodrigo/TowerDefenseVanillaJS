@@ -8,6 +8,7 @@ export default class Tower{
         this.x = (x * 50) + 25
         this.y = (y * 50) + 25
         this.type = type
+        this.nearEnemies = {}
         this.target = null
         this.targetInfo = null
         this.level = 1
@@ -61,20 +62,20 @@ export default class Tower{
     }
 
     shootProjectile(){
-        let attackedEnemy = this.game.activeEnemies[this.target]
-        if(attackedEnemy !== undefined && attackedEnemy !== null){
+
+        if(this.target !== undefined && this.target !== null){
             
-            if(attackedEnemy.dead === false){
-                if(attackedEnemy.towerAttacking === null || attackedEnemy.towerAttacking.type !== "slow") { attackedEnemy.towerAttacking = this}
-                const newBullet = new Bullet(this.game, this, attackedEnemy)
+            if(this.target.dead === false){
+                if(this.target.towerAttacking === null || this.target.towerAttacking.type !== "slow") { this.target.towerAttacking = this}
+                const newBullet = new Bullet(this.game, this, this.target)
                 this.game.activeBullets.push(newBullet)
             }else{
                 this.target = null
             }
 
 
-            if(this.distance(this.x,attackedEnemy.x + 25,this.y,attackedEnemy.y + 25) >= this.range){
-                attackedEnemy.towerAttacking = null
+            if(this.target && this.distance(this.x,this.target.x + 25,this.y,this.target.y + 25) >= this.range){
+                this.target.towerAttacking = null
                 this.target = null
             }
         }else{
@@ -83,68 +84,75 @@ export default class Tower{
     }
 
     shoot(){
-
-        let attackedEnemy = this.game.activeEnemies[this.target]
-
-        if(attackedEnemy !== undefined && attackedEnemy !== null){
-            if(attackedEnemy.dead === false){
-                if(attackedEnemy.towerAttacking === null || attackedEnemy.towerAttacking.type !== "slow") { attackedEnemy.towerAttacking = this }
-                attackedEnemy.health -= this.damage
-            }else{
-                this.target = null
-            }
-
-            if(this.distance(this.x,attackedEnemy.x + 25,this.y,attackedEnemy.y + 25) >= this.range){
-                attackedEnemy.towerAttacking = null
-                this.target = null
-            }
+        if(this.validTarget(this.target)){
+            this.target.health -= this.damage
         }
         else{
-            this.targetNearestEnemy()
+            this.target = null
+        }
+    }
+
+    validTarget(target){
+        if(this.game.activeEnemies.length < 1) return false
+
+        if(target!== null && target !== undefined && target.dead === false &&
+            this.game.activeEnemies[target.id] !== null && this.game.activeEnemies[target.id] !== undefined){
+            return true 
+        }
+        else{
+            return false
+        }
+    }
+
+    updateNearEnemies(){
+        if(this.game.activeEnemies.length > 0){
+            
+            this.game.activeEnemies.forEach((enemy)=>{
+
+                let distance = this.distance(this.x+12,enemy.x+12,this.y+12,enemy.y+12)
+
+                if( distance <= this.range && enemy.dead === false){
+                    
+                    if(!this.nearEnemies.hasOwnProperty(enemy.id)){
+                        this.nearEnemies[enemy.id] = {enemy, dist: distance}
+                    }
+                }
+                else{
+                    if(this.nearEnemies.hasOwnProperty(enemy.id)){
+                        delete this.nearEnemies[enemy.id]
+                        if(this.target && this.target.id === enemy.id){
+                            this.target = null
+                        }
+                    }
+                }
+            })
+
+        }else{
+            this.nearEnemies = {}
         }
     }
 
     targetNearestEnemy(){
-        if((this.target === null || this.target === undefined) ||
-            this.game.activeEnemies[this.target] === null || this.game.activeEnemies[this.target] === undefined ){
-            
-            let posibleTargets = []
+        if(this.target === null && Object.keys(this.nearEnemies).length > 0){
 
-            this.game.activeEnemies.forEach((enemy)=>{
-                let distance = this.distance(this.x+12,enemy.x+12,this.y+12,enemy.y+12)
-                if( distance <= this.range  && enemy.dead === false){
-                    posibleTargets.push({enemy, distance})
+            let possible = null
+
+            for(let candidate in this.nearEnemies){
+                
+                if(possible === null){
+                    possible = this.nearEnemies[candidate]
                 }
-            })
-            if(posibleTargets.length !== 0){
-                let candidate = posibleTargets[0]
-
-                posibleTargets.forEach((target)=>{
-                    if(target.distance < candidate.distance) {
-                        candidate = target
-                    }
-                })
-                if(this.game.activeEnemies.length !== 0){
-                    if(this.game.activeEnemies[candidate.enemy.id] !== null || this.game.activeEnemies[candidate.enemy.id] !== undefined){
-                        this.target = candidate.enemy.id
-                        this.targetInfo = this.game.activeEnemies[this.target]
-                    }else{
-                        this.target = null
-                        this.targetInfo = null
-                    }
+                else if(this.nearEnemies[candidate].dist < possible.dist){
+                    possible = this.nearEnemies[candidate]
                 }
             }
-            else return
-        }
-        else{
-            let attackedEnemy = this.game.activeEnemies[this.target]
-
-            if(this.game.activeEnemies.length !== 0 && attackedEnemy !== undefined){
-                if(this.distance(this.x,attackedEnemy.x + 25,attackedEnemy.y + 25) > this.range){
-                    attackedEnemy.towerAttacking = null
-                    this.target = null
-                    this.targetInfo = null
-                }
+            
+            
+            if(possible !== null && this.validTarget(possible.enemy)){
+                this.target = possible.enemy
+            }
+            else {
+                this.target = null
             }
         }
     }
@@ -154,8 +162,23 @@ export default class Tower{
     }
 
     update(){
-        if(this.targetInfo !== null && this.targetInfo !== undefined){
-            this.turretAngle = (Math.atan2((this.targetInfo.y+10 - this.y) , (this.targetInfo.x+10 - this.x)))
+        this.updateNearEnemies()
+        this.targetNearestEnemy()
+
+        if(this.type === "projectiles" || this.type === "aoe"){
+            if(this.timer === 30){
+                this.timer = 1
+                this.shootProjectile()
+            }else{
+                this.timer += 1
+            }
+        }else{
+            
+            this.shoot()
+        }
+
+        if(this.target !== null && this.target !== undefined){
+            this.turretAngle = (Math.atan2((this.target.y+10 - this.y) , (this.target.x+10 - this.x)))
         }
     }
 }

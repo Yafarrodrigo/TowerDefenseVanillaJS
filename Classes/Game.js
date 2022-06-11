@@ -91,36 +91,8 @@ export default class Game{
         
         if(this.activeTowers.length !== 0){
             this.activeTowers.forEach((tower)=>{
-
-               
-
-                if(this.activeEnemies.length !== 0){
-                    if((tower.target === null || tower.target === undefined) && 
-                        (this.activeEnemies[tower.target] === null || this.activeEnemies[tower.target] === undefined)) {
-                            
-                            tower.target = null
-                            tower.targetNearestEnemy()
-                    }
-                    else{
-
-                        tower.update()
-                        
-                        if(tower.type === "projectiles" || tower.type === "aoe"){
-                            if(tower.timer === 30){
-                                tower.timer = 1
-                                tower.shootProjectile()
-                            }else{
-                                tower.timer += 1
-                            }
-                        }else{
-                            
-                            tower.shoot()
-                        }
-                    }
-
-                    
-                }
-            })
+                tower.update()
+             })
         }  
 
         this.activeEnemies.forEach((enemy)=>{

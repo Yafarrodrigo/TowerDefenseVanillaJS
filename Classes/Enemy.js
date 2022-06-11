@@ -58,8 +58,6 @@ export default class Enemy{
             }
             else if(this.health <= 0){
                 this.death(false)
-                this.game.player.money += 5
-                this.game.infoPanel.money.innerText = `PLATITA: ${this.game.player.money}`
             }
             else return
         }
@@ -67,12 +65,11 @@ export default class Enemy{
 
     death(outOfBounds){
         this.game.stopClock()
-        this.dead = true
-        this.game.activeEnemies = this.game.activeEnemies.filter((el)=>{
-            if(el.id !== this.id) return true
-        })
-        for(let i = 0; i < this.game.activeEnemies.length; i++){
-            this.game.activeEnemies[i].id = i
+
+        if(this.dead === false){
+            this.game.player.money += 5
+            this.game.infoPanel.money.innerText = `PLATITA: ${this.game.player.money}`
+            this.dead = true
         }
 
         this.game.activeTowers.forEach((tower)=>{
@@ -81,7 +78,8 @@ export default class Enemy{
             }
         })
 
-        if(outOfBounds === true){
+        if(outOfBounds === true && this.dead === false){
+            this.dead = true
             this.game.player.lives -= 1
             this.game.infoPanel.lives.innerText = `LIVES: ${this.game.player.lives}`
             this.game.startClock()

@@ -45,6 +45,7 @@ export default class player{
                         if(Math.floor(tower.x/50) === x && Math.floor(tower.y/50) === y){
                             this.game.infoPanel.updateTowerInfo(tower)
                             this.game.towerSelected = tower
+                            console.log(tower.nearEnemies);
                         }
                     })
                     this.game.graphics.updateTowers()
