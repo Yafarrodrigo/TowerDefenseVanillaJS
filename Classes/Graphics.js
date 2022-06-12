@@ -169,16 +169,29 @@ export default class Graphics{
                 }
 
                 // attacks
-                if(tower.target !== null && tower.target !== undefined && tower.projectiles === false){
+                if(tower.target !== null && tower.target !== undefined && tower.projectiles === false && tower.type !== "slow"){
                     this.extraCtx.beginPath();
                     this.extraCtx.lineWidth = 1
                     this.extraCtx.setLineDash([]);
-                    if(tower.type === "slow") {this.extraCtx.strokeStyle = "lightblue"; this.extraCtx.lineWidth = 5}
-                    else this.extraCtx.strokeStyle = "gold"
+                    this.extraCtx.strokeStyle = "gold"
                     this.extraCtx.beginPath();
                     this.extraCtx.moveTo(tower.x, tower.y);
                     this.extraCtx.lineTo(tower.target.x+12, tower.target.y+12);
                     this.extraCtx.stroke();
+                }
+
+                if(Object.keys(tower.nearEnemies).length >= 1 && tower.type === "slow"){
+                    for(let elem in tower.nearEnemies){
+                        let possible = tower.nearEnemies[elem].enemy
+                        this.extraCtx.beginPath();
+                        this.extraCtx.lineWidth = 1
+                        this.extraCtx.setLineDash([]);
+                        this.extraCtx.strokeStyle = "lightblue"
+                        this.extraCtx.beginPath();
+                        this.extraCtx.moveTo(tower.x, tower.y);
+                        this.extraCtx.lineTo(possible.x+12, possible.y+12);
+                        this.extraCtx.stroke();
+                    }
                 }
 
                 // turrets

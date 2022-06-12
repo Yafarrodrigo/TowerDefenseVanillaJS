@@ -75,13 +75,25 @@ export default class Tower{
             }
 
         }
+        else if(this.type === "slow"){
+            if(Object.keys(this.nearEnemies).length >= 1){
+                
+                for(let elem in this.nearEnemies){
+
+                    let possibleEnemy = this.nearEnemies[elem].enemy
+                    if(this.validTarget(possibleEnemy)){
+                        possibleEnemy.health -= this.damage
+                        let newStatus = new Status("slow",this,this.slow)
+                        possibleEnemy.applyStatus(newStatus)
+                    }
+
+                }    
+ 
+            }
+        }
         else{
             if(this.validTarget(this.target)){
                 this.target.health -= this.damage
-                if(this.type === "slow"){
-                    let newStatus = new Status("slow",this,this.slow)
-                    this.target.applyStatus(newStatus)
-                }
             }
             else{
                 this.target = null
@@ -116,6 +128,7 @@ export default class Tower{
                 }
                 else{
                     if(this.nearEnemies.hasOwnProperty(enemy.id)){
+                        enemy.removeStatus("slow")
                         delete this.nearEnemies[enemy.id]
                         if(this.target && this.target.id === enemy.id){
                             this.target = null

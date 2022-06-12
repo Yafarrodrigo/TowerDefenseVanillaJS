@@ -22,14 +22,14 @@ const _TOWERS = {
         upgradeCost: 50,
         projectiles: false,
         description: "slows enemies",
-        slow: 0.5,
+        slow: 0.3,
         damage: 0.25,
         secondaryDamage: 0,
         upgradeSecondaryDamage: 0,
         upgradeDamage: 0.1,
-        upgradeRange: 0,
+        upgradeRange: 5,
         upgradeSlow: 0.05,
-        range: 115
+        range: 75
     },
 
     projectiles:{
@@ -55,11 +55,11 @@ const _TOWERS = {
         projectiles: true,
         description: "damages in aoe",
         slow: 0,
-        damage: 25,
-        secondaryDamage: 15,
-        upgradeDamage: 25,
-        upgradeSecondaryDamage: 15,
-        upgradeRange: 15,
+        damage: 20,
+        secondaryDamage: 12,
+        upgradeDamage: 20,
+        upgradeSecondaryDamage: 12,
+        upgradeRange: 10,
         upgradeSlow: 0,
         range: 100
     }

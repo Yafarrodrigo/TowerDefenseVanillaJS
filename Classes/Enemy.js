@@ -66,10 +66,16 @@ export default class Enemy{
     death(outOfBounds){
         this.game.stopClock()
 
-        if(this.dead === false){
+        if(this.dead === false && outOfBounds === false){
+            this.dead = true
             this.game.player.money += 5
             this.game.infoPanel.money.innerText = `PLATITA: ${this.game.player.money}`
+        }
+        else if (this.dead === false && outOfBounds === true){
             this.dead = true
+            this.game.player.lives -= 1
+            this.game.infoPanel.lives.innerText = `LIVES: ${this.game.player.lives}`
+            return
         }
 
         this.game.activeTowers.forEach((tower)=>{
@@ -78,13 +84,7 @@ export default class Enemy{
             }
         })
 
-        if(outOfBounds === true && this.dead === false){
-            this.dead = true
-            this.game.player.lives -= 1
-            this.game.infoPanel.lives.innerText = `LIVES: ${this.game.player.lives}`
-            this.game.startClock()
-            return
-        }
+        
         
         this.game.startClock()
     }
@@ -111,23 +111,19 @@ export default class Enemy{
 
     removeStatus(statusToRemove){
         this.statuses = this.statuses.filter((status)=>{
-            if(status.type !== statusToRemove.type) return true
+            if(status.type !== statusToRemove) return true
         })
     }
 
     statusesEffect(){
-        if(this.statuses.length < 1) return
+        if(this.statuses.length < 1) {
+            this.currentSpeed = this.maxSpeed
+            return
+        }
         this.statuses.forEach((status)=>{
 
             if(status.type === "slow"){
-                if(status.tower.target === null){
-                    this.currentSpeed = this.maxSpeed
-                    this.removeStatus(status)
-                    return
-                }else{
-                    this.currentSpeed = this.maxSpeed - status.qtySlow
-                }
-
+                this.currentSpeed = this.maxSpeed - status.qtySlow
             }
         })
         
