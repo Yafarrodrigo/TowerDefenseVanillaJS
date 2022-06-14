@@ -17,8 +17,8 @@ export default class Graphics{
 
     constructor(game){
         this.game = game
-        this.floorTile.src = "./TowerDefenseVanillaJS/Images/floorTile.jpg"
-        this.openFloorTile.src = "./TowerDefenseVanillaJS/Images/openFloorTile.jpg"
+        this.floorTile.src = "TowerDefenseVanillaJS/Images/floorTile.jpg"
+        this.openFloorTile.src = "TowerDefenseVanillaJS/Images/openFloorTile.jpg"
         this.laserTurretTile.src = _TOWERS.laser.imgSrc
         this.slowTurretTile.src = _TOWERS.slow.imgSrc
         this.aoeTurretTile.src = _TOWERS.aoe.imgSrc
