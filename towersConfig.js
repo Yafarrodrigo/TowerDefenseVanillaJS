@@ -2,8 +2,8 @@ const _TOWERS = {
 
     laser:{
         type: "laser",
-        imgSrc: "../Assets/laserTurret.png",
-        iconSrc: "../Assets/laserTurretIcon.jpg",
+        imgSrc: "../Images/laserTurret.png",
+        iconSrc: "../Images/laserTurretIcon.jpg",
         buyCost: 50,
         upgradeCost: 25,
         projectiles: false,
@@ -20,8 +20,8 @@ const _TOWERS = {
 
     slow:{
         type: "slow",
-        imgSrc: "../Assets/slowTurret.png",
-        iconSrc: "../Assets/slowTurretIcon.jpg",
+        imgSrc: "../Images/slowTurret.png",
+        iconSrc: "../Images/slowTurretIcon.jpg",
         buyCost: 35,
         upgradeCost: 50,
         projectiles: false,
@@ -39,8 +39,8 @@ const _TOWERS = {
     projectiles:{
         type: "projectiles",
         buyCost: 75,
-        imgSrc: "../Assets/projectilesTurret.png",
-        iconSrc: "../Assets/projectilesTurretIcon.jpg",
+        imgSrc: "../Images/projectilesTurret.png",
+        iconSrc: "../Images/projectilesTurretIcon.jpg",
         upgradeCost: 50,
         projectiles: true,
         description: "shoots projectiles",
@@ -57,8 +57,8 @@ const _TOWERS = {
     aoe:{
         type: "aoe",
         buyCost: 50,
-        imgSrc: "../Assets/aoeTurret.png",
-        iconSrc: "../Assets/aoeTurretIcon.jpg",
+        imgSrc: "../Images/aoeTurret.png",
+        iconSrc: "../Images/aoeTurretIcon.jpg",
         upgradeCost: 50,
         projectiles: true,
         description: "damages in aoe",
