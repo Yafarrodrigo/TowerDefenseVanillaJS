@@ -54,10 +54,10 @@ export default class Tower{
         this.game.player.money -= _TOWERS[this.type].upgradeCost
         this.sellPrice += Math.round(_TOWERS[this.type].upgradeCost/2)
 
-        this.damage += _TOWERS[this.type].upgradeDamage
+        this.damage = (Math.floor(_TOWERS[this.type].upgradeDamage*100) + Math.floor(this.damage*100))/100
         this.secondaryDamage += _TOWERS[this.type].upgradeSecondaryDamage
         this.range += _TOWERS[this.type].upgradeRange
-        this.slow += _TOWERS[this.type].upgradeSlow
+        this.slow = (Math.floor(_TOWERS[this.type].upgradeSlow*100) + Math.floor(this.slow*100))/100
 
         this.game.infoPanel.money.innerText = `PLATITA: ${this.game.player.money}`
 
@@ -104,8 +104,7 @@ export default class Tower{
     validTarget(target){
         if(this.game.activeEnemies.length < 1) return false
 
-        if(target!== null && target !== undefined && target.dead === false &&
-            this.game.activeEnemies[target.id] !== null && this.game.activeEnemies[target.id] !== undefined){
+        if(target!== null && target !== undefined && target.dead === false && target.spawned === true){
             return true 
         }
         else{
@@ -120,10 +119,12 @@ export default class Tower{
 
                 let distance = this.distance(this.x+12,enemy.x+12,this.y+12,enemy.y+12)
 
-                if( distance <= this.range && enemy.dead === false){
+                if( distance <= this.range+5 && enemy.dead === false){
                     
                     if(!this.nearEnemies.hasOwnProperty(enemy.id)){
                         this.nearEnemies[enemy.id] = {enemy, dist: distance}
+                    }else{
+                        this.nearEnemies[enemy.id].dist = distance
                     }
                 }
                 else{
@@ -137,22 +138,25 @@ export default class Tower{
                 }
             })
 
+
         }else{
             this.nearEnemies = {}
         }
     }
 
     targetNearestEnemy(){
+
+        this.updateNearEnemies()
+
         if(this.target === null && Object.keys(this.nearEnemies).length > 0){
 
             let possible = null
 
             for(let candidate in this.nearEnemies){
-                
+
                 if(possible === null){
                     possible = this.nearEnemies[candidate]
-                }
-                else if(this.nearEnemies[candidate].dist < possible.dist){
+                }else if(this.nearEnemies[candidate].dist < possible.dist){
                     possible = this.nearEnemies[candidate]
                 }
             }
@@ -172,7 +176,6 @@ export default class Tower{
     }
 
     update(){
-        this.updateNearEnemies()
         this.targetNearestEnemy()
 
         if(this.type === "projectiles" || this.type === "aoe"){
@@ -188,7 +191,16 @@ export default class Tower{
         }
 
         if(this.target !== null && this.target !== undefined){
-            this.turretAngle = (Math.atan2((this.target.y+10 - this.y) , (this.target.x+10 - this.x)))
+            if(this.type === "slow" && Object.keys(this.nearEnemies).length > 0){
+                if(this.turretAngle >= Math.PI*2){
+                    this.turretAngle = 0
+                }else{
+                    this.turretAngle+=0.05
+                }
+            }
+            else{
+                this.turretAngle = (Math.atan2((this.target.y+10 - this.y) , (this.target.x+10 - this.x)))
+            }
         }
     }
 }

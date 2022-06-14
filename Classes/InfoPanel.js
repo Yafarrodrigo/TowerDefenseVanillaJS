@@ -83,14 +83,15 @@ export default class InfoPanel{
         const container = document.getElementById("towerButtons")
 
         for(let tower in _TOWERS){
+
             const button = document.createElement("button")
             button.id = `${tower}Tower`
-            button.innerText = `${tower}`
             button.addEventListener("click", (e)=>{
                 e.preventDefault()
                 e.stopPropagation()
                 this.buyTower(tower)
             })
+            button.style.backgroundImage = `URL(${_TOWERS[tower].iconSrc})`
             container.append(button)
         }
     }

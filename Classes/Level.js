@@ -14,10 +14,6 @@ export default class Level {
             }
         })
 
-        if(this.game.activeEnemies.length === 0){
-            counter = this.qtyEnemies
-        }
-
         if(counter === this.qtyEnemies){
             return true
         }else{

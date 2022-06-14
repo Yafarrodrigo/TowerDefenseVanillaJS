@@ -9,14 +9,20 @@ export default class Graphics{
 
     floorTile = new Image()
     openFloorTile = new Image()
-    turretTile = new Image()
+    laserTurretTile = new Image()
+    slowTurretTile = new Image()
+    aoeTurretTile = new Image()
+    projectilesTurretTile = new Image()
     
 
     constructor(game){
         this.game = game
         this.floorTile.src = "../Assets/floorTile.jpg"
         this.openFloorTile.src = "../Assets/openFloorTile.jpg"
-        this.turretTile.src = "../Assets/turret.png"
+        this.laserTurretTile.src = _TOWERS.laser.imgSrc
+        this.slowTurretTile.src = _TOWERS.slow.imgSrc
+        this.aoeTurretTile.src = _TOWERS.aoe.imgSrc
+        this.projectilesTurretTile.src = _TOWERS.projectiles.imgSrc
     }
 
     changeTile(x, y, type){
@@ -199,7 +205,20 @@ export default class Graphics{
                 this.extraCtx.translate(tower.x,tower.y);
                 this.extraCtx.rotate(tower.turretAngle)
                 this.extraCtx.translate(-tower.x, -tower.y); 
-                this.extraCtx.drawImage(this.turretTile, tower.x-25, tower.y-25)
+                switch(tower.type){
+                    case "slow":
+                        this.extraCtx.drawImage(this.slowTurretTile, tower.x-25, tower.y-25)
+                        break
+                    case "laser":
+                        this.extraCtx.drawImage(this.laserTurretTile, tower.x-25, tower.y-25)
+                        break
+                    case "aoe":
+                        this.extraCtx.drawImage(this.aoeTurretTile, tower.x-25, tower.y-25)
+                        break
+                    case "projectiles":
+                        this.extraCtx.drawImage(this.projectilesTurretTile, tower.x-25, tower.y-25)
+                        break
+                }
                 this.extraCtx.restore();
 
             })

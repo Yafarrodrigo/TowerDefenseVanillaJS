@@ -64,7 +64,6 @@ export default class Enemy{
     }
 
     death(outOfBounds){
-        this.game.stopClock()
 
         if(this.dead === false && outOfBounds === false){
             this.dead = true
@@ -75,6 +74,7 @@ export default class Enemy{
             this.dead = true
             this.game.player.lives -= 1
             this.game.infoPanel.lives.innerText = `LIVES: ${this.game.player.lives}`
+            console.table(this.game.activeEnemies);
             return
         }
 
@@ -84,9 +84,6 @@ export default class Enemy{
             }
         })
 
-        
-        
-        this.game.startClock()
     }
 
     applyStatus(newStatus){
@@ -130,6 +127,7 @@ export default class Enemy{
     }
     
     update(){
+
 
         let pointA = this.waypoints[this.currentWaypoint]
         let pointB = this.waypoints[this.targetWaypoint]

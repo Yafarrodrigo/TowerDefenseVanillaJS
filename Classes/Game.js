@@ -14,8 +14,9 @@ export default class Game{
     activeBullets= []
     allLevels = [new Level(this,1,5, {health: 100, speed: 1})]
     level = this.allLevels[0]
-    activeEnemies = this.createEnemies(this.level.enemyData)
-    enemiesToSpawn = this.level.qtyEnemies
+    enemiesToSpawn = this.createEnemies(this.level.enemyData)
+    activeEnemies = []
+    qtyEnemies = this.level.qtyEnemies
     levelStarted = false
     spawnCounter = 0
     spawnFreq = 40
@@ -43,8 +44,8 @@ export default class Game{
         }
         this.level = newLevel
         this.infoPanel.level.innerText = `LEVEL: ${newLevel.id}`
-        this.enemiesToSpawn = newLevel.qtyEnemies
-        this.activeEnemies = this.createEnemies(newLevel.enemyData)
+        this.enemiesToSpawn = this.createEnemies(newLevel.enemyData)
+        this.activeEnemies = []
     }
 
     startClock(){
@@ -64,14 +65,6 @@ export default class Game{
             return
         }
 
-        if(this.level.isDone() === true  && this.player.lives !== 0 && this.levelStarted === true){
-            this.levelStarted = false
-            this.nextLevel()
-            if(this.infoPanel.autoNextLevelCheckbox.checked === true){
-                this.levelStarted = true
-            }
-        }
-
         if(this.levelStarted === true){
             if(this.spawnCounter === (this.level.qtyEnemies * this.spawnFreq)+this.spawnFreq){
                 this.spawnCounter = 0
@@ -79,21 +72,15 @@ export default class Game{
                 this.spawnCounter += 1
             }
     
-            if(this.enemiesToSpawn > 0){
+            if(this.enemiesToSpawn.length > 0){
                 if(this.spawnCounter % this.spawnFreq === 0){
                     
-                    this.activeEnemies[this.enemiesToSpawn-1].spawned = true
-                    this.enemiesToSpawn -= 1
-                    return
+                    const enemyToSpawn = this.enemiesToSpawn.shift()
+                    enemyToSpawn.spawned = true
+                    this.activeEnemies.push(enemyToSpawn)
                 }
             }
         }
-        
-        if(this.activeTowers.length !== 0){
-            this.activeTowers.forEach((tower)=>{
-                tower.update()
-             })
-        }  
 
         this.activeEnemies.forEach((enemy)=>{
 
@@ -102,7 +89,23 @@ export default class Game{
             if(enemy.dead === false && enemy.spawned === true){
                  enemy.update()
             }
+            
+            if(enemy.dead === true){
+                if(this.level.isDone() === true && this.player.lives > 0 && this.levelStarted === true){
+                    this.levelStarted = false
+                    this.nextLevel()
+                    if(this.infoPanel.autoNextLevelCheckbox.checked === true){
+                        this.levelStarted = true
+                    }
+                }
+            }
         })
+        
+        if(this.activeTowers.length !== 0){
+            this.activeTowers.forEach((tower)=>{
+                tower.update()
+             })
+        }  
 
         this.activeBullets.forEach((bullet)=>{
             if(bullet.dead !== true){

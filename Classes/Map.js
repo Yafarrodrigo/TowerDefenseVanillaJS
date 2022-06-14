@@ -1,7 +1,7 @@
 export default class Map{
 
     tiles = []
-    road = [[0,5],[5,5],[5,1],[10,1],[10,8],[5,8],[5,11]]
+    road = [[0,1],[3,1],[3,8],[10,8],[10,3],[14,3],[14,9],[15,9]]
 
     constructor(game){
         this.game = game
