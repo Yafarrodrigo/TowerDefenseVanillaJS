@@ -66,8 +66,8 @@ export default class Game{
         }
 
         if(this.levelStarted === true){
-            if(this.spawnCounter === (this.level.qtyEnemies * this.spawnFreq)+this.spawnFreq){
-                this.spawnCounter = 0
+            if(this.spawnCounter === this.spawnFreq){
+                this.spawnCounter = 1
             }else{
                 this.spawnCounter += 1
             }

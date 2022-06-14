@@ -16,7 +16,7 @@ export default class Tower{
         this.timer = 1
         this.showRadius = false
         this.sellPrice = 0
-        this.turretAngle = Math.PI
+        this.turretAngle = 0
 
         this.damage = _TOWERS[type].damage
         this.secondaryDamage = _TOWERS[type].secondaryDamage
@@ -27,7 +27,7 @@ export default class Tower{
         this.slow = _TOWERS[type].slow
 
         this.buyCost = _TOWERS[type].buyCost
-        this.upgradeCost = _TOWERS[type].upgradeCost
+        this.upgradePrice = _TOWERS[type].upgradePrice
     }
 
 
@@ -44,24 +44,30 @@ export default class Tower{
 
         this.game.infoPanel.money.innerText = `PLATITA: ${this.game.player.money}`
         this.game.towerSelected = this
-        this.game.infoPanel.updateTowerInfo(this)
     }
 
     upgrade(){
-        if(this.level >= 10) return
-        else this.level +=1
+        if(this.level >= 10){
+            this.game.graphics.updateButtons()
+            return
+        }
+        else {
+        
+            this.level +=1
 
-        this.game.player.money -= _TOWERS[this.type].upgradeCost
-        this.sellPrice += Math.round(_TOWERS[this.type].upgradeCost/2)
+            this.game.player.money -= _TOWERS[this.type].upgradePrice
+            this.sellPrice += Math.round(_TOWERS[this.type].upgradePrice/2)
 
-        this.damage = (Math.floor(_TOWERS[this.type].upgradeDamage*100) + Math.floor(this.damage*100))/100
-        this.secondaryDamage += _TOWERS[this.type].upgradeSecondaryDamage
-        this.range += _TOWERS[this.type].upgradeRange
-        this.slow = (Math.floor(_TOWERS[this.type].upgradeSlow*100) + Math.floor(this.slow*100))/100
+            this.damage = (Math.floor(_TOWERS[this.type].upgradeDamage*100) + Math.floor(this.damage*100))/100
+            this.secondaryDamage += _TOWERS[this.type].upgradeSecondaryDamage
+            this.range += _TOWERS[this.type].upgradeRange
+            this.slow = (Math.floor(_TOWERS[this.type].upgradeSlow*100) + Math.floor(this.slow*100))/100
 
-        this.game.infoPanel.money.innerText = `PLATITA: ${this.game.player.money}`
+            this.game.infoPanel.money.innerText = `PLATITA: ${this.game.player.money}`
 
-        this.game.graphics.updateButtons()
+            this.game.infoPanel.updateInfoDisplay(this,true)
+        }
+        
     }
 
     shoot(){

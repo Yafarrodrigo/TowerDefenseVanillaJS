@@ -11,7 +11,7 @@ export default class player{
 
     addListeners(){
 
-        // CREAR TORRES
+        // CREAR TORRES Y SELECCIONAR TORRES
         this.game.graphics.canvas.addEventListener("click", (e)=>{
 
             const {x,y} = this.game.player.getMousePos(e)
@@ -43,14 +43,17 @@ export default class player{
                 if(this.game.map.checkForTower(x,y) === true && this.game.activeTowers.length !== 0){
                     this.game.activeTowers.forEach((tower)=>{
                         if(Math.floor(tower.x/50) === x && Math.floor(tower.y/50) === y){
-                            this.game.infoPanel.updateTowerInfo(tower)
                             this.game.towerSelected = tower
+                            this.game.infoPanel.updateInfoDisplay(tower)
                         }
                     })
                     this.game.graphics.updateTowers()
                 }
                 else{
                     this.game.towerSelected = null
+                    this.game.placingTower = false
+                    this.game.placingTowerType = false
+                    this.game.infoPanel.updateInfoDisplay()
                 }
             }
         })
@@ -71,11 +74,27 @@ export default class player{
                     if(this.game.map.checkForTower(x,y) === true && this.game.activeTowers.length !== 0){
                         if(Math.floor(tower.x/50) === x && Math.floor(tower.y/50) === y){
                             tower.showRadius = true
+                            this.game.infoPanel.updateInfoDisplay(tower)
+                        }
+                    }
+                    else{
+                        if(this.game.towerSelected === null){
+                            this.game.infoPanel.updateInfoDisplay()
                         }
                     }
                 })
         
         })
+
+        window.addEventListener('contextmenu',(e) => { 
+            e.preventDefault(); 
+            
+            this.game.towerSelected = null
+            this.game.placingTowerType = null
+            this.game.placingTower = null
+            this.game.infoPanel.updateInfoDisplay()
+
+          }, false);
     }
 
     getMousePos(evt){
@@ -93,7 +112,7 @@ export default class player{
         }
 
         else{
-            if(this.money >= _TOWERS[type].upgradeCost) return true
+            if(this.money >= _TOWERS[type].upgradePrice) return true
             else return false
         }
     }

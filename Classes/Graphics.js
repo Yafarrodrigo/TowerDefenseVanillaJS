@@ -17,8 +17,8 @@ export default class Graphics{
 
     constructor(game){
         this.game = game
-        this.floorTile.src = "TowerDefenseVanillaJS/Images/floorTile.jpg"
-        this.openFloorTile.src = "TowerDefenseVanillaJS/Images/openFloorTile.jpg"
+        this.floorTile.src = "../Images/floorTile.jpg"
+        this.openFloorTile.src = "../Images/openFloorTile.jpg"
         this.laserTurretTile.src = _TOWERS.laser.imgSrc
         this.slowTurretTile.src = _TOWERS.slow.imgSrc
         this.aoeTurretTile.src = _TOWERS.aoe.imgSrc
@@ -114,7 +114,7 @@ export default class Graphics{
 
         let enemies = this.game.activeEnemies
 
-        for(let i = 0; i < enemies.length; i++){
+        for(let i = enemies.length-1; i >= 0; i--){
             if(enemies[i].dead === false && enemies[i].spawned === true){
 
                 
@@ -147,6 +147,17 @@ export default class Graphics{
     }
 
     updateTowers(){
+
+        if(this.game.placingTower === true){
+            this.extraCtx.beginPath();
+            this.extraCtx.lineWidth = 0.5
+            this.extraCtx.setLineDash([]);
+            this.extraCtx.strokeStyle = "black"
+            this.extraCtx.beginPath()
+            this.extraCtx.arc((this.game.cursorAt.x*50)+25, (this.game.cursorAt.y*50)+25, _TOWERS[this.game.placingTowerType].range, 0, 2*Math.PI)
+            this.extraCtx.stroke()
+        }
+    
         if(this.game.activeTowers.length !== 0){
             this.game.activeTowers.forEach((tower)=>{
 
@@ -225,8 +236,23 @@ export default class Graphics{
         }
 
         if(this.game.placingTower === true && this.game.map.tiles[this.game.cursorAt.x][this.game.cursorAt.y].road === false){
-            this.ctx.fillStyle = "lightblue"
-            this.ctx.fillRect(this.game.cursorAt.x*50,this.game.cursorAt.y*50,50,50)
+            const x = this.game.cursorAt.x*50
+            const y = this.game.cursorAt.y*50
+
+            switch(this.game.placingTowerType){
+                case "slow":
+                    this.ctx.drawImage(this.slowTurretTile, x, y)
+                    break
+                case "laser":
+                    this.ctx.drawImage(this.laserTurretTile, x, y)
+                    break
+                case "aoe":
+                    this.ctx.drawImage(this.aoeTurretTile, x, y)
+                    break
+                case "projectiles":
+                    this.ctx.drawImage(this.projectilesTurretTile, x, y)
+                    break
+            }
         }
     }
 
@@ -253,34 +279,25 @@ export default class Graphics{
     updateButtons(){
 
         if(!this.game.levelStarted){
-            if(this.game.infoPanel.startButton.classList.contains("disabledButton")){
-                this.game.infoPanel.startButton.classList.remove("disabledButton")
-            }
+            this.game.infoPanel.startButton.classList.remove("disabledButton")
         }
         else{
-            if(!this.game.infoPanel.startButton.classList.contains("disabledButton")){
-                this.game.infoPanel.startButton.classList.add("disabledButton")
-            }
+            this.game.infoPanel.startButton.classList.add("disabledButton")
         }
 
 
-        if(this.game.towerSelected !== null && this.game.towerSelected.level < 10){
-            if(this.game.infoPanel.upgradeButton.classList.contains("disabledButton")){
+        if(this.game.towerSelected !== null && this.game.towerSelected.level < 10 ){
+            if(this.game.player.checkIfMoney(false , this.game.towerSelected.type)){
                 this.game.infoPanel.upgradeButton.classList.remove("disabledButton")
-            }
-            if(this.game.infoPanel.sellButton.classList.contains("disabledButton")){
-                this.game.infoPanel.sellButton.classList.remove("disabledButton")
-            }
-        }
-        else if (this.game.towerSelected !== null && this.game.towerSelected.level >= 10){
-
-            if(!this.game.infoPanel.upgradeButton.classList.contains("disabledButton")){
+            }else{
                 this.game.infoPanel.upgradeButton.classList.add("disabledButton")
             }
-
-            if(this.game.infoPanel.sellButton.classList.contains("disabledButton")){
-                this.game.infoPanel.sellButton.classList.remove("disabledButton")
-            }
+            this.game.infoPanel.sellButton.classList.remove("disabledButton")
+        }
+        else if (this.game.towerSelected !== null && this.game.towerSelected.level > 9){
+           
+            this.game.infoPanel.upgradeButton.classList.add("disabledButton")
+            this.game.infoPanel.sellButton.classList.remove("disabledButton")
         }
         else{
 
@@ -304,6 +321,7 @@ export default class Graphics{
         this.displayBullets()
         this.updateTowers()
         this.updateButtons()
+        this.game.infoPanel.updateTowerButtons()
     }
 
 }
