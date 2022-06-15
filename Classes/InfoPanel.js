@@ -5,15 +5,15 @@ export default class InfoPanel{
     lives = document.getElementById("lives")
     money = document.getElementById("money")
 
-    towerType = document.getElementById("towerType")
-    towerLevel = document.getElementById("towerLevel")
-    towerDamage = document.getElementById("towerDamage")
-    towerRange = document.getElementById("towerRange")
-    towerDesc = document.getElementById("towerDesc")
     showRadiusCheckbox = document.getElementById("showRadius")
     autoNextLevelCheckbox = document.getElementById("autoNextLevel")
-
     startButton = document.getElementById("startButton")
+
+
+    damageIcon = new Image()
+    extraDamageIcon = new Image()
+    rangeIcon = new Image()
+
     upgradeButton = document.getElementById("upgradeTower")
     sellButton = document.getElementById("sellTower")
     buyButton = document.getElementById("buyTower")
@@ -23,6 +23,10 @@ export default class InfoPanel{
 
     constructor(game){
         this.game = game
+
+        this.damageIcon.src = "../Images/damageIcon.png"
+        this.extraDamageIcon.src = "../Images/extraDamageIcon.png"
+        this.rangeIcon.src = "../Images/rangeIcon.png"
 
         this.upgradeButton.addEventListener("click", (e)=>{
             e.preventDefault()
@@ -50,7 +54,7 @@ export default class InfoPanel{
 
             if(this.game.towerSelected === null) return
 
-            this.game.infoPanel.updateInfoDisplay(this.game.towerSelected, false)
+            this.game.infoPanel.updateInfoDisplay(this.game.towerSelected, false, false)
         })
 
         this.sellButton.addEventListener("click", (e)=>{
@@ -88,24 +92,52 @@ export default class InfoPanel{
         this.updateInfoDisplay()
     }
 
-    updateInfoDisplay(tower, upgrade=false){
+    updateInfoDisplay(tower, upgrade = false, buying = false){
         this.infoCtx.fillStyle = "#555"
         this.infoCtx.fillRect(0,0,300,200)
 
         if(tower){
+
             this.infoCtx.fillStyle = "white"
             this.infoCtx.font = "25px Arial";
-            this.infoCtx.fillText(`Tower type: ${tower.type}`, 10, 30)
-            this.infoCtx.fillText(`Damage: ${tower.damage}`, 10, 65)
-            this.infoCtx.fillText(`Range: ${tower.range}`, 10, 100)
-            this.infoCtx.fillText(`Upgrade Cost: ${tower.upgradePrice}`, 10, 135)
-            this.infoCtx.fillText(`Sell price: ${tower.sellPrice}`, 10, 170)
+
+            if(buying === true){
+                this.infoCtx.textAlign = "right";
+                this.infoCtx.fillText(`$${_TOWERS[tower.type].buyCost}`, 285, 30)
+                this.infoCtx.textAlign = "left";
+                this.infoCtx.fillText(`${tower.type} tower`, 25, 30)
+            }else{
+                this.infoCtx.textAlign = "left";
+                this.infoCtx.fillText(`${tower.type} tower (Lv. ${tower.level})`, 25, 30)
+            }
+            this.infoCtx.textAlign = "left";
+            this.infoCtx.drawImage(this.damageIcon, 55, 52)
+            this.infoCtx.fillText(`${tower.damage}`, 105, 72)
+            this.infoCtx.drawImage(this.extraDamageIcon, 51, 85)
+            this.infoCtx.fillText(`${tower.secondaryDamage}`, 105, 110)
+            this.infoCtx.drawImage(this.rangeIcon, 51, 120)
+            this.infoCtx.fillText(`${tower.range}`, 105, 145)
+            
             
             if(upgrade){
                 this.infoCtx.fillStyle = "green"
-                this.infoCtx.fillText(`+ ${_TOWERS[tower.type].upgradeDamage}`, 225, 65)
-                this.infoCtx.fillText(`+ ${_TOWERS[tower.type].upgradeRange}`, 225, 100)
-                this.infoCtx.fillText(`+ ${Math.round(_TOWERS[tower.type].upgradePrice/2)}`, 225, 170)
+                this.infoCtx.fillText(`+ ${_TOWERS[tower.type].upgradeDamage}`, 230, 75)
+                this.infoCtx.fillText(`+ ${_TOWERS[tower.type].upgradeSecondaryDamage}`, 230, 115)
+                this.infoCtx.fillText(`+ ${_TOWERS[tower.type].upgradeRange}`, 230, 155)
+                if(tower.upgradeDescription !== null){
+                    this.infoCtx.textAlign = "center";
+                    this.infoCtx.fillText(tower.upgradeDescription, (this.infoCanvas.width/2), 190)
+                } 
+                else{
+                    this.infoCtx.fillStyle = "white"
+                    this.infoCtx.textAlign = "center";
+                    this.infoCtx.fillText(tower.description, (this.infoCanvas.width/2), 190)
+                }
+            }
+            else{
+                this.infoCtx.fillStyle = "white"
+                this.infoCtx.textAlign = "center";
+                this.infoCtx.fillText(tower.description, (this.infoCanvas.width/2), 190)
             }
         }
     }
@@ -115,7 +147,7 @@ export default class InfoPanel{
         if(this.game.placingTower === false && this.game.player.checkIfMoney(true, type)){
             this.game.placingTower = true
             this.game.placingTowerType = type
-            this.game.infoPanel.updateInfoDisplay(_TOWERS[type])
+            this.game.infoPanel.updateInfoDisplay(_TOWERS[type],false,true)
         }else{
             this.game.placingTower = false
             this.game.placingTowerType = null
@@ -141,7 +173,7 @@ export default class InfoPanel{
 
             button.addEventListener("mouseenter", (e)=>{
                 e.preventDefault()
-                this.updateInfoDisplay(_TOWERS[tower])
+                this.updateInfoDisplay(_TOWERS[tower],false,true)
                 button.style.border = "solid 2px yellow"
             })
 

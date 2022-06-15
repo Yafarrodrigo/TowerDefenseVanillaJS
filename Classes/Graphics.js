@@ -164,7 +164,7 @@ export default class Graphics{
                 this.ctx.fillStyle = "black"
                 this.ctx.fillRect(tower.x,tower.y,1,1)
 
-                if(tower.showRadius === true || this.game.infoPanel.showRadiusCheckbox.checked){
+                if(tower.showRadius === true || this.game.infoPanel.showRadiusCheckbox.checked|| this.game.towerSelected !== null){
 
                     // selected tower
                     if(this.game.towerSelected !== null && this.game.towerSelected.id === tower.id){

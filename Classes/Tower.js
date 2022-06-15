@@ -23,6 +23,7 @@ export default class Tower{
         this.range = _TOWERS[type].range
         this.color = _TOWERS[type].color
         this.description = _TOWERS[type].description
+        this.upgradeDescription = _TOWERS[type].upgradeDescription
         this.projectiles = _TOWERS[type].projectiles
         this.slow = _TOWERS[type].slow
 
