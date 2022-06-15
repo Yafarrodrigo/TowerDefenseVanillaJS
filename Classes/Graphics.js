@@ -17,8 +17,8 @@ export default class Graphics{
 
     constructor(game){
         this.game = game
-        this.floorTile.src = "../Images/floorTile.jpg"
-        this.openFloorTile.src = "../Images/openFloorTile.jpg"
+        this.floorTile.src = "TowerDefenseVanillaJS/Images/floorTile.jpg"
+        this.openFloorTile.src = "TowerDefenseVanillaJS/Images/openFloorTile.jpg"
         this.laserTurretTile.src = _TOWERS.laser.imgSrc
         this.slowTurretTile.src = _TOWERS.slow.imgSrc
         this.aoeTurretTile.src = _TOWERS.aoe.imgSrc
@@ -285,14 +285,17 @@ export default class Graphics{
             this.game.infoPanel.startButton.classList.add("disabledButton")
         }
 
-
         if(this.game.towerSelected !== null && this.game.towerSelected.level < 10 ){
             if(this.game.player.checkIfMoney(false , this.game.towerSelected.type)){
                 this.game.infoPanel.upgradeButton.classList.remove("disabledButton")
+                this.game.infoPanel.upgradeButton.innerHTML = `upgrade: $${this.game.towerSelected.upgradePrice}`
             }else{
                 this.game.infoPanel.upgradeButton.classList.add("disabledButton")
+                this.game.infoPanel.upgradeButton.innerHTML = `upgrade`
             }
             this.game.infoPanel.sellButton.classList.remove("disabledButton")
+            this.game.infoPanel.sellButton.innerHTML = `sell: $${this.game.towerSelected.sellPrice}`
+
         }
         else if (this.game.towerSelected !== null && this.game.towerSelected.level > 9){
            
@@ -307,6 +310,8 @@ export default class Graphics{
             if(!this.game.infoPanel.sellButton.classList.contains("disabledButton")){
                 this.game.infoPanel.sellButton.classList.add("disabledButton")
             }
+            this.game.infoPanel.upgradeButton.innerHTML = `upgrade`
+            this.game.infoPanel.sellButton.innerHTML = `sell`
         }
     }
 
