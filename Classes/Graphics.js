@@ -164,7 +164,7 @@ export default class Graphics{
                 this.ctx.fillStyle = "black"
                 this.ctx.fillRect(tower.x,tower.y,1,1)
 
-                if(tower.showRadius === true || this.game.infoPanel.showRadiusCheckbox.checked|| this.game.towerSelected !== null){
+                if(tower.showRadius === true || this.game.infoPanel.showRadiusCheckbox.checked){
 
                     // selected tower
                     if(this.game.towerSelected !== null && this.game.towerSelected.id === tower.id){
@@ -184,6 +184,21 @@ export default class Graphics{
                     this.extraCtx.arc(tower.x, tower.y, tower.range, 0, 2*Math.PI)
                     this.extraCtx.stroke()
                 }
+                else{
+                    if(this.game.towerSelected !== null && this.game.towerSelected.id === tower.id){
+                        this.extraCtx.beginPath();
+                        this.extraCtx.lineWidth = 2
+                        this.extraCtx.setLineDash([10, 10]);
+                        this.extraCtx.strokeStyle = "red" 
+
+                         // range
+                        this.extraCtx.beginPath()
+                        this.extraCtx.arc(tower.x, tower.y, tower.range, 0, 2*Math.PI)
+                        this.extraCtx.stroke()
+                    }
+                }
+
+                
 
                 // attacks
                 if(tower.target !== null && tower.target !== undefined && tower.projectiles === false && tower.type !== "slow"){

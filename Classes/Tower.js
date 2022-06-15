@@ -17,6 +17,7 @@ export default class Tower{
         this.showRadius = false
         this.sellPrice = 0
         this.turretAngle = 0
+        this.id = Math.floor(Math.random()*10000)
 
         this.damage = _TOWERS[type].damage
         this.secondaryDamage = _TOWERS[type].secondaryDamage
