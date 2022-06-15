@@ -24,9 +24,9 @@ export default class InfoPanel{
     constructor(game){
         this.game = game
 
-        this.damageIcon.src = "TowerDefenseVanillaJS/Images/damageIcon.png"
-        this.extraDamageIcon.src = "TowerDefenseVanillaJS/Images/extraDamageIcon.png"
-        this.rangeIcon.src = "TowerDefenseVanillaJS/Images/rangeIcon.png"
+        this.damageIcon.src = "/TowerDefenseVanillaJS/Images/damageIcon.png"
+        this.extraDamageIcon.src = "/TowerDefenseVanillaJS/Images/extraDamageIcon.png"
+        this.rangeIcon.src = "/TowerDefenseVanillaJS/Images/rangeIcon.png"
 
         this.upgradeButton.addEventListener("click", (e)=>{
             e.preventDefault()

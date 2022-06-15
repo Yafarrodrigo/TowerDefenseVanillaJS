@@ -2,8 +2,8 @@ const _TOWERS = {
 
     laser:{
         type: "laser",
-        imgSrc: "TowerDefenseVanillaJS/Images/laserTurret.png",
-        iconSrc: "TowerDefenseVanillaJS/Images/laserTurretIcon.jpg",
+        imgSrc: "/TowerDefenseVanillaJS/Images/laserTurret.png",
+        iconSrc: "/TowerDefenseVanillaJS/Images/laserTurretIcon.jpg",
         buyCost: 50,
         sellPrice : 25,
         upgradePrice: 25,
@@ -22,8 +22,8 @@ const _TOWERS = {
 
     slow:{
         type: "slow",
-        imgSrc: "TowerDefenseVanillaJS/Images/slowTurret.png",
-        iconSrc: "TowerDefenseVanillaJS/Images/slowTurretIcon.jpg",
+        imgSrc: "/TowerDefenseVanillaJS/Images/slowTurret.png",
+        iconSrc: "/TowerDefenseVanillaJS/Images/slowTurretIcon.jpg",
         buyCost: 35,
         sellPrice : 17,
         upgradePrice: 50,
@@ -44,8 +44,8 @@ const _TOWERS = {
         type: "projectiles",
         buyCost: 75,
         sellPrice : 37,
-        imgSrc: "TowerDefenseVanillaJS/Images/projectilesTurret.png",
-        iconSrc: "TowerDefenseVanillaJS/Images/projectilesTurretIcon.jpg",
+        imgSrc: "/TowerDefenseVanillaJS/Images/projectilesTurret.png",
+        iconSrc: "/TowerDefenseVanillaJS/Images/projectilesTurretIcon.jpg",
         upgradePrice: 50,
         projectiles: true,
         description: "shoots projectiles",
@@ -64,8 +64,8 @@ const _TOWERS = {
         type: "aoe",
         buyCost: 50,
         sellPrice : 25,
-        imgSrc: "TowerDefenseVanillaJS/Images/aoeTurret.png",
-        iconSrc: "TowerDefenseVanillaJS/Images/aoeTurretIcon.jpg",
+        imgSrc: "/TowerDefenseVanillaJS/Images/aoeTurret.png",
+        iconSrc: "/TowerDefenseVanillaJS/Images/aoeTurretIcon.jpg",
         upgradePrice: 50,
         projectiles: true,
         description: "damages in aoe",
