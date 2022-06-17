@@ -1,4 +1,5 @@
 import _TOWERS from "../towersConfig.js"
+import _PATHS from "../imgPaths.js"
 
 export default class Graphics{
     canvas = document.getElementById("canvas")
@@ -19,14 +20,14 @@ export default class Graphics{
 
     constructor(game){
         this.game = game
-        this.floorTile.src = "../Images/floorTile.jpg"
-        this.openFloorTile.src = "../Images/openFloorTile.jpg"
-        this.laserTurretTile.src = _TOWERS.laser.imgSrc
-        this.slowTurretTile.src = _TOWERS.slow.imgSrc
-        this.aoeTurretTile.src = _TOWERS.aoe.imgSrc
-        this.projectilesTurretTile.src = _TOWERS.projectiles.imgSrc
-        this.boostDamageTile.src = _TOWERS.boostDamage.imgSrc
-        this.boostRangeTile.src = _TOWERS.boostRange.imgSrc
+        this.floorTile.src = _PATHS.floor
+        this.openFloorTile.src = _PATHS.openFloor
+        this.laserTurretTile.src = _PATHS.laserTower
+        this.slowTurretTile.src = _PATHS.slowTower
+        this.aoeTurretTile.src = _PATHS.aoeTower
+        this.projectilesTurretTile.src = _PATHS.projectilesTower
+        this.boostDamageTile.src = _PATHS.boostDamageTower
+        this.boostRangeTile.src = _PATHS.boostRangeTower
         
     }
 
@@ -325,7 +326,7 @@ export default class Graphics{
                 this.game.infoPanel.upgradeButton.innerHTML = `upgrade: $${this.game.towerSelected.upgradePrice}`
             }else{
                 this.game.infoPanel.upgradeButton.classList.add("disabledButton")
-                this.game.infoPanel.upgradeButton.innerHTML = `upgrade`
+                this.game.infoPanel.upgradeButton.innerHTML = `upgrade $${this.game.towerSelected.upgradePrice}`
             }
             this.game.infoPanel.sellButton.classList.remove("disabledButton")
             this.game.infoPanel.sellButton.innerHTML = `sell: $${this.game.towerSelected.sellPrice}`
@@ -335,6 +336,7 @@ export default class Graphics{
            
             this.game.infoPanel.upgradeButton.classList.add("disabledButton")
             this.game.infoPanel.sellButton.classList.remove("disabledButton")
+            this.game.infoPanel.sellButton.innerHTML = `sell: $${this.game.towerSelected.sellPrice}`
         }
         else{
 

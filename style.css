@@ -1,6 +1,7 @@
 *{
     user-select: none;
     outline: none;
+    font-family: 'Coda', cursive;
 }
 
 #container{
@@ -78,6 +79,7 @@
     pointer-events: none;
     width: 295px;
     height: 200px;
+    border-radius: 5px;
 }
 
 #panel label, #panel input{
@@ -101,18 +103,20 @@
     margin-left: 20px;
     margin-right: 0px;
     margin-top: 20px;
-    transform: scale(1.5);
+    transform: scale(1.75);
 }
 
 #startButton{
     background-color:rgb(78, 78, 78);
-    margin-top: 10px;
+    width: 75%;
+    margin-left: 13%;
+    margin-top: 15px;
     margin-bottom: 10px;
     border: solid 1px black;
     color: rgb(255, 255, 255);
     height: 50px;
-    width: 100%;
-    border-radius: 5px;
+    border-radius: 10px;
+    font-size: 1.5rem;
 }
 
 #startButton:hover{
@@ -126,7 +130,6 @@
     border-radius: 5px;
     display: flex;
     flex-direction: column;
-    
 }
 
 #twobuttons{
@@ -168,15 +171,20 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    width: 100%;
+    width: 240px;
+    margin: auto;
+    border-radius: 5px;
+    overflow: hidden;
     background-color: black;
 
 }
 
 #towerButtons button{
-    width: 55px;
-    height: 55px;
-    /* background-color: white; */
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
+    background-repeat:no-repeat;
+    background-size: contain;
     
 }
 
