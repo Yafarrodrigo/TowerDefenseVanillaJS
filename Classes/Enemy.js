@@ -74,7 +74,6 @@ export default class Enemy{
             this.dead = true
             this.game.player.lives -= 1
             this.game.infoPanel.lives.innerText = `LIVES: ${this.game.player.lives}`
-            console.table(this.game.activeEnemies);
             return
         }
 

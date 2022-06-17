@@ -10,6 +10,7 @@ export default class Tower{
         this.y = (y * 50) + 25
         this.type = type
         this.nearEnemies = {}
+        this.nearbyBoostTowers = {}
         this.target = null
         this.targetInfo = null
         this.level = 1
@@ -20,13 +21,20 @@ export default class Tower{
         this.id = Math.floor(Math.random()*10000)
 
         this.damage = _TOWERS[type].damage
+        this.finalDamage = this.damage
         this.secondaryDamage = _TOWERS[type].secondaryDamage
+        this.finalSecondaryDamage = this.secondaryDamage
         this.range = _TOWERS[type].range
+        this.finalRange = this.range
         this.color = _TOWERS[type].color
         this.description = _TOWERS[type].description
         this.upgradeDescription = _TOWERS[type].upgradeDescription
         this.projectiles = _TOWERS[type].projectiles
         this.slow = _TOWERS[type].slow
+
+        this.bonusDamage = _TOWERS[type].bonusDamage
+        this.bonusSecondaryDamage = _TOWERS[type].bonusSecondaryDamage
+        this.bonusRange = _TOWERS[type].bonusRange
 
         this.buyCost = _TOWERS[type].buyCost
         this.upgradePrice = _TOWERS[type].upgradePrice
@@ -61,13 +69,18 @@ export default class Tower{
             this.sellPrice += Math.round(_TOWERS[this.type].upgradePrice/2)
 
             this.damage = (Math.floor(_TOWERS[this.type].upgradeDamage*100) + Math.floor(this.damage*100))/100
-            this.secondaryDamage += _TOWERS[this.type].upgradeSecondaryDamage
+            this.secondaryDamage = (Math.floor(_TOWERS[this.type].secondaryDamage*100) + Math.floor(this.secondaryDamage*100))/100
             this.range += _TOWERS[this.type].upgradeRange
             this.slow = (Math.floor(_TOWERS[this.type].upgradeSlow*100) + Math.floor(this.slow*100))/100
+            if(this.type === "boostRange"){
+                this.bonusRange = _TOWERS[this.type].bonusRange * this.level
+            }
 
             this.game.infoPanel.money.innerText = `PLATITA: ${this.game.player.money}`
 
-            this.game.infoPanel.updateInfoDisplay(this,true)
+            this.updateFinalDamageAndRange()
+
+            this.game.infoPanel.updateInfoDisplay(this,true,false)
         }
         
     }
@@ -90,7 +103,12 @@ export default class Tower{
 
                     let possibleEnemy = this.nearEnemies[elem].enemy
                     if(this.validTarget(possibleEnemy)){
-                        possibleEnemy.health -= this.damage
+                        if(possibleEnemy.health - this.finalDamage >= 0){
+                            possibleEnemy.health -= this.finalDamage
+                        }else{
+                            possibleEnemy.health = 0
+                        }
+
                         let newStatus = new Status("slow",this,this.slow)
                         possibleEnemy.applyStatus(newStatus)
                     }
@@ -100,12 +118,18 @@ export default class Tower{
             }
         }
         else{
+
             if(this.validTarget(this.target)){
-                this.target.health -= this.damage
+                if(this.target.health - this.finalDamage >= 0){
+                    this.target.health -= this.finalDamage
+                }else{
+                    this.target.health = 0
+                }
             }
             else{
                 this.target = null
             }
+            
         }
     }
 
@@ -120,6 +144,33 @@ export default class Tower{
         }
     }
 
+    updateNearbyBoostTowers(){
+        if(this.game.activeTowers.length > 0){
+
+            this.game.activeTowers.forEach((tower)=>{
+
+                if(tower.type === "boostDamage" || tower.type === "boostRange"){
+                    let distance = this.distance(this.x+12,tower.x+12,this.y+12,tower.y+12)
+
+                    if( distance <= tower.range+5){
+                        
+                        if(!this.nearbyBoostTowers.hasOwnProperty(tower.id)){
+                            this.nearbyBoostTowers[tower.id] = tower
+                        }
+                    }
+                    else{
+                        if(this.nearbyBoostTowers.hasOwnProperty(tower.id)){
+                            delete this.nearbyBoostTowers[tower.id]
+                        }
+                    }
+                }
+            })
+        }
+        else{
+            this.nearbyBoostTowers = {}
+        }
+    }
+
     updateNearEnemies(){
         if(this.game.activeEnemies.length > 0){
             
@@ -127,7 +178,7 @@ export default class Tower{
 
                 let distance = this.distance(this.x+12,enemy.x+12,this.y+12,enemy.y+12)
 
-                if( distance <= this.range+5 && enemy.dead === false){
+                if( distance <= this.finalRange+5 && enemy.dead === false){
                     
                     if(!this.nearEnemies.hasOwnProperty(enemy.id)){
                         this.nearEnemies[enemy.id] = {enemy, dist: distance}
@@ -183,8 +234,38 @@ export default class Tower{
         return Math.sqrt((x1-x0)*(x1-x0) + (y1-y0)*(y1-y0))
     }
 
+    updateFinalDamageAndRange(){
+        if(Object.keys(this.nearbyBoostTowers).length > 0){
+            let sumBonus = 0
+            let secondarySumBonus = 0
+            let sumRangeBonus = 0
+            for(let tower in this.nearbyBoostTowers){
+                sumBonus = (Math.floor(sumBonus*1000) + Math.floor(this.nearbyBoostTowers[tower].bonusDamage * 1000)) /1000
+                secondarySumBonus = (Math.floor(secondarySumBonus*1000) + Math.floor(this.nearbyBoostTowers[tower].bonusSecondaryDamage * 1000)) /1000
+                sumRangeBonus += this.nearbyBoostTowers[tower].bonusRange
+            }
+            sumBonus+=1
+            secondarySumBonus+=1
+
+            this.finalDamage = parseFloat(((Math.floor(this.damage*100) * (Math.floor(sumBonus*100)))/10000).toFixed(2))
+            this.finalSecondaryDamage = parseFloat(((Math.floor(this.secondaryDamage*100) * (Math.floor(secondarySumBonus*100)))/10000).toFixed(2))
+            this.finalRange = this.range + sumRangeBonus
+        }else{
+            this.finalDamage = this.damage
+            this.finalSecondaryDamage = this.secondaryDamage
+            this.finalRange = this.range
+        }
+    }
+
     update(){
+
+        if(this.type === "boostDamage" || this.type === "boostRange") return
+
+        
+        this.updateNearbyBoostTowers()
         this.targetNearestEnemy()
+        
+        this.updateFinalDamageAndRange()
 
         if(this.type === "projectiles" || this.type === "aoe"){
             if(this.timer === 30){
@@ -194,8 +275,9 @@ export default class Tower{
                 this.timer += 1
             }
         }else{
-            
-            this.shoot()
+            if(this.type !== "boostDamage"){
+                this.shoot()
+            }
         }
 
         if(this.target !== null && this.target !== undefined){

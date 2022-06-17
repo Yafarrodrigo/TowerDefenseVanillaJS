@@ -44,7 +44,11 @@ export default class Bullet{
 
         if(nearEnemies.length !== 0){
             nearEnemies.forEach((enemy)=>{
-                enemy.health -= (this.tower.damage / 2)
+                if(enemy.health - this.tower.finalDamage >= 0){
+                    enemy.health -= (this.tower.secondaryDamage)
+                }else{
+                    enemy.health = 0
+                }
             })
         }
     }
@@ -60,7 +64,13 @@ export default class Bullet{
                 if(this.tower.type === "aoe"){
                     this.damageNearEnemies()
                 }
-                this.target.health -= this.tower.damage
+
+                if(this.target.health - this.tower.finalDamage >= 0){
+                    this.target.health -= (this.tower.finalSecondaryDamage)
+                }else{
+                    this.target.health = 0
+                }
+
                 this.dead = true
                 return
             }

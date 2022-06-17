@@ -2,8 +2,8 @@ const _TOWERS = {
 
     laser:{
         type: "laser",
-        imgSrc: "/TowerDefenseVanillaJS/Images/laserTurret.png",
-        iconSrc: "/TowerDefenseVanillaJS/Images/laserTurretIcon.jpg",
+        imgSrc: "../Images/laserTurret.png",
+        iconSrc: "../Images/laserTurretIcon.jpg",
         buyCost: 50,
         sellPrice : 25,
         upgradePrice: 25,
@@ -17,13 +17,16 @@ const _TOWERS = {
         upgradeDamage: 0.5,
         upgradeRange: 10,
         upgradeSlow: 0,
+        bonusDamage: 0,
+        bonusSecondaryDamage: 0,
+        bonusRange: 0,
         range: 100
     },
 
     slow:{
         type: "slow",
-        imgSrc: "/TowerDefenseVanillaJS/Images/slowTurret.png",
-        iconSrc: "/TowerDefenseVanillaJS/Images/slowTurretIcon.jpg",
+        imgSrc: "../Images/slowTurret.png",
+        iconSrc: "../Images/slowTurretIcon.jpg",
         buyCost: 35,
         sellPrice : 17,
         upgradePrice: 50,
@@ -37,6 +40,9 @@ const _TOWERS = {
         upgradeDamage: 0.10,
         upgradeRange: 5,
         upgradeSlow: 0.05,
+        bonusDamage: 0,
+        bonusSecondaryDamage: 0,
+        bonusRange: 0,
         range: 75
     },
 
@@ -44,8 +50,8 @@ const _TOWERS = {
         type: "projectiles",
         buyCost: 75,
         sellPrice : 37,
-        imgSrc: "/TowerDefenseVanillaJS/Images/projectilesTurret.png",
-        iconSrc: "/TowerDefenseVanillaJS/Images/projectilesTurretIcon.jpg",
+        imgSrc: "../Images/projectilesTurret.png",
+        iconSrc: "../Images/projectilesTurretIcon.jpg",
         upgradePrice: 50,
         projectiles: true,
         description: "shoots projectiles",
@@ -57,6 +63,9 @@ const _TOWERS = {
         upgradeSecondaryDamage: 0,
         upgradeRange: 10,
         upgradeSlow: 0,
+        bonusDamage: 0,
+        bonusSecondaryDamage: 0,
+        bonusRange: 0,
         range: 120
     },
 
@@ -64,8 +73,8 @@ const _TOWERS = {
         type: "aoe",
         buyCost: 50,
         sellPrice : 25,
-        imgSrc: "/TowerDefenseVanillaJS/Images/aoeTurret.png",
-        iconSrc: "/TowerDefenseVanillaJS/Images/aoeTurretIcon.jpg",
+        imgSrc: "../Images/aoeTurret.png",
+        iconSrc: "../Images/aoeTurretIcon.jpg",
         upgradePrice: 50,
         projectiles: true,
         description: "damages in aoe",
@@ -77,7 +86,56 @@ const _TOWERS = {
         upgradeSecondaryDamage: 12,
         upgradeRange: 10,
         upgradeSlow: 0,
+        bonusDamage: 0,
+        bonusSecondaryDamage: 0,
+        bonusRange: 0,
         range: 100
+    },
+
+    boostDamage:{
+        type: "boostDamage",
+        imgSrc: "../Images/boostDamageIcon.jpg",
+        iconSrc: "../Images/boostDamageIcon.jpg",
+        buyCost: 50,
+        sellPrice : 25,
+        upgradePrice: 25,
+        projectiles: false,
+        description: "boosts towers damage",
+        upgradeDescription: null,
+        slow: 0,
+        damage: 0,
+        secondaryDamage: 0,
+        upgradeSecondaryDamage: 0,
+        upgradeDamage: 0,
+        upgradeRange: 10,
+        upgradeSlow: 0,
+        bonusDamage: 0.25,
+        bonusSecondaryDamage: 0.25,
+        bonusRange: 0,
+        range: 100
+    },
+
+    boostRange:{
+        type: "boostDamage",
+        imgSrc: "../Images/boostRangeIcon.jpg",
+        iconSrc: "../Images/boostRangeIcon.jpg",
+        buyCost: 50,
+        sellPrice : 25,
+        upgradePrice: 25,
+        projectiles: false,
+        description: "boosts towers range",
+        upgradeDescription: null,
+        slow: 0,
+        damage: 0,
+        secondaryDamage: 0,
+        upgradeSecondaryDamage: 0,
+        upgradeDamage: 0,
+        upgradeRange: 5,
+        upgradeSlow: 0,
+        bonusDamage: 0,
+        bonusSecondaryDamage: 0,
+        bonusRange: 5,
+        range: 75
     }
 
 }

@@ -24,9 +24,9 @@ export default class InfoPanel{
     constructor(game){
         this.game = game
 
-        this.damageIcon.src = "/TowerDefenseVanillaJS/Images/damageIcon.png"
-        this.extraDamageIcon.src = "/TowerDefenseVanillaJS/Images/extraDamageIcon.png"
-        this.rangeIcon.src = "/TowerDefenseVanillaJS/Images/rangeIcon.png"
+        this.damageIcon.src = "../Images/damageIcon.png"
+        this.extraDamageIcon.src = "../Images/extraDamageIcon.png"
+        this.rangeIcon.src = "../Images/rangeIcon.png"
 
         this.upgradeButton.addEventListener("click", (e)=>{
             e.preventDefault()
@@ -72,9 +72,17 @@ export default class InfoPanel{
             this.game.player.money += tower.sellPrice
             this.game.infoPanel.money.innerText = `PLATITA: ${this.game.player.money}`
 
+            this.game.activeTowers.forEach(t =>{
+                if(Object.keys(t.nearbyBoostTowers).length > 0){
+                    delete t.nearbyBoostTowers[tower.id]
+                }
+                t.updateFinalDamageAndRange()
+            })
+            
             this.game.activeTowers = this.game.activeTowers.filter((tower)=>{
                 if(tower.id !== this.game.towerSelected.id) return true
             })
+
             this.game.towerSelected = null
         })
 
@@ -101,25 +109,52 @@ export default class InfoPanel{
             this.infoCtx.fillStyle = "white"
             this.infoCtx.font = "25px Arial";
 
+            this.infoCtx.textAlign = "left";
+            this.infoCtx.drawImage(this.damageIcon, 55, 52)
+            this.infoCtx.drawImage(this.extraDamageIcon, 51, 85)
+            this.infoCtx.drawImage(this.rangeIcon, 51, 120)
+            
+
             if(buying === true){
                 this.infoCtx.textAlign = "right";
                 this.infoCtx.fillText(`$${_TOWERS[tower.type].buyCost}`, 285, 30)
                 this.infoCtx.textAlign = "left";
-                this.infoCtx.fillText(`${tower.type} tower`, 25, 30)
+
+                if(tower.type === "boostDamage" || tower.type === "boostRange"){
+                    this.infoCtx.textAlign = "left";
+                    this.infoCtx.fillText(`${tower.type} tower (Lv. ${tower.level})`, 25, 30)
+                    this.infoCtx.fillText(`${tower.bonusDamage}`, 105, 72)
+                    this.infoCtx.fillText(`${tower.bonusSecondaryDamage}`, 105, 110)
+                    this.infoCtx.fillText(`${tower.bonusRange}`, 105, 145)
+                }
+                else{
+                    
+                    this.infoCtx.fillText(`${tower.type} tower`, 25, 30)
+                    this.infoCtx.fillText(`${tower.damage}`, 105, 72)
+                    this.infoCtx.fillText(`${tower.secondaryDamage}`, 105, 110)
+                    this.infoCtx.fillText(`${tower.range}`, 105, 145)
+                }
+               
             }else{
-                this.infoCtx.textAlign = "left";
-                this.infoCtx.fillText(`${tower.type} tower (Lv. ${tower.level})`, 25, 30)
+                if(tower.type === "boostDamage" || tower.type === "boostRange"){
+                    this.infoCtx.textAlign = "left";
+                    this.infoCtx.fillText(`${tower.type} tower (Lv. ${tower.level})`, 25, 30)
+                    this.infoCtx.fillText(`${tower.bonusDamage}`, 105, 72)
+                    this.infoCtx.fillText(`${tower.bonusSecondaryDamage}`, 105, 110)
+                    this.infoCtx.fillText(`${tower.bonusRange}`, 105, 145)
+                }
+                else{
+                    this.infoCtx.textAlign = "left";
+                    this.infoCtx.fillText(`${tower.type} tower (Lv. ${tower.level})`, 25, 30)
+                    this.infoCtx.fillText(`${tower.finalDamage}`, 105, 72)
+                    this.infoCtx.fillText(`${tower.finalSecondaryDamage}`, 105, 110)
+                    this.infoCtx.fillText(`${tower.finalRange}`, 105, 145)
+                }
             }
-            this.infoCtx.textAlign = "left";
-            this.infoCtx.drawImage(this.damageIcon, 55, 52)
-            this.infoCtx.fillText(`${tower.damage}`, 105, 72)
-            this.infoCtx.drawImage(this.extraDamageIcon, 51, 85)
-            this.infoCtx.fillText(`${tower.secondaryDamage}`, 105, 110)
-            this.infoCtx.drawImage(this.rangeIcon, 51, 120)
-            this.infoCtx.fillText(`${tower.range}`, 105, 145)
             
             
-            if(upgrade){
+            
+            if(upgrade && tower.type !== "boostDamage" && tower.type !== "boostRange"){
                 this.infoCtx.fillStyle = "green"
                 this.infoCtx.fillText(`+ ${_TOWERS[tower.type].upgradeDamage}`, 230, 75)
                 this.infoCtx.fillText(`+ ${_TOWERS[tower.type].upgradeSecondaryDamage}`, 230, 115)

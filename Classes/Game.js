@@ -100,12 +100,6 @@ export default class Game{
                 }
             }
         })
-        
-        if(this.activeTowers.length !== 0){
-            this.activeTowers.forEach((tower)=>{
-                tower.update()
-             })
-        }  
 
         this.activeBullets.forEach((bullet)=>{
             if(bullet.dead !== true){
@@ -117,6 +111,14 @@ export default class Game{
                 })
             }
         })
+        
+        if(this.activeTowers.length !== 0){
+            this.activeTowers.forEach((tower)=>{
+                tower.update()
+             })
+        }  
+
+        
 
         this.graphics.update()
     }

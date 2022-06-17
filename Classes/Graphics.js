@@ -13,16 +13,21 @@ export default class Graphics{
     slowTurretTile = new Image()
     aoeTurretTile = new Image()
     projectilesTurretTile = new Image()
+    boostDamageTile = new Image()
+    boostRangeTile = new Image()
     
 
     constructor(game){
         this.game = game
-        this.floorTile.src = "/TowerDefenseVanillaJS/Images/floorTile.jpg"
-        this.openFloorTile.src = "/TowerDefenseVanillaJS/Images/openFloorTile.jpg"
+        this.floorTile.src = "../Images/floorTile.jpg"
+        this.openFloorTile.src = "../Images/openFloorTile.jpg"
         this.laserTurretTile.src = _TOWERS.laser.imgSrc
         this.slowTurretTile.src = _TOWERS.slow.imgSrc
         this.aoeTurretTile.src = _TOWERS.aoe.imgSrc
         this.projectilesTurretTile.src = _TOWERS.projectiles.imgSrc
+        this.boostDamageTile.src = _TOWERS.boostDamage.imgSrc
+        this.boostRangeTile.src = _TOWERS.boostRange.imgSrc
+        
     }
 
     changeTile(x, y, type){
@@ -42,6 +47,12 @@ export default class Graphics{
         }
         else if(type === "aoe"){
             this.ctx.drawImage(this.openFloorTile,x*50,y*50)
+        }
+        else if(type === "boostDamage"){
+            this.ctx.drawImage(this.boostDamageTile,x*50,y*50)
+        }
+        else if(type === "boostRange"){
+            this.ctx.drawImage(this.boostRangeTile,x*50,y*50)
         }
     }
 
@@ -181,7 +192,7 @@ export default class Graphics{
 
                     // range
                     this.extraCtx.beginPath()
-                    this.extraCtx.arc(tower.x, tower.y, tower.range, 0, 2*Math.PI)
+                    this.extraCtx.arc(tower.x, tower.y, tower.finalRange, 0, 2*Math.PI)
                     this.extraCtx.stroke()
                 }
                 else{
@@ -193,7 +204,7 @@ export default class Graphics{
 
                          // range
                         this.extraCtx.beginPath()
-                        this.extraCtx.arc(tower.x, tower.y, tower.range, 0, 2*Math.PI)
+                        this.extraCtx.arc(tower.x, tower.y, tower.finalRange, 0, 2*Math.PI)
                         this.extraCtx.stroke()
                     }
                 }
@@ -201,7 +212,7 @@ export default class Graphics{
                 
 
                 // attacks
-                if(tower.target !== null && tower.target !== undefined && tower.projectiles === false && tower.type !== "slow"){
+                if(tower.target !== null && tower.target !== undefined && tower.projectiles === false && tower.type !== "slow" && tower.type !== "boostDamage"){
                     this.extraCtx.beginPath();
                     this.extraCtx.lineWidth = 1
                     this.extraCtx.setLineDash([]);
@@ -267,6 +278,14 @@ export default class Graphics{
                 case "projectiles":
                     this.ctx.drawImage(this.projectilesTurretTile, x, y)
                     break
+                
+                case "boostDamage":
+                    this.ctx.drawImage(this.boostDamageTile, x, y)
+                    break
+                
+                case "boostRange":
+                this.ctx.drawImage(this.boostRangeTile, x, y)
+                break
             }
         }
     }
