@@ -4,30 +4,53 @@
     font-family: 'Coda', cursive;
 }
 
+body{
+    background-color: #111;
+}
+
 #container{
-    position: relative;
+    position: fixed;
     display: grid;
     grid-template-areas: "header header"
                         "canvas panel";
     width: 1100px;
     height: 650px;
+    left: 50%;
+    top: 50%;
     border-radius: 0.5rem;
     border: #999 solid 1px;
+    transform: translate(-50%, -50%) scale(1.25);
 }
 
 #header{
     display: flex;
+    justify-content: space-between;
     grid-area: header;
     height: 50px;
-    
+    width: 100%;
     background-color: #333;
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
     border-bottom: 1px solid #999;
 }
 
-#header > h1{
+#h1Group{
     color: white;
+}
+
+#help{
+    font-size: 2rem;
+    background-color: #666;
+    color: white;
+    margin: 3px;
+    width: 75px;
+    height: 88%;
+    border-top-right-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+}
+
+#help:hover{
+    background-color: #888;
 }
 
 #level{
@@ -68,6 +91,20 @@
     position: absolute;
     border-bottom-left-radius: 0.5rem;
 }
+
+#fadeToBlack{
+    position: absolute;
+    user-select: none;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    background-color: black;
+    opacity: 0;
+    z-index: 9999;
+    width: 100%;
+    height: 100%;
+}
+
 #extra-canvas{
     width: inherit;
     height: inherit;

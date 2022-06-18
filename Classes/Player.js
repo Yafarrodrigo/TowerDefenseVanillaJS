@@ -6,7 +6,7 @@ export default class player{
     constructor(game){
         this.game = game
         this.lives = 10
-        this.money = 100
+        this.money = 1000
     }
 
     addListeners(){
@@ -99,10 +99,15 @@ export default class player{
 
     getMousePos(evt){
         const rect = this.game.graphics.extraCanvas.getBoundingClientRect();
-        return {
-            x: Math.floor((evt.clientX - rect.left)/50),
-            y: Math.floor((evt.clientY - rect.top)/50)
-        };
+
+        const widthScale = canvas.width / rect.width;
+        const heightScale = canvas.height / rect.height;
+
+        return{
+            x: Math.floor(((evt.clientX - rect.left) * widthScale)/50),
+            y: Math.floor(((evt.clientY - rect.top) * heightScale)/50)
+        }
+
     }
 
     checkIfMoney(buy, type){

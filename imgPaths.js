@@ -1,5 +1,7 @@
 const _PATHS = {
 
+    helpScreen:             "/TowerDefenseVanillaJS/Images/help.png",
+
     // TOWERS
 
     floor:                  "/TowerDefenseVanillaJS/Images/floorTile.jpg",

@@ -30,7 +30,9 @@ export default class Tower{
         this.description = _TOWERS[type].description
         this.upgradeDescription = _TOWERS[type].upgradeDescription
         this.projectiles = _TOWERS[type].projectiles
+        this.boosts = _TOWERS[type].boosts
         this.slow = _TOWERS[type].slow
+        this.speed = _TOWERS[type].speed
 
         this.bonusDamage = _TOWERS[type].bonusDamage
         this.bonusSecondaryDamage = _TOWERS[type].bonusSecondaryDamage
