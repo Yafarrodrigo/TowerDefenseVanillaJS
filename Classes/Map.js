@@ -8,19 +8,22 @@ export default class Map{
     }
 
     checkForRoad(x,y){
-        if(this.tiles[x][y].road === true){
-            return true
-        }else{
-            return false
+        if(x > 0 && x < 15 && y > 0 && y < 11){
+            if(this.tiles[x][y].road === true){
+                return true
+            }else{
+                return false
+            }
         }
     }
 
     checkForTower(x,y){
-        if(x < 0 || x > 800 || y < 0 || y > 600) return true
-        if(this.tiles[x][y].tower === true){
-            return true
-        }else{
-            return false
+        if(x > 0 && x < 15 && y > 0 && y < 11){
+            if(this.tiles[x][y].tower === true){
+                return true
+            }else{
+                return false
+            }
         }
     }
 

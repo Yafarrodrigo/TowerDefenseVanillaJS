@@ -68,7 +68,7 @@ export default class Enemy{
         if(this.dead === false && outOfBounds === false){
             this.dead = true
             this.game.player.money += 5
-            this.game.infoPanel.money.innerText = `PLATITA: ${this.game.player.money}`
+            this.game.infoPanel.money.innerText = `CREDITS: ${this.game.player.money}`
         }
         else if (this.dead === false && outOfBounds === true){
             this.dead = true

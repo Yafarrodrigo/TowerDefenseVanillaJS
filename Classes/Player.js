@@ -68,6 +68,7 @@ export default class player{
             this.game.cursorAt.x = x
             this.game.cursorAt.y = y
         
+            if(x < 0 || x > 800 || y < 0 || y > 600) return
         
             this.game.activeTowers.forEach((tower)=>{
                 tower.showRadius = false
@@ -103,11 +104,15 @@ export default class player{
         const widthScale = canvas.width / rect.width;
         const heightScale = canvas.height / rect.height;
 
-        return{
-            x: Math.floor(((evt.clientX - rect.left) * widthScale)/50),
-            y: Math.floor(((evt.clientY - rect.top) * heightScale)/50)
-        }
+        let [x,y] = [Math.floor(((evt.clientX - rect.left) * widthScale)/50),
+                        Math.floor(((evt.clientY - rect.top) * heightScale)/50)]
 
+        if(x < 0) x = 0
+        else if ( x > 15 ) x = 15
+        else if ( y < 0 )  y = 0
+        else if ( y > 11 ) y = 11
+
+        return{x,y}
     }
 
     checkIfMoney(buy, type){
