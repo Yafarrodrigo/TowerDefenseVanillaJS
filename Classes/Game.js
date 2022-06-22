@@ -94,7 +94,7 @@ export default class Game{
                 if(this.level.isDone() === true && this.player.lives > 0 && this.levelStarted === true){
                     this.levelStarted = false
                     this.nextLevel()
-                    if(this.infoPanel.autoNextLevelCheckbox.checked === true){
+                    if(this.infoPanel.autoNextLevelCheckbox.checked){
                         this.levelStarted = true
                     }
                 }

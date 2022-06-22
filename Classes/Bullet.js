@@ -66,7 +66,7 @@ export default class Bullet{
                 }
 
                 if(this.target.health - this.tower.finalDamage >= 0){
-                    this.target.health -= (this.tower.finalSecondaryDamage)
+                    this.target.health -= (this.tower.finalDamage)
                 }else{
                     this.target.health = 0
                 }

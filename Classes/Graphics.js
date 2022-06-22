@@ -159,54 +159,60 @@ export default class Graphics{
     }
 
     updateTowers(){
-
-        if(this.game.placingTower === true){
-            this.extraCtx.beginPath();
-            this.extraCtx.lineWidth = 0.5
-            this.extraCtx.setLineDash([]);
-            this.extraCtx.strokeStyle = "black"
-            this.extraCtx.beginPath()
-            this.extraCtx.arc((this.game.cursorAt.x*50)+25, (this.game.cursorAt.y*50)+25, _TOWERS[this.game.placingTowerType].range, 0, 2*Math.PI)
-            this.extraCtx.stroke()
-        }
     
         if(this.game.activeTowers.length !== 0){
             this.game.activeTowers.forEach((tower)=>{
 
-                this.ctx.fillStyle = "black"
-                this.ctx.fillRect(tower.x,tower.y,1,1)
+                //this.ctx.fillStyle = "green"
 
-                if(tower.showRadius === true || this.game.infoPanel.showRadiusCheckbox.checked){
+                if(this.game.infoPanel.showRadiusCheckbox.checked){
 
                     // selected tower
                     if(this.game.towerSelected !== null && this.game.towerSelected.id === tower.id){
                         this.extraCtx.beginPath();
                         this.extraCtx.lineWidth = 2
                         this.extraCtx.setLineDash([10, 10]);
-                        this.extraCtx.strokeStyle = "red"    
+                        this.extraCtx.strokeStyle = "red"  
+                        this.extraCtx.fillStyle = "rgba(255,0,0,0.15)"
                     }else{
                         this.extraCtx.beginPath();
                         this.extraCtx.lineWidth = 0.5
                         this.extraCtx.setLineDash([]);
-                        this.extraCtx.strokeStyle = "black"
+                        this.extraCtx.strokeStyle = "green"
+                        this.extraCtx.fillStyle = "rgba(0,255,0,0)"
                     }
 
                     // range
                     this.extraCtx.beginPath()
                     this.extraCtx.arc(tower.x, tower.y, tower.finalRange, 0, 2*Math.PI)
+                    this.extraCtx.fill()
                     this.extraCtx.stroke()
                 }
                 else{
+                    // checkbox desactivado
                     if(this.game.towerSelected !== null && this.game.towerSelected.id === tower.id){
                         this.extraCtx.beginPath();
                         this.extraCtx.lineWidth = 2
                         this.extraCtx.setLineDash([10, 10]);
                         this.extraCtx.strokeStyle = "red" 
+                        this.extraCtx.fillStyle = "rgba(255,0,0,0.15)"
 
                          // range
                         this.extraCtx.beginPath()
                         this.extraCtx.arc(tower.x, tower.y, tower.finalRange, 0, 2*Math.PI)
+                        this.extraCtx.fill()
                         this.extraCtx.stroke()
+                    }
+                    else if(tower.showRadius === true){
+                            this.extraCtx.beginPath();
+                            this.extraCtx.lineWidth = 0.5
+                            this.extraCtx.setLineDash([]);
+                            this.extraCtx.strokeStyle = "green"
+                            this.extraCtx.fillStyle = "rgba(0,255,0,0.15)"
+                            this.extraCtx.beginPath()
+                            this.extraCtx.arc(tower.x, tower.y, tower.finalRange, 0, 2*Math.PI)
+                            this.extraCtx.fill()
+                            this.extraCtx.stroke()
                     }
                 }
 
@@ -263,8 +269,21 @@ export default class Graphics{
         }
 
         if(this.game.placingTower === true && this.game.map.tiles[this.game.cursorAt.x][this.game.cursorAt.y].road === false){
+            
             const x = this.game.cursorAt.x*50
             const y = this.game.cursorAt.y*50
+            
+            this.extraCtx.beginPath();
+            this.extraCtx.lineWidth = 0.5
+            this.extraCtx.setLineDash([]);
+            this.extraCtx.strokeStyle = "green"
+            this.extraCtx.beginPath()
+            this.extraCtx.arc(x+25,y+25, _TOWERS[this.game.placingTowerType].range, 0, 2*Math.PI)
+            this.extraCtx.fillStyle = "rgba(0,255,0,0.15)"
+            this.extraCtx.fill()
+            this.extraCtx.stroke()
+
+            
 
             switch(this.game.placingTowerType){
                 case "slow":

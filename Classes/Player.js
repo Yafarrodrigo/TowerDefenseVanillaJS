@@ -6,7 +6,7 @@ export default class player{
     constructor(game){
         this.game = game
         this.lives = 10
-        this.money = 1000
+        this.money = 100
     }
 
     addListeners(){

@@ -56,19 +56,19 @@ body{
 #level{
     position: absolute;
     left: 50px;
-    top: -12px;
+    top: -15px;
 }
 
 #lives{
     position: absolute;
     left: 300px;
-    top: -12px;
+    top: -15px;
 }
 
 #money{
     position: absolute;
     left: 550px;
-    top: -12px;
+    top: -15px;
 }
 
 #panel{

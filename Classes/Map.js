@@ -1,7 +1,7 @@
 export default class Map{
 
     tiles = []
-    road = [[0,1],[3,1],[3,8],[10,8],[10,3],[14,3],[14,9],[15,9]]
+    road = [[0,5],[5,5],[5,1],[10,1],[10,8],[5,8],[5,11]]
 
     constructor(game){
         this.game = game
@@ -16,6 +16,7 @@ export default class Map{
     }
 
     checkForTower(x,y){
+        if(x < 0 || x > 800 || y < 0 || y > 600) return true
         if(this.tiles[x][y].tower === true){
             return true
         }else{
