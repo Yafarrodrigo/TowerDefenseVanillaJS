@@ -104,7 +104,7 @@ export default class InfoPanel{
             this.game.graphics.changeTile(tower.tile.x, tower.tile.y, "grey")
 
             this.game.player.money += tower.sellPrice
-            this.game.infoPanel.money.innerText = `PLATITA: ${this.game.player.money}`
+            this.game.infoPanel.money.innerText = `CREDITS: ${this.game.player.money}`
 
             this.game.activeTowers.forEach(t =>{
                 if(Object.keys(t.nearbyBoostTowers).length > 0){

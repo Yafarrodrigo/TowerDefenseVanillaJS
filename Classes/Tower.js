@@ -54,7 +54,7 @@ export default class Tower{
         this.game.player.money -= this.buyCost
         this.sellPrice += Math.round(this.buyCost/2)
 
-        this.game.infoPanel.money.innerText = `PLATITA: ${this.game.player.money}`
+        this.game.infoPanel.money.innerText = `CREDITS: ${this.game.player.money}`
         this.game.towerSelected = this
     }
 
@@ -78,7 +78,7 @@ export default class Tower{
                 this.bonusRange = _TOWERS[this.type].bonusRange * this.level
             }
 
-            this.game.infoPanel.money.innerText = `PLATITA: ${this.game.player.money}`
+            this.game.infoPanel.money.innerText = `CREDITS: ${this.game.player.money}`
 
             this.updateFinalDamageAndRange()
 
