@@ -6,19 +6,17 @@ export default class Tower{
     constructor(game,x, y, type){
         this.game = game
         this.id = this.game.IdGen.randomId()
-        this.x = (x * 50) + 25
-        this.y = (y * 50) + 25
+        this.x = (x * this.game.map.tileSize) + 25
+        this.y = (y * this.game.map.tileSize) + 25
         this.type = type
         this.nearEnemies = {}
         this.nearbyBoostTowers = {}
         this.target = null
-        this.targetInfo = null
         this.level = 1
         this.timer = 1
         this.showRadius = false
         this.sellPrice = 0
         this.turretAngle = 0
-        this.id = Math.floor(Math.random()*10000)
 
         this.damage = _TOWERS[type].damage
         this.finalDamage = this.damage
@@ -45,8 +43,8 @@ export default class Tower{
 
     create(){
         this.tile = {
-            x:(this.x -25) /50,
-            y:(this.y -25 ) /50
+            x:(this.x -25) / this.game.map.tileSize,
+            y:(this.y -25 ) / this.game.map.tileSize
         }
         this.game.graphics.changeTile(this.tile.x, this.tile.y, this.type)
         this.game.map.tiles[this.tile.x][this.tile.y].tower = true

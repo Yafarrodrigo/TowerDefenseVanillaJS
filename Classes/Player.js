@@ -33,8 +33,8 @@ export default class player{
             const type = this.game.placingTowerType
 
             if(this.game.lost === true){
-                if((500 < (x*50)+12 && (x*50)+12 < 600) && 
-                    (307 < (y*50)+12 && (y*50)+12 < 357)){
+                if((500 < (x*this.game.map.tileSize)+12 && (x*this.game.map.tileSize)+12 < 600) && 
+                    (307 < (y*this.game.map.tileSize)+12 && (y*this.game.map.tileSize)+12 < 357)){
 
                        location.reload()
                    }   
@@ -57,7 +57,7 @@ export default class player{
                 this.game.placingTowerType = null
                 if(this.game.map.checkForTower(x,y) === true && this.game.activeTowers.length !== 0){
                     this.game.activeTowers.forEach((tower)=>{
-                        if(Math.floor(tower.x/50) === x && Math.floor(tower.y/50) === y){
+                        if(Math.floor(tower.x/this.game.map.tileSize) === x && Math.floor(tower.y/this.game.map.tileSize) === y){
                             this.game.towerSelected = tower
                             this.game.infoPanel.updateInfoDisplay(tower)
                         }
@@ -88,7 +88,7 @@ export default class player{
             this.game.activeTowers.forEach((tower)=>{
                 tower.showRadius = false
                     if(this.game.map.checkForTower(x,y) === true && this.game.activeTowers.length !== 0){
-                        if(Math.floor(tower.x/50) === x && Math.floor(tower.y/50) === y){
+                        if(Math.floor(tower.x/this.game.map.tileSize) === x && Math.floor(tower.y/this.game.map.tileSize) === y){
                             tower.showRadius = true
                             this.game.infoPanel.updateInfoDisplay(tower)
                         }
@@ -119,13 +119,13 @@ export default class player{
         const widthScale = canvas.width / rect.width;
         const heightScale = canvas.height / rect.height;
 
-        let [x,y] = [Math.floor(((evt.clientX - rect.left) * widthScale)/50),
-                        Math.floor(((evt.clientY - rect.top) * heightScale)/50)]
+        let [x,y] = [Math.floor(((evt.clientX - rect.left) * widthScale)/this.game.map.tileSize),
+                        Math.floor(((evt.clientY - rect.top) * heightScale)/this.game.map.tileSize)]
 
         if(x < 0) x = 0
-        else if ( x > 15 ) x = 15
+        else if ( x > this.game.map.qtyTilesX ) x = this.game.map.qtyTilesX
         else if ( y < 0 )  y = 0
-        else if ( y > 11 ) y = 11
+        else if ( y > this.game.map.qtyTilesY ) y = this.game.map.qtyTilesY
 
         return{x,y}
     }

@@ -39,7 +39,9 @@ export default class Bullet{
 
         // check distance to other enemies
         this.game.activeEnemies.forEach((enemy)=>{
-            if(this.distance(this.target.x,enemy.x,this.target.y,enemy.y) <= 75){ // 75 = aoe
+            if(this.distance(this.target.x,enemy.x,this.target.y,enemy.y) <= 75 // 75 = aoe
+                && enemy.id !== this.target.id){ 
+
                 nearEnemies.push(enemy)
             }
         })
@@ -47,8 +49,8 @@ export default class Bullet{
         // if nearby enemies -> damage them
         if(nearEnemies.length !== 0){
             nearEnemies.forEach((enemy)=>{
-                if(enemy.health - this.tower.finalDamage >= 0){
-                    enemy.health -= (this.tower.secondaryDamage)
+                if(enemy.health - this.tower.secondaryDamage >= 0){
+                    enemy.health -= this.tower.secondaryDamage
                 }else{
                     enemy.health = 0
                 }
@@ -72,7 +74,8 @@ export default class Bullet{
                 }
 
                 if(this.target.health - this.tower.finalDamage >= 0){
-                    this.target.health -= (this.tower.finalDamage)
+                    this.target.health -= this.tower.finalDamage
+                    
                 }else{
                     this.target.health = 0
                 }

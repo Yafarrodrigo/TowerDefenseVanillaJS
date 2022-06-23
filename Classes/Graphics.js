@@ -35,25 +35,10 @@ export default class Graphics{
 
         this.game.map.tiles[x][y].type = type
         if(type === "floor"){
-            this.ctx.drawImage(this.floorTile,x*50,y*50)
+            this.ctx.drawImage(this.floorTile, x * this.game.map.tileSize, y * this.game.map.tileSize)
         }
-        else if(type === "laser"){
-            this.ctx.drawImage(this.openFloorTile,x*50,y*50)
-        }
-        else if(type === "slow"){
-            this.ctx.drawImage(this.openFloorTile,x*50,y*50)
-        }
-        else if(type === "projectiles"){
-            this.ctx.drawImage(this.openFloorTile,x*50,y*50)
-        }
-        else if(type === "aoe"){
-            this.ctx.drawImage(this.openFloorTile,x*50,y*50)
-        }
-        else if(type === "boostDamage"){
-            this.ctx.drawImage(this.boostDamageTile,x*50,y*50)
-        }
-        else if(type === "boostRange"){
-            this.ctx.drawImage(this.boostRangeTile,x*50,y*50)
+        else{
+            this.ctx.drawImage(this.openFloorTile, x * this.game.map.tileSize, y * this.game.map.tileSize)
         }
     }
 
@@ -82,31 +67,31 @@ export default class Graphics{
             if(firstPoint[0] === secondPoint[0]){
                 if(secondPoint[1] >= firstPoint[1]){
                     this.ctx.fillRect(
-                        (firstPoint[0]*50),
-                        (firstPoint[1]*50),
+                        (firstPoint[0]* this.game.map.tileSize),
+                        (firstPoint[1]* this.game.map.tileSize),
                         49,
-                        (Math.abs(firstPoint[1]-secondPoint[1]))*50)
+                        (Math.abs(firstPoint[1]-secondPoint[1]))* this.game.map.tileSize)
                 }else{
                     this.ctx.fillRect(
-                        (secondPoint[0]*50),
-                        (secondPoint[1]*50)- 50 * (secondPoint[1]-firstPoint[1]),
+                        (secondPoint[0]* this.game.map.tileSize),
+                        (secondPoint[1]* this.game.map.tileSize) - this.game.map.tileSize * (secondPoint[1]-firstPoint[1]),
                         49, 
-                        (secondPoint[1]-firstPoint[1])*50)
+                        (secondPoint[1]-firstPoint[1])* this.game.map.tileSize)
                 }
             }
             // HORIZONTAL
             else if (firstPoint[1] === secondPoint[1]){
                 if(secondPoint[0] >= firstPoint[0]){
                     this.ctx.fillRect(
-                        (firstPoint[0]*50),
-                        (firstPoint[1]*50),
-                        (Math.abs(firstPoint[0]-secondPoint[0]))*50 +49,
+                        (firstPoint[0]* this.game.map.tileSize),
+                        (firstPoint[1]* this.game.map.tileSize),
+                        (Math.abs(firstPoint[0]-secondPoint[0])) * this.game.map.tileSize +49,
                         49)
                 }else{
                     this.ctx.fillRect(
-                        (secondPoint[0]*50),
-                        (secondPoint[1]*50),
-                        Math.abs(secondPoint[0]-firstPoint[0])*50+49,
+                        (secondPoint[0]* this.game.map.tileSize),
+                        (secondPoint[1]* this.game.map.tileSize),
+                        Math.abs(secondPoint[0]-firstPoint[0]) * this.game.map.tileSize+49,
                         49)
                 }
             }
@@ -115,8 +100,8 @@ export default class Graphics{
 
         // LAST TILE
         this.ctx.fillRect(
-            this.game.map.road[this.game.map.road.length-1][0] * 50,
-            this.game.map.road[this.game.map.road.length-1][1] * 50,
+            this.game.map.road[this.game.map.road.length-1][0] *  this.game.map.tileSize,
+            this.game.map.road[this.game.map.road.length-1][1] *  this.game.map.tileSize,
             49,
             49
         )
@@ -270,8 +255,8 @@ export default class Graphics{
 
         if(this.game.placingTower === true && this.game.map.tiles[this.game.cursorAt.x][this.game.cursorAt.y].road === false){
             
-            const x = this.game.cursorAt.x*50
-            const y = this.game.cursorAt.y*50
+            const x = this.game.cursorAt.x * this.game.map.tileSize
+            const y = this.game.cursorAt.y * this.game.map.tileSize
             
             this.extraCtx.beginPath();
             this.extraCtx.lineWidth = 0.5

@@ -31,6 +31,26 @@ export default class Game{
     cursorAt = {x:0, y:0}
     lost = false
 
+    upgradeEnemyData(){
+        let oldEnemyData = this.level.enemyData
+        let newEnemyData = {...oldEnemyData}
+        let level = this.level.id +1
+
+        if(level % 3 === 0){
+            newEnemyData.speed = oldEnemyData.speed + 0.15
+
+        }
+        else if(level % 5 === 0){
+            if(this.spawnFreq - 5 >= 10){
+                this.spawnFreq -= 5
+            }
+        }
+        
+        newEnemyData.health = oldEnemyData.health + 50
+
+        return newEnemyData
+    }
+
     createEnemies(enemyData){
         const {health, speed} = enemyData
         let array = []
@@ -42,11 +62,12 @@ export default class Game{
     }
 
     nextLevel(){
-        let oldEnemyData = this.level.enemyData
-        let newLevel = new Level(this,this.level.id+1,this.level.qtyEnemies+5, {health: oldEnemyData.health + this.map.tileSize, speed: oldEnemyData.speed + 0.1})
-        if(this.spawnFreq > 10){
-            this.spawnFreq -= 2
-        }
+       
+        let newEnemyData = this.upgradeEnemyData()
+        console.log(newEnemyData);
+
+        let newLevel = new Level(this,this.level.id+1,this.level.qtyEnemies+5, newEnemyData)
+
         this.level = newLevel
         this.infoPanel.updateHeader()
         this.enemiesToSpawn = this.createEnemies(newLevel.enemyData)
