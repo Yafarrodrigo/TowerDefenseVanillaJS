@@ -4,8 +4,13 @@ import Map from "./Map.js"
 import player from "./Player.js"
 import Level from "./Level.js"
 import InfoPanel from "./InfoPanel.js"
+import IdGenerator from "../Classes/IdGen.js"
 
 export default class Game{
+    width = 800
+    heigth = 600
+    debugMode = false
+    IdGen = new IdGenerator
     graphics = new Graphics(this)
     map = new Map(this)
     player = new player(this)
@@ -30,7 +35,7 @@ export default class Game{
         const {health, speed} = enemyData
         let array = []
         for(let i = 0; i < this.level.qtyEnemies; i++){
-            let newEnemy = new Enemy(this, i, -25,this.map.road[0][1]*50 +12, health,"right",speed)
+            let newEnemy = new Enemy(this, -25,this.map.road[0][1]*this.map.tileSize +12, health,"right",speed)
             array.push(newEnemy)
         }
         return array
@@ -38,12 +43,12 @@ export default class Game{
 
     nextLevel(){
         let oldEnemyData = this.level.enemyData
-        let newLevel = new Level(this,this.level.id+1,this.level.qtyEnemies+5, {health: oldEnemyData.health + 50, speed: oldEnemyData.speed + 0.1})
+        let newLevel = new Level(this,this.level.id+1,this.level.qtyEnemies+5, {health: oldEnemyData.health + this.map.tileSize, speed: oldEnemyData.speed + 0.1})
         if(this.spawnFreq > 10){
             this.spawnFreq -= 2
         }
         this.level = newLevel
-        this.infoPanel.level.innerText = `LEVEL: ${newLevel.id}`
+        this.infoPanel.updateHeader()
         this.enemiesToSpawn = this.createEnemies(newLevel.enemyData)
         this.activeEnemies = []
     }
@@ -53,11 +58,18 @@ export default class Game{
             this.update()
         },16)
     }
+
     stopClock(){
         clearInterval(this.timer)
     }
     
     update(){
+        
+        if(this.debugMode){
+            console.log("TODO DEBUG");
+        }
+
+        // NO MORE LIVES -> LOST GAME
         if(this.player.lives === 0) {
             this.stopClock()
             this.lost = true
@@ -65,6 +77,7 @@ export default class Game{
             return
         }
 
+        // IF GAME STARTED -> START SPAWN COUNTER
         if(this.levelStarted === true){
             if(this.spawnCounter === this.spawnFreq){
                 this.spawnCounter = 1
@@ -72,6 +85,7 @@ export default class Game{
                 this.spawnCounter += 1
             }
     
+            // IF ENEMIES IN SPAWN QUEUE -> SPAWN
             if(this.enemiesToSpawn.length > 0){
                 if(this.spawnCounter % this.spawnFreq === 0){
                     
@@ -82,6 +96,8 @@ export default class Game{
             }
         }
 
+
+        // UPDATE ENEMIES
         this.activeEnemies.forEach((enemy)=>{
 
             enemy.checkIfDead()
@@ -101,6 +117,7 @@ export default class Game{
             }
         })
 
+        // UPDATE BULLETS
         this.activeBullets.forEach((bullet)=>{
             if(bullet.dead !== true){
                 bullet.update()
@@ -111,7 +128,8 @@ export default class Game{
                 })
             }
         })
-        
+
+        // UPDATE TOWERS
         if(this.activeTowers.length !== 0){
             this.activeTowers.forEach((tower)=>{
                 tower.update()
@@ -119,7 +137,6 @@ export default class Game{
         }  
 
         
-
         this.graphics.update()
     }
 }

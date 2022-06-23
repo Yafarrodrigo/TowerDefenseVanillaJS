@@ -34,14 +34,17 @@ export default class Bullet{
 
     damageNearEnemies(){
         let nearEnemies = []
+        //  no enemies -> no problem
         if(this.game.activeEnemies.length === 0) return
 
+        // check distance to other enemies
         this.game.activeEnemies.forEach((enemy)=>{
-            if(this.distance(this.target.x,enemy.x,this.target.y,enemy.y) <= 75){
+            if(this.distance(this.target.x,enemy.x,this.target.y,enemy.y) <= 75){ // 75 = aoe
                 nearEnemies.push(enemy)
             }
         })
 
+        // if nearby enemies -> damage them
         if(nearEnemies.length !== 0){
             nearEnemies.forEach((enemy)=>{
                 if(enemy.health - this.tower.finalDamage >= 0){
@@ -54,9 +57,12 @@ export default class Bullet{
     }
 
     update(){
-        if(this.game.activeEnemies.length === 0 || this.target.dead === true || this.target === null || this.target === undefined || this.x < 0 || this.x > 800 || this.y < 0 || this.y > 600){
-            this.dead = true
-            return
+        if(this.game.activeEnemies.length === 0 || this.target.dead === true || 
+            this.target === null || this.target === undefined ||
+            this.x < 0 || this.x > this.game.width || this.y < 0 || this.y > this.game.heigth){
+
+                this.dead = true
+                return
 
         }else{
 
@@ -74,6 +80,8 @@ export default class Bullet{
                 this.dead = true
                 return
             }
+
+            // MOVEMENT
 
             const {x,y} = this.calculateSpeed(this.x,this.y,this.target.x,this.target.y)
 

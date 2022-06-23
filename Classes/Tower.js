@@ -3,9 +3,9 @@ import Bullet from "./Bullet.js"
 import Status from "./Status.js"
 
 export default class Tower{
-    id = Math.floor(Math.random()*10000)
     constructor(game,x, y, type){
         this.game = game
+        this.id = this.game.IdGen.randomId()
         this.x = (x * 50) + 25
         this.y = (y * 50) + 25
         this.type = type
@@ -51,10 +51,10 @@ export default class Tower{
         this.game.graphics.changeTile(this.tile.x, this.tile.y, this.type)
         this.game.map.tiles[this.tile.x][this.tile.y].tower = true
 
-        this.game.player.money -= this.buyCost
-        this.sellPrice += Math.round(this.buyCost/2)
+        this.sellPrice = Math.round(this.buyCost/2)
 
-        this.game.infoPanel.money.innerText = `CREDITS: ${this.game.player.money}`
+        this.game.player.removeMoney(this.buyCost)
+
         this.game.towerSelected = this
     }
 
@@ -67,7 +67,6 @@ export default class Tower{
         
             this.level +=1
 
-            this.game.player.money -= _TOWERS[this.type].upgradePrice
             this.sellPrice += Math.round(_TOWERS[this.type].upgradePrice/2)
 
             this.damage = (Math.floor(_TOWERS[this.type].upgradeDamage*100) + Math.floor(this.damage*100))/100
@@ -78,7 +77,7 @@ export default class Tower{
                 this.bonusRange = _TOWERS[this.type].bonusRange * this.level
             }
 
-            this.game.infoPanel.money.innerText = `CREDITS: ${this.game.player.money}`
+            this.game.player.removeMoney(_TOWERS[this.type].upgradePrice)
 
             this.updateFinalDamageAndRange()
 

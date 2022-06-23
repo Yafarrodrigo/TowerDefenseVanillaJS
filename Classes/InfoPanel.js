@@ -103,8 +103,7 @@ export default class InfoPanel{
             this.game.map.tiles[tower.tile.x][tower.tile.y].tower = false
             this.game.graphics.changeTile(tower.tile.x, tower.tile.y, "grey")
 
-            this.game.player.money += tower.sellPrice
-            this.game.infoPanel.money.innerText = `CREDITS: ${this.game.player.money}`
+            this.game.player.addMoney(tower.sellPrice)
 
             this.game.activeTowers.forEach(t =>{
                 if(Object.keys(t.nearbyBoostTowers).length > 0){
@@ -155,6 +154,12 @@ export default class InfoPanel{
             console.log("description");
             break
         }
+    }
+
+    updateHeader(){
+        this.level.innerHTML = `Level: ${this.game.level.id}`
+        this.lives.innerHTML = `Lives: ${this.game.player.lives}`
+        this.money.innerHTML = `Credits: ${this.game.player.money}`
     }
 
     displayStat(tower, ref = false, stat, x, y){

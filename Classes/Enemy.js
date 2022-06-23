@@ -1,9 +1,9 @@
 export default class Enemy{
     id = Math.floor(Math.random()*10000)
 
-    constructor(game,id, x, y, health, direction, speed){
+    constructor(game, x, y, health, direction, speed){
         this.game = game
-        this.id = id
+        this.game.IdGen.randomId()
         this.waypoints = game.map.road
         this.x = x
         this.y = y
@@ -53,7 +53,7 @@ export default class Enemy{
 
     checkIfDead(){
         if(this.spawned === true){
-            if(this.x > 800 || this.y > 600){
+            if(this.x > this.game.width || this.y > this.game.heigth){
                 this.death(true)
             }
             else if(this.health <= 0){
@@ -65,18 +65,19 @@ export default class Enemy{
 
     death(outOfBounds){
 
+        // DIE INSIDE MAP
         if(this.dead === false && outOfBounds === false){
             this.dead = true
-            this.game.player.money += 5
-            this.game.infoPanel.money.innerText = `CREDITS: ${this.game.player.money}`
+            this.game.player.addMoney(5)
         }
+        // DIE OUTSIDE MAP
         else if (this.dead === false && outOfBounds === true){
             this.dead = true
-            this.game.player.lives -= 1
-            this.game.infoPanel.lives.innerText = `LIVES: ${this.game.player.lives}`
+            this.game.player.removeLives(1)
             return
         }
 
+        // IF ANY TOWER HAS THIS AS ENEMY, NULL THAT
         this.game.activeTowers.forEach((tower)=>{
             if(tower.target === this.id){
                 tower.target = null
@@ -133,7 +134,7 @@ export default class Enemy{
         
         // CHECK IF NEXT WAYPOINT
         if(this.direction === "right" && this.targetWaypoint !== this.waypoints.length-1 && this.stopped === false){
-            if(this.x > (pointB[0] * 50) +12){
+            if(this.x > (pointB[0] * this.game.map.tileSize) +12){
                 if((this.targetWaypoint + 1) <= this.waypoints.length-1){
                     this.targetWaypoint += 1
                     this.currentWaypoint += 1
@@ -143,7 +144,7 @@ export default class Enemy{
             }
         }
         else if(this.direction === "down" && this.targetWaypoint !== this.waypoints.length-1 && this.stopped === false){
-            if(this.y > (pointB[1] * 50) +12){
+            if(this.y > (pointB[1] * this.game.map.tileSize) +12){
                 if((this.targetWaypoint + 1) <= this.waypoints.length-1){
                     this.targetWaypoint += 1
                     this.currentWaypoint += 1
@@ -153,7 +154,7 @@ export default class Enemy{
             }
         }
         else if(this.direction === "up" && this.targetWaypoint !== this.waypoints.length-1 && this.stopped === false){
-            if(this.y < (pointB[1] * 50) +12){
+            if(this.y < (pointB[1] * this.game.map.tileSize) +12){
                 if((this.targetWaypoint + 1) <= this.waypoints.length-1){
                     this.targetWaypoint += 1
                     this.currentWaypoint += 1
@@ -163,7 +164,7 @@ export default class Enemy{
             }
         }
         else if(this.direction === "left" && this.targetWaypoint !== this.waypoints.length-1 && this.stopped === false){
-            if(this.x < (pointB[0] * 50) +12){
+            if(this.x < (pointB[0] * this.game.map.tileSize) +12){
                 if((this.targetWaypoint + 1) <= this.waypoints.length-1){
                     this.targetWaypoint += 1
                     this.currentWaypoint += 1

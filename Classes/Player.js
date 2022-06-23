@@ -9,6 +9,21 @@ export default class player{
         this.money = 100
     }
 
+    addMoney(qty){
+        this.money += qty
+        this.game.infoPanel.updateHeader()
+    }
+
+    removeMoney(qty){
+        this.money -= qty
+        this.game.infoPanel.updateHeader()
+    }
+
+    removeLives(qty){
+        this.lives -= qty
+        this.game.infoPanel.updateHeader()
+    }
+
     addListeners(){
 
         // CREAR TORRES Y SELECCIONAR TORRES
