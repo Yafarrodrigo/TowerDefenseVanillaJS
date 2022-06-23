@@ -37,6 +37,12 @@ export default class Graphics{
         if(type === "floor"){
             this.ctx.drawImage(this.floorTile, x * this.game.map.tileSize, y * this.game.map.tileSize)
         }
+        else if(type === "boostDamage"){
+            this.ctx.drawImage(this.boostDamageTile, x * this.game.map.tileSize, y * this.game.map.tileSize)
+        }
+        else if(type === "boostRange"){
+            this.ctx.drawImage(this.boostRangeTile, x * this.game.map.tileSize, y * this.game.map.tileSize)
+        }
         else{
             this.ctx.drawImage(this.openFloorTile, x * this.game.map.tileSize, y * this.game.map.tileSize)
         }
