@@ -1,32 +1,32 @@
 const _PATHS = {
 
-    helpScreen:             "../Images/help.png",
+    helpScreen:             "/TowerDefenseVanillaJS/Images/help.png",
 
     // TOWERS
 
-    floor:                  "../Images/floorTile.jpg",
-    openFloor:              "../Images/openFloorTile.jpg",
-    laserTower:             "../Images/laserTurret.png",
-    laserTowerIcon:         "../Images/laserTurretIcon.jpg",
-    slowTower:              "../Images/slowTurret.png",
-    slowTowerIcon:          "../Images/slowTurretIcon.jpg",
-    aoeTower:               "../Images/aoeTurret.png",
-    aoeTowerIcon:           "../Images/aoeTurretIcon.jpg",
-    projectilesTower:       "../Images/projectilesTurret.png",
-    projectilesTowerIcon:   "../Images/projectilesTurretIcon.jpg",
-    boostDamageTower:       "../Images/boostDamageIcon.jpg",
-    boostDamageTowerIcon:   "../Images/boostDamageIcon.jpg",
-    boostRangeTower:        "../Images/boostRangeIcon.jpg",
-    boostRangeTowerIcon:    "../Images/boostRangeIcon.jpg",
+    floor:                  "/TowerDefenseVanillaJS/Images/floorTile.jpg",
+    openFloor:              "/TowerDefenseVanillaJS/Images/openFloorTile.jpg",
+    laserTower:             "/TowerDefenseVanillaJS/Images/laserTurret.png",
+    laserTowerIcon:         "/TowerDefenseVanillaJS/Images/laserTurretIcon.jpg",
+    slowTower:              "/TowerDefenseVanillaJS/Images/slowTurret.png",
+    slowTowerIcon:          "/TowerDefenseVanillaJS/Images/slowTurretIcon.jpg",
+    aoeTower:               "/TowerDefenseVanillaJS/Images/aoeTurret.png",
+    aoeTowerIcon:           "/TowerDefenseVanillaJS/Images/aoeTurretIcon.jpg",
+    projectilesTower:       "/TowerDefenseVanillaJS/Images/projectilesTurret.png",
+    projectilesTowerIcon:   "/TowerDefenseVanillaJS/Images/projectilesTurretIcon.jpg",
+    boostDamageTower:       "/TowerDefenseVanillaJS/Images/boostDamageIcon.jpg",
+    boostDamageTowerIcon:   "/TowerDefenseVanillaJS/Images/boostDamageIcon.jpg",
+    boostRangeTower:        "/TowerDefenseVanillaJS/Images/boostRangeIcon.jpg",
+    boostRangeTowerIcon:    "/TowerDefenseVanillaJS/Images/boostRangeIcon.jpg",
 
     // PANEL
 
-    damageIcon:             "../Images/damageIcon.png",
-    extraDamageIcon:        "../Images/extraDamageIcon.png",
-    rangeIcon:              "../Images/rangeIcon.png",
-    bonusDamageIcon:        "../Images/bonusDamageIcon.png",
-    bonusRangeIcon:         "../Images/bonusRangeIcon.png",
-    speedIcon:              "../Images/speedIcon.png",
+    damageIcon:             "/TowerDefenseVanillaJS/Images/damageIcon.png",
+    extraDamageIcon:        "/TowerDefenseVanillaJS/Images/extraDamageIcon.png",
+    rangeIcon:              "/TowerDefenseVanillaJS/Images/rangeIcon.png",
+    bonusDamageIcon:        "/TowerDefenseVanillaJS/Images/bonusDamageIcon.png",
+    bonusRangeIcon:         "/TowerDefenseVanillaJS/Images/bonusRangeIcon.png",
+    speedIcon:              "/TowerDefenseVanillaJS/Images/speedIcon.png",
 
 }
 
