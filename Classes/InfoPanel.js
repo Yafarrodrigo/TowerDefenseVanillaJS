@@ -43,6 +43,26 @@ export default class InfoPanel{
 
         this.blackScreen.append(this.helpScreen)
         
+        // clicking money in debugMode increases money
+        this.money.addEventListener("click", (e)=>{
+            if(this.game.debugMode === true){
+                this.game.player.addMoney(1000)
+            }
+        })
+
+        // clicking level in debugMode winsLevel
+        this.level.addEventListener("click", (e)=>{
+            if(this.game.debugMode === true){
+                this.game.stopClock()
+                this.game.enemiesToSpawn = []
+                this.game.activeEnemies.forEach( enemy => enemy.dead = true)
+                this.game.startClock()
+                this.game.nextLevel()
+                if(this.infoPanel.autoNextLevelCheckbox.checked){
+                    this.levelStarted = true
+                }
+            }
+        })
 
         this.helpButton.addEventListener("click", (e)=>{
             e.preventDefault()

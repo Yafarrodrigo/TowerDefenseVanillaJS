@@ -5,11 +5,14 @@ import player from "./Player.js"
 import Level from "./Level.js"
 import InfoPanel from "./InfoPanel.js"
 import IdGenerator from "../Classes/IdGen.js"
+import Debug from "../Classes/Debug.js"
 
 export default class Game{
     width = 800
     heigth = 600
-    debugMode = false
+    updateInterval = 16
+    debugMode = true
+    debug = new Debug(this)
     IdGen = new IdGenerator
     graphics = new Graphics(this)
     map = new Map(this)
@@ -64,7 +67,6 @@ export default class Game{
     nextLevel(){
        
         let newEnemyData = this.upgradeEnemyData()
-        console.log(newEnemyData);
 
         let newLevel = new Level(this,this.level.id+1,this.level.qtyEnemies+5, newEnemyData)
 
@@ -77,8 +79,8 @@ export default class Game{
     startClock(){
         this.timer = setInterval(()=>{
             this.update()
-        },16)
-    }
+        }, (this.updateInterval)
+    )}
 
     stopClock(){
         clearInterval(this.timer)
@@ -86,9 +88,7 @@ export default class Game{
     
     update(){
         
-        if(this.debugMode){
-            console.log("TODO DEBUG");
-        }
+        this.debug.update()
 
         // NO MORE LIVES -> LOST GAME
         if(this.player.lives === 0) {
@@ -131,7 +131,7 @@ export default class Game{
                 if(this.level.isDone() === true && this.player.lives > 0 && this.levelStarted === true){
                     this.levelStarted = false
                     this.nextLevel()
-                    if(this.infoPanel.autoNextLevelCheckbox.checked){
+                    if(this.game.infoPanel.autoNextLevelCheckbox.checked){
                         this.levelStarted = true
                     }
                 }
