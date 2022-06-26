@@ -11,7 +11,9 @@ export default class Game{
     width = 800
     heigth = 600
     updateInterval = 16
+    oldUpdateInterval = 16
     debugMode = true
+    paused = false
     debug = new Debug(this)
     IdGen = new IdGenerator
     graphics = new Graphics(this)
@@ -40,8 +42,7 @@ export default class Game{
         let level = this.level.id +1
 
         if(level % 3 === 0){
-            newEnemyData.speed = oldEnemyData.speed + 0.15
-
+            newEnemyData.speed = parseFloat(((oldEnemyData.speed*100 + 0.15*100)/100).toFixed(2))
         }
         else if(level % 5 === 0){
             if(this.spawnFreq - 5 >= 10){
@@ -76,11 +77,18 @@ export default class Game{
         this.activeEnemies = []
     }
 
-    startClock(){
-        this.timer = setInterval(()=>{
-            this.update()
-        }, (this.updateInterval)
-    )}
+    startClock(interval){
+        if(interval){
+            this.timer = setInterval(()=>{
+                this.update()
+            }, (interval))
+        }
+        else{
+            this.timer = setInterval(()=>{
+                this.update()
+            }, this.updateInterval)
+        }
+    }
 
     stopClock(){
         clearInterval(this.timer)
@@ -131,7 +139,7 @@ export default class Game{
                 if(this.level.isDone() === true && this.player.lives > 0 && this.levelStarted === true){
                     this.levelStarted = false
                     this.nextLevel()
-                    if(this.game.infoPanel.autoNextLevelCheckbox.checked){
+                    if(this.infoPanel.autoNextLevelCheckbox.checked){
                         this.levelStarted = true
                     }
                 }
@@ -153,7 +161,9 @@ export default class Game{
         // UPDATE TOWERS
         if(this.activeTowers.length !== 0){
             this.activeTowers.forEach((tower)=>{
-                tower.update()
+                if(!tower.boosts){
+                    tower.update()
+                }
              })
         }  
 

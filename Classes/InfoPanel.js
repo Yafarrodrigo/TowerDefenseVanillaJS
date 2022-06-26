@@ -50,6 +50,13 @@ export default class InfoPanel{
             }
         })
 
+        // clicking lives in debugMode increases money
+        this.lives.addEventListener("click", (e)=>{
+            if(this.game.debugMode === true){
+                this.game.player.addLives(10)
+            }
+        })
+
         // clicking level in debugMode winsLevel
         this.level.addEventListener("click", (e)=>{
             if(this.game.debugMode === true){
@@ -58,7 +65,7 @@ export default class InfoPanel{
                 this.game.activeEnemies.forEach( enemy => enemy.dead = true)
                 this.game.startClock()
                 this.game.nextLevel()
-                if(this.infoPanel.autoNextLevelCheckbox.checked){
+                if(this.game.infoPanel.autoNextLevelCheckbox.checked){
                     this.levelStarted = true
                 }
             }
@@ -339,7 +346,7 @@ export default class InfoPanel{
                 this.game.placingTower = false
                 this.game.placingTowerType = false
                 this.game.towerSelected = null
-                this.buyTower(tower)
+                this.buyTower(_TOWERS[tower].type)
             })
 
             button.addEventListener("mouseenter", (e)=>{

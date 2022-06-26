@@ -63,8 +63,21 @@ export default class Bullet{
             this.target === null || this.target === undefined ||
             this.x < 0 || this.x > this.game.width || this.y < 0 || this.y > this.game.heigth){
 
-                this.dead = true
-                return
+                if(this.tower.type !== "projectiles"){
+                    this.dead = true
+                    return
+                }
+                else{
+                    if(this.game.activeEnemies.length > 0){
+                        this.target = this.tower.target
+                    }
+                    else{
+                        this.dead = true
+                        return
+                    }
+                }
+
+                
 
         }else{
 

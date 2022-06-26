@@ -14,13 +14,13 @@ const _TOWERS = {
         damage: 1,
         secondaryDamage: 0,
         upgradeSecondaryDamage: 0,
-        upgradeDamage: 0.5,
-        upgradeRange: 10,
+        upgradeDamage: 0.50,
+        upgradeRange: 5,
         upgradeSlow: 0,
         bonusDamage: 0,
         bonusSecondaryDamage: 0,
         bonusRange: 0,
-        range: 100
+        range: 80
     },
 
     slow:{
@@ -33,14 +33,37 @@ const _TOWERS = {
         speed: "very fast",
         description: "slows enemies",
         upgradeDescription: "increases slow",
-        slow: 0.3,
-        damage: 0.25,
+        slow: 0.1,
+        damage: 0.5,
         secondaryDamage: 0,
         upgradeSecondaryDamage: 0,
         upgradeDamage: 0.10,
         upgradeRange: 5,
         upgradeSlow: 0.05,
         bonusDamage: 0.05,
+        bonusSecondaryDamage: 0,
+        bonusRange: 0,
+        range: 75
+    },
+
+    stop:{
+        type: "stop",
+        buyCost: 100,
+        sellPrice : 50,
+        upgradePrice: 50,
+        projectiles: false,
+        boosts: false,
+        speed: "very slow",
+        description: "stops an enemy",
+        upgradeDescription: "increases range",
+        slow: 1,
+        damage: 0,
+        secondaryDamage: 0,
+        upgradeSecondaryDamage: 0,
+        upgradeDamage: 0,
+        upgradeRange: 5,
+        upgradeSlow: 0.,
+        bonusDamage: 0,
         bonusSecondaryDamage: 0,
         bonusRange: 0,
         range: 75
@@ -69,14 +92,37 @@ const _TOWERS = {
         range: 100
     },
 
-    projectiles:{
-        type: "projectiles",
+    chainLaser:{
+        type: "chainLaser",
+        buyCost: 75,
+        sellPrice : 37,
+        upgradePrice: 50,
+        projectiles: false,
+        boosts: false,
+        speed: "very fast",
+        description: "shoots chaining lasers",
+        upgradeDescription: null,
+        slow: 0,
+        damage: 1,
+        secondaryDamage: 0.5,
+        upgradeSecondaryDamage: 0,
+        upgradeDamage: 0.25,
+        upgradeRange: 5,
+        upgradeSlow: 0,
+        bonusDamage: 0,
+        bonusSecondaryDamage: 0,
+        bonusRange: 0,
+        range: 120
+    },
+
+    sniper:{
+        type: "sniper",
         buyCost: 75,
         sellPrice : 36,
         upgradePrice: 50,
         projectiles: true,
         boosts: false,
-        speed: "average",
+        speed: "slow",
         description: "shoots projectiles",
         upgradeDescription: null,
         slow: 0,
@@ -84,7 +130,7 @@ const _TOWERS = {
         secondaryDamage: 0,
         upgradeDamage: 20,
         upgradeSecondaryDamage: 0,
-        upgradeRange: 15,
+        upgradeRange: 10,
         upgradeSlow: 0,
         bonusDamage: 0,
         bonusSecondaryDamage: 0,
@@ -101,18 +147,18 @@ const _TOWERS = {
         boosts: true,
         speed: "none",
         description: "boosts towers damage",
-        upgradeDescription: "boosts range and others damage",
+        upgradeDescription: "increases own range",
         slow: 0,
         damage: 0,
         secondaryDamage: 0,
         upgradeSecondaryDamage: 0,
         upgradeDamage: 0,
-        upgradeRange: 10,
+        upgradeRange: 5,
         upgradeSlow: 0,
         bonusDamage: 0.25,
         bonusSecondaryDamage: 0.25,
         bonusRange: 0,
-        range: 100
+        range: 90
     },
 
     boostRange:{
@@ -124,18 +170,18 @@ const _TOWERS = {
         boosts: true,
         speed: "none",
         description: "boosts towers range",
-        upgradeDescription: "boosts own and others range",
+        upgradeDescription: "increases range boost",
         slow: 0,
         damage: 0,
         secondaryDamage: 0,
         upgradeSecondaryDamage: 0,
         upgradeDamage: 0,
-        upgradeRange: 5,
+        upgradeRange: 0,
         upgradeSlow: 0,
         bonusDamage: 0,
         bonusSecondaryDamage: 0,
         bonusRange: 5,
-        range: 75
+        range: 90
     }
 
 }

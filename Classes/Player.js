@@ -1,5 +1,12 @@
 import _TOWERS from "../towersConfig.js"
-import Tower from "./Tower.js"
+import LaserTower from "./LaserTower.js"
+import SlowTower from "./SlowTower.js"
+import StopTower from "./StopTower.js"
+import AoeTower from "./AoeTower.js"
+import SniperTower from "./SniperTower.js"
+import ChainLaserTower from "./ChainLaserTower.js"
+import BoostDamageTower from "./BoostDamageTower.js"
+import BoostRangeTower from "./BoostRangeTower.js"
 
 export default class player{
 
@@ -19,6 +26,11 @@ export default class player{
         this.game.infoPanel.updateHeader()
     }
 
+    addLives(qty){
+        this.lives += qty
+        this.game.infoPanel.updateHeader()
+    }
+
     removeLives(qty){
         this.lives -= qty
         this.game.infoPanel.updateHeader()
@@ -29,9 +41,11 @@ export default class player{
         // CREAR TORRES Y SELECCIONAR TORRES
         this.game.graphics.canvas.addEventListener("click", (e)=>{
 
-            const {x,y} = this.game.player.getMousePos(e)
+            //const {x,y} = this.game.player.getMousePos(e)
+            const {x,y} = this.game.cursorAt
             const type = this.game.placingTowerType
 
+            // LOST GAME -> PLAY AGAIN
             if(this.game.lost === true){
                 if((500 < (x*this.game.map.tileSize)+12 && (x*this.game.map.tileSize)+12 < 600) && 
                     (307 < (y*this.game.map.tileSize)+12 && (y*this.game.map.tileSize)+12 < 357)){
@@ -44,8 +58,18 @@ export default class player{
             if(this.game.map.checkForRoad(x, y) === false &&
                 this.game.map.checkForTower(x,y) === false &&
                 this.game.placingTower === true) {
-
-                let newTower = new Tower(this.game, x, y , type)
+                let newTower
+                switch(type){
+                    case "laser": newTower = new LaserTower(this.game, x, y); break;
+                    case "slow": newTower = new SlowTower(this.game, x, y); break;
+                    case "stop": newTower = new StopTower(this.game, x, y); break;
+                    case "aoe": newTower = new AoeTower(this.game, x, y); break;
+                    case "chainLaser": newTower = new ChainLaserTower(this.game, x, y); break;
+                    case "sniper": newTower = new SniperTower(this.game, x, y); break;
+                    case "boostDamage": newTower = new BoostDamageTower(this.game, x, y); break;
+                    case "boostRange": newTower = new BoostRangeTower(this.game, x, y); break;
+                    default: newTower = new LaserTower(this.game, x, y); break
+                }
                 this.game.activeTowers.push(newTower)
                 newTower.create()
                 this.game.placingTower = false

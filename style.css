@@ -44,10 +44,10 @@ body{
     background-color: #555;
     width: 200px;
     height: 40px;
-    padding: 0 15px;
+    padding: 0;
     border-radius: 5px;
     top: 5px;
-    right: 125px;
+    right: 160px;
 }
 
 #debug-speed-minus {
@@ -58,6 +58,16 @@ body{
     width: 50px;
     height: 100%;
     font-size: 2rem;
+}
+
+#debug-play-pause{
+    border-radius: 5px;
+    outline: none;
+    border: 1 solid #333;
+    line-height: 15px;
+    width: 100px;
+    height: 100%;
+    font-size: 1.25rem;
 }
 
 #debug-speed-plus{
@@ -79,11 +89,15 @@ body{
 }
 
 #gameSpeed{
-    min-width: 50px;
-    line-height: 20px;
-    text-align: center;
-    padding-left: 15px;
-    font-size: 1rem;
+    border-radius: 5px;
+    outline: none;
+    border: 1 solid #333;
+    background-color: #999;
+    width: 100px;
+    height: 32px;
+    padding: 4px 5px 0 5px;
+    margin: 2px 0 0 0;
+    font-size: 1.25rem;
 }
 
 #debugMenu > button:hover{
@@ -194,6 +208,7 @@ body{
     margin-right: 0px;
     margin-top: 20px;
     transform: scale(1.75);
+    
 }
 
 #startButton{

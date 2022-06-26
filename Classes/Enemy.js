@@ -1,9 +1,8 @@
 export default class Enemy{
-    id = Math.floor(Math.random()*10000)
 
     constructor(game, x, y, health, direction, speed){
         this.game = game
-        this.game.IdGen.randomId()
+        this.id = this.game.IdGen.randomId()
         this.waypoints = game.map.road
         this.x = x
         this.y = y
@@ -119,8 +118,13 @@ export default class Enemy{
         }
         this.statuses.forEach((status)=>{
 
-            if(status.type === "slow"){
-                this.currentSpeed = this.maxSpeed - status.qtySlow
+            if(status.type === "stop"){
+                this.currentSpeed = 0  
+            }
+            else if(status.type === "slow"){
+                this.currentSpeed = parseFloat(((this.maxSpeed*100 - status.qtySlow*100)/100).toFixed(2))  
+            }else{
+                this.currentSpeed = this.maxSpeed
             }
         })
         

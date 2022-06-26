@@ -5,14 +5,14 @@ export default class Map{
     tileSize = 50
 
     tiles = []
-    road = [[0,5],[5,5],[5,1],[10,1],[10,8],[5,8],[5,11]]
+    road = [[0,2],[12,2],[12,10],[5,10],[5,6],[15,6]]
 
     constructor(game){
         this.game = game
     }
 
     checkForRoad(x,y){
-        if(x > 0 && x < this.qtyTilesX && y > 0 && y < this.qtyTilesY){
+        if(x >= 0 && x <= this.qtyTilesX && y >= 0 && y <= this.qtyTilesY){
             if(this.tiles[x][y].road === true){
                 return true
             }else{
@@ -22,7 +22,7 @@ export default class Map{
     }
 
     checkForTower(x,y){
-        if(x > 0 && x < this.qtyTilesX && y > 0 && y < this.qtyTilesY){
+        if(x >= 0 && x <= this.qtyTilesX && y >= 0 && y <= this.qtyTilesY){
             if(this.tiles[x][y].tower === true){
                 return true
             }else{
@@ -102,6 +102,11 @@ export default class Map{
         }
     }
 }
+// EASY
+// [0,2],[12,2],[12,10],[5,10],[5,6],[15,6]
 
+// NO ME ACUERDO
 // [[0,1],[3,1],[3,8],[10,8],[10,3],[14,3],[14,9],[15,9]]
+
+// NO ME ACUERDO
 // [[0,5],[5,5],[5,1],[10,1],[10,8],[5,8],[5,11]]

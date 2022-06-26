@@ -11,9 +11,11 @@ export default class Graphics{
     floorTile = new Image()
     openFloorTile = new Image()
     laserTurretTile = new Image()
+    chainLaserTurretTile = new Image()
     slowTurretTile = new Image()
+    stopTurretTile = new Image()
     aoeTurretTile = new Image()
-    projectilesTurretTile = new Image()
+    sniperTurretTile = new Image()
     boostDamageTile = new Image()
     boostRangeTile = new Image()
     
@@ -23,9 +25,11 @@ export default class Graphics{
         this.floorTile.src = _PATHS.floor
         this.openFloorTile.src = _PATHS.openFloor
         this.laserTurretTile.src = _PATHS.laserTower
+        this.chainLaserTurretTile.src = _PATHS.chainLaserTower
         this.slowTurretTile.src = _PATHS.slowTower
+        this.stopTurretTile.src = _PATHS.stopTower
         this.aoeTurretTile.src = _PATHS.aoeTower
-        this.projectilesTurretTile.src = _PATHS.projectilesTower
+        this.sniperTurretTile.src = _PATHS.sniperTower
         this.boostDamageTile.src = _PATHS.boostDamageTower
         this.boostRangeTile.src = _PATHS.boostRangeTower
         
@@ -210,29 +214,53 @@ export default class Graphics{
                 
 
                 // attacks
-                if(tower.target !== null && tower.target !== undefined && tower.projectiles === false && tower.type !== "slow" && tower.type !== "boostDamage"){
+                if(tower.target !== null && tower.target !== undefined && tower.projectiles === false && 
+                    tower.type !== "slow" && tower.type !== "boostDamage"){
+
                     this.extraCtx.beginPath();
-                    this.extraCtx.lineWidth = 1
+                    if(tower.type === "stop"){
+                        this.extraCtx.strokeStyle = "lightblue"
+                        this.extraCtx.lineWidth = 3
+                    }
+                    else{
+                        this.extraCtx.strokeStyle = "gold"
+                        this.extraCtx.lineWidth = 1
+                    }    
                     this.extraCtx.setLineDash([]);
-                    this.extraCtx.strokeStyle = "gold"
                     this.extraCtx.beginPath();
                     this.extraCtx.moveTo(tower.x, tower.y);
                     this.extraCtx.lineTo(tower.target.x+12, tower.target.y+12);
                     this.extraCtx.stroke();
                 }
+                if(tower.type === "chainLaser" && this.game.activeEnemies.length >= 3){
+                    this.extraCtx.beginPath();
+                    this.extraCtx.lineWidth = 1
+                    this.extraCtx.setLineDash([]);
+                    this.extraCtx.strokeStyle = "gold"
+                    this.extraCtx.beginPath();
+                    if(tower.nearEnemies.length >= 2){
+                        this.extraCtx.moveTo(tower.target.x+12, tower.target.y+12);
+                        this.extraCtx.lineTo(tower.nearEnemies[1].x+12, tower.nearEnemies[1].y+12);
+                    }
+                    if(tower.nearEnemies.length >= 3){
+                        this.extraCtx.moveTo(tower.nearEnemies[1].x+12, tower.nearEnemies[1].y+12);
+                        this.extraCtx.lineTo(tower.nearEnemies[2].x+12, tower.nearEnemies[2].y+12);
+                    }
+                    this.extraCtx.stroke();
+                }
 
-                if(Object.keys(tower.nearEnemies).length >= 1 && tower.type === "slow"){
-                    for(let elem in tower.nearEnemies){
-                        let possible = tower.nearEnemies[elem].enemy
+                if(tower.nearEnemies.length >= 1 && tower.type === "slow"){
+
+                    tower.nearEnemies.forEach((enemy)=>{
                         this.extraCtx.beginPath();
                         this.extraCtx.lineWidth = 1
                         this.extraCtx.setLineDash([]);
                         this.extraCtx.strokeStyle = "lightblue"
                         this.extraCtx.beginPath();
                         this.extraCtx.moveTo(tower.x, tower.y);
-                        this.extraCtx.lineTo(possible.x+12, possible.y+12);
+                        this.extraCtx.lineTo(enemy.x+12, enemy.y+12);
                         this.extraCtx.stroke();
-                    }
+                    })
                 }
 
                 // turrets
@@ -242,16 +270,18 @@ export default class Graphics{
                 this.extraCtx.translate(-tower.x, -tower.y); 
                 switch(tower.type){
                     case "slow":
+                    case "stop":
                         this.extraCtx.drawImage(this.slowTurretTile, tower.x-25, tower.y-25)
                         break
                     case "laser":
+                    case "chainLaser":
                         this.extraCtx.drawImage(this.laserTurretTile, tower.x-25, tower.y-25)
                         break
                     case "aoe":
                         this.extraCtx.drawImage(this.aoeTurretTile, tower.x-25, tower.y-25)
                         break
-                    case "projectiles":
-                        this.extraCtx.drawImage(this.projectilesTurretTile, tower.x-25, tower.y-25)
+                    case "sniper":
+                        this.extraCtx.drawImage(this.sniperTurretTile, tower.x-25, tower.y-25)
                         break
                 }
                 this.extraCtx.restore();
@@ -278,16 +308,18 @@ export default class Graphics{
 
             switch(this.game.placingTowerType){
                 case "slow":
+                case "stop":
                     this.ctx.drawImage(this.slowTurretTile, x, y)
                     break
                 case "laser":
+                case "chainLaser":
                     this.ctx.drawImage(this.laserTurretTile, x, y)
                     break
                 case "aoe":
                     this.ctx.drawImage(this.aoeTurretTile, x, y)
                     break
-                case "projectiles":
-                    this.ctx.drawImage(this.projectilesTurretTile, x, y)
+                case "sniper":
+                    this.ctx.drawImage(this.sniperTurretTile, x, y)
                     break
                 
                 case "boostDamage":
