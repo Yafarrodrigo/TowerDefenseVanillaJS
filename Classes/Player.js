@@ -134,6 +134,7 @@ export default class player{
                 }else{
                     this.game.debugMode = true
                 }
+                this.game.debug.update()
             }
         })
 

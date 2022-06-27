@@ -14,15 +14,20 @@
 <body>
     
     <div id="container">
-        <h1 id="cache-warning">* ctrl + F5 to clear cache *</h1>
+        <h1 id="cache-warning">*   if problems -> ctrl + F5 to clear cache *</h1>
+        <h1 id="devModeAlert" hidden class="pulses"> * Dev Mode *</h1>
         <div id="fadeToBlack"></div>
         <div id="header">
-            <div id="h1Group">
+            <div id="levelInfo">
                 <h1 id="level">Level: 1</h1>
+                <h3 id="enemyHealth">Health:</h3><span id="enemyHealthSpan">100 hp</span>
+                <h3 id="enemyReward">Reward:</h3><span id="enemyRewardSpan">5 credits</span>
+            </div>
+            <div id="h1Group">
                 <h1 id="lives">Lives: 10</h1>
                 <h1 id="money">Credits: 100</h1>
             </div>
-            <div id="debugSpeedMenu">
+            <div id="debugSpeedMenu" hidden >
                 <button id="debug-play-pause"> Pause </button>
                 <button id="debug-speed-minus">-</button>
                 <button id="debug-speed-plus">+</button>

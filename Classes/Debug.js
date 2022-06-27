@@ -2,6 +2,8 @@ export default class Debug{
     constructor(game){
         this.game = game
 
+        this.devModeAlert = document.getElementById("devModeAlert")
+
         this.speedMinusButton = document.getElementById("debug-speed-minus")
         this.speedPlusButton = document.getElementById("debug-speed-plus")
         this.speedResetButton = document.getElementById("debug-speed-reset")
@@ -14,6 +16,10 @@ export default class Debug{
         this.speedMinusButton.addEventListener("click", (e)=> this.decreaseGameSpeed(e))
         this.speedPlusButton.addEventListener("click", (e)=> this.increaseGameSpeed(e))
         this.speedResetButton.addEventListener("click", (e)=> this.resetGameSpeed(e))
+
+        this.gameSpeedPanel.hidden = true
+        this.gameSpeedPanel.style.visibility = "hidden"
+        this.devModeAlert.hidden = true
         
     }
 
@@ -64,13 +70,15 @@ export default class Debug{
         if(this.game.debugMode === true){
             if(this.gameSpeedPanel.hidden === true){
                 this.gameSpeedPanel.hidden = false
-                this.gameSpeedPanel.style.display = "flex"
+                this.gameSpeedPanel.style.visibility = "visible"
+                this.devModeAlert.hidden = false
             }
         }
         else{
             if(this.gameSpeedPanel.hidden === false){
                 this.gameSpeedPanel.hidden = true
-                this.gameSpeedPanel.style.display = "none"
+                this.gameSpeedPanel.style.visibility = "hidden"
+                this.devModeAlert.hidden = true
             }
         }
     }

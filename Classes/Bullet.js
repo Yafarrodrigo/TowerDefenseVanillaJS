@@ -39,10 +39,10 @@ export default class Bullet{
 
         // check distance to other enemies
         this.game.activeEnemies.forEach((enemy)=>{
-            if(this.distance(this.target.x,enemy.x,this.target.y,enemy.y) <= 75 // 75 = aoe
+            if(this.distance(this.target.x,enemy.x,this.target.y,enemy.y) <= this.tower.aoeRadius
                 && enemy.id !== this.target.id){ 
-
-                nearEnemies.push(enemy)
+                
+                    nearEnemies.push(enemy)
             }
         })
 

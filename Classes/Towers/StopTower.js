@@ -10,6 +10,7 @@ export default class StopTower extends Tower {
         this.y = (y * this.game.map.tileSize) + 25
         this.type = "stop"
         this.stoppingEnemy = false
+        this.stopDuration = 100
 
         this.maxLevel = _TOWERS[this.type].maxLevel
         this.damage = _TOWERS[this.type].damage
@@ -37,8 +38,11 @@ export default class StopTower extends Tower {
         }
         else {
             this.level += 1
+            if(this.level == this.maxLevel){
+                this.speed = "slow"
+            }
             this.sellPrice += Math.round(_TOWERS[this.type].upgradePrice/2)
-
+            this.stopDuration += 20
             this.game.player.removeMoney(_TOWERS[this.type].upgradePrice)
             this.game.infoPanel.updateInfoDisplay(this,true,false)
         }  
@@ -60,7 +64,7 @@ export default class StopTower extends Tower {
                 this.target && this.target.applyStatus(newStatus)
                 this.stoppingEnemy = true
             }
-            else if(this.timer === 100){
+            else if(this.timer === this.stopDuration){
 
                 this.target && this.target.removeStatus("stop")
                 this.target = null

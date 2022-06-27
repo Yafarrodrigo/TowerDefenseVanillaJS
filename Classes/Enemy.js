@@ -1,6 +1,6 @@
 export default class Enemy{
 
-    constructor(game, x, y, health, direction, speed){
+    constructor(game, x, y, health, direction, speed, reward){
         this.game = game
         this.id = this.game.IdGen.randomId()
         this.waypoints = game.map.road
@@ -17,6 +17,7 @@ export default class Enemy{
         this.dead = false
         this.spawned = false
         this.stopped = false
+        this.reward = reward
     }   
 
     changeDirection(pointA, pointB){
@@ -67,7 +68,7 @@ export default class Enemy{
         // DIE INSIDE MAP
         if(this.dead === false && outOfBounds === false){
             this.dead = true
-            this.game.player.addMoney(5)
+            this.game.player.addMoney(this.reward)
         }
         // DIE OUTSIDE MAP
         else if (this.dead === false && outOfBounds === true){

@@ -6,6 +6,8 @@ export default class InfoPanel{
     cacheWarning = document.getElementById("cache-warning")
 
     level = document.getElementById("level")
+    enemyHealth = document.getElementById("enemyHealthSpan")
+    enemyReward = document.getElementById("enemyRewardSpan")
     lives = document.getElementById("lives")
     money = document.getElementById("money")
 
@@ -186,8 +188,8 @@ export default class InfoPanel{
         }
     }
 
-    updateHeader(){
-        this.level.innerHTML = `Level: ${this.game.level.id}`
+    updateHeader(newLevelData){
+        if(newLevelData) this.updateLevelInfo(newLevelData)
         this.lives.innerHTML = `Lives: ${this.game.player.lives}`
         this.money.innerHTML = `Credits: ${this.game.player.money}`
     }
@@ -260,6 +262,12 @@ export default class InfoPanel{
                 this.infoCtx.fillText(tower.upgradeDescription, x, y)
                 break
         }
+    }
+
+    updateLevelInfo(newLevelData){
+        this.level.innerHTML = `Level: ${newLevelData.id}`
+        this.enemyHealth.innerHTML = `${newLevelData.enemyData.health} hp`
+        this.enemyReward.innerHTML = `${newLevelData.enemyData.reward} credits`
     }
 
     updateInfoDisplay(tower, upgrade = false, buying = false){

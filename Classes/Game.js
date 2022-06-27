@@ -12,7 +12,7 @@ export default class Game{
     heigth = 600
     updateInterval = 16
     oldUpdateInterval = 16
-    debugMode = true
+    debugMode = false
     paused = false
     debug = new Debug(this)
     IdGen = new IdGenerator
@@ -22,7 +22,7 @@ export default class Game{
     infoPanel = new InfoPanel(this)
     activeTowers = []
     activeBullets= []
-    allLevels = [new Level(this,1,5, {health: 100, speed: 1})]
+    allLevels = [new Level(this,1,5,{health: 100, speed: 1, reward: 5})]
     level = this.allLevels[0]
     enemiesToSpawn = this.createEnemies(this.level.enemyData)
     activeEnemies = []
@@ -44,22 +44,25 @@ export default class Game{
         if(level % 3 === 0){
             newEnemyData.speed = parseFloat(((oldEnemyData.speed*100 + 0.15*100)/100).toFixed(2))
         }
-        else if(level % 5 === 0){
+        if(level % 5 === 0){
             if(this.spawnFreq - 5 >= 10){
                 this.spawnFreq -= 5
             }
+            if((oldEnemyData.reward - 1) >= 1){
+                newEnemyData.reward -= 1
+            }
         }
         
-        newEnemyData.health = oldEnemyData.health + 50
+        newEnemyData.health += 75
 
         return newEnemyData
     }
 
     createEnemies(enemyData){
-        const {health, speed} = enemyData
+        const {health, speed, reward} = enemyData
         let array = []
         for(let i = 0; i < this.level.qtyEnemies; i++){
-            let newEnemy = new Enemy(this, -25,this.map.road[0][1]*this.map.tileSize +12, health,"right",speed)
+            let newEnemy = new Enemy(this, -25,this.map.road[0][1]*this.map.tileSize +12, health,"right",speed, reward)
             array.push(newEnemy)
         }
         return array
@@ -72,7 +75,7 @@ export default class Game{
         let newLevel = new Level(this,this.level.id+1,this.level.qtyEnemies+5, newEnemyData)
 
         this.level = newLevel
-        this.infoPanel.updateHeader()
+        this.infoPanel.updateHeader(newLevel)
         this.enemiesToSpawn = this.createEnemies(newLevel.enemyData)
         this.activeEnemies = []
     }
@@ -95,8 +98,6 @@ export default class Game{
     }
     
     update(){
-        
-        this.debug.update()
 
         // NO MORE LIVES -> LOST GAME
         if(this.player.lives === 0) {

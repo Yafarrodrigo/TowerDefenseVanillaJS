@@ -9,12 +9,13 @@ export default class AoeTower extends Tower {
         this.x = (x * this.game.map.tileSize) + 25
         this.y = (y * this.game.map.tileSize) + 25
         this.type = "aoe"
-
+        
         this.maxLevel = _TOWERS[this.type].maxLevel
         this.damage = _TOWERS[this.type].damage
         this.finalDamage = this.damage
         this.secondaryDamage = _TOWERS[this.type].secondaryDamage
         this.finalSecondaryDamage = this.secondaryDamage
+        this.aoeRadius = _TOWERS[this.type].aoeRadius
         this.range = _TOWERS[this.type].range
         this.finalRange = this.range
         this.description = _TOWERS[this.type].description
@@ -50,6 +51,7 @@ export default class AoeTower extends Tower {
             this.damage = (Math.floor(_TOWERS[this.type].upgradeDamage*100) + Math.floor(this.damage*100))/100
             this.secondaryDamage = (Math.floor(_TOWERS[this.type].secondaryDamage*100) + Math.floor(this.secondaryDamage*100))/100
             this.range += _TOWERS[this.type].upgradeRange
+            this.aoeRadius += 3
 
             this.game.player.removeMoney(_TOWERS[this.type].upgradePrice)
             this.updateFinalDamageAndRange()
