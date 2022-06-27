@@ -2,6 +2,7 @@ const _TOWERS = {
 
     laser:{
         type: "laser",
+        maxLevel: 10,
         buyCost: 25,
         sellPrice : 12,
         upgradePrice: 25,
@@ -25,9 +26,10 @@ const _TOWERS = {
 
     slow:{
         type: "slow",
+        maxLevel: 5,
         buyCost: 50,
         sellPrice : 25,
-        upgradePrice: 50,
+        upgradePrice: 100,
         projectiles: false,
         boosts: false,
         speed: "very fast",
@@ -37,10 +39,10 @@ const _TOWERS = {
         damage: 0.5,
         secondaryDamage: 0,
         upgradeSecondaryDamage: 0,
-        upgradeDamage: 0.10,
+        upgradeDamage: 0.15,
         upgradeRange: 5,
-        upgradeSlow: 0.05,
-        bonusDamage: 0.05,
+        upgradeSlow: 0.1,
+        bonusDamage: 0,
         bonusSecondaryDamage: 0,
         bonusRange: 0,
         range: 75
@@ -48,6 +50,7 @@ const _TOWERS = {
 
     stop:{
         type: "stop",
+        maxLevel: 3,
         buyCost: 100,
         sellPrice : 50,
         upgradePrice: 50,
@@ -71,6 +74,7 @@ const _TOWERS = {
 
     aoe:{
         type: "aoe",
+        maxLevel: 10,
         buyCost: 50,
         sellPrice : 25,
         upgradePrice: 50,
@@ -94,6 +98,7 @@ const _TOWERS = {
 
     chainLaser:{
         type: "chainLaser",
+        maxLevel: 10,
         buyCost: 75,
         sellPrice : 37,
         upgradePrice: 50,
@@ -103,10 +108,10 @@ const _TOWERS = {
         description: "shoots chaining lasers",
         upgradeDescription: null,
         slow: 0,
-        damage: 1,
-        secondaryDamage: 0.5,
-        upgradeSecondaryDamage: 0,
-        upgradeDamage: 0.25,
+        damage: 2.5,
+        secondaryDamage: 1.5,
+        upgradeDamage: 0.5,
+        upgradeSecondaryDamage: 0.5,
         upgradeRange: 5,
         upgradeSlow: 0,
         bonusDamage: 0,
@@ -117,6 +122,7 @@ const _TOWERS = {
 
     sniper:{
         type: "sniper",
+        maxLevel: 10,
         buyCost: 75,
         sellPrice : 36,
         upgradePrice: 50,
@@ -140,6 +146,7 @@ const _TOWERS = {
 
     boostDamage:{
         type: "boostDamage",
+        maxLevel: 10,
         buyCost: 100,
         sellPrice : 50,
         upgradePrice: 50,
@@ -163,6 +170,7 @@ const _TOWERS = {
 
     boostRange:{
         type: "boostRange",
+        maxLevel: 10,
         buyCost: 100,
         sellPrice : 50,
         upgradePrice: 50,

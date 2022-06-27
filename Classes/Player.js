@@ -1,12 +1,12 @@
 import _TOWERS from "../towersConfig.js"
-import LaserTower from "./LaserTower.js"
-import SlowTower from "./SlowTower.js"
-import StopTower from "./StopTower.js"
-import AoeTower from "./AoeTower.js"
-import SniperTower from "./SniperTower.js"
-import ChainLaserTower from "./ChainLaserTower.js"
-import BoostDamageTower from "./BoostDamageTower.js"
-import BoostRangeTower from "./BoostRangeTower.js"
+import LaserTower from "./Towers/LaserTower.js"
+import SlowTower from "./Towers/SlowTower.js"
+import StopTower from "./Towers/StopTower.js"
+import AoeTower from "./Towers/AoeTower.js"
+import SniperTower from "./Towers/SniperTower.js"
+import ChainLaserTower from "./Towers/ChainLaserTower.js"
+import BoostDamageTower from "./Towers/BoostDamageTower.js"
+import BoostRangeTower from "./Towers/BoostRangeTower.js"
 
 export default class player{
 

@@ -1,6 +1,6 @@
 import Tower from "./Tower.js";
-import _TOWERS from "../towersConfig.js";
-import Status from "./Status.js";
+import _TOWERS from "../../towersConfig.js";
+import Status from "../Status.js";
 
 export default class StopTower extends Tower {
     constructor(game,x, y){
@@ -11,6 +11,7 @@ export default class StopTower extends Tower {
         this.type = "stop"
         this.stoppingEnemy = false
 
+        this.maxLevel = _TOWERS[this.type].maxLevel
         this.damage = _TOWERS[this.type].damage
         this.finalDamage = this.damage
         this.secondaryDamage = _TOWERS[this.type].secondaryDamage
@@ -30,7 +31,7 @@ export default class StopTower extends Tower {
     }
 
     upgrade(){
-        if(this.level >= 10){
+        if(this.level >= this.maxLevel){
             this.game.graphics.updateButtons()
             return
         }

@@ -1,4 +1,4 @@
-import _TOWERS from "../towersConfig.js"
+import _TOWERS from "../../towersConfig.js"
 
 export default class Tower{
     constructor(game,x, y){

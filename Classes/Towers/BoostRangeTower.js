@@ -1,14 +1,15 @@
 import Tower from "./Tower.js";
-import _TOWERS from "../towersConfig.js";
+import _TOWERS from "../../towersConfig.js";
 
-export default class BoostDamageTower extends Tower {
+export default class BoostRangeTower extends Tower {
     constructor(game,x, y){
         super(game,x, y)
         this.game = game,
         this.x = (x * this.game.map.tileSize) + 25
         this.y = (y * this.game.map.tileSize) + 25
-        this.type = "boostDamage"
+        this.type = "boostRange"
 
+        this.maxLevel = _TOWERS[this.type].maxLevel
         this.range = _TOWERS[this.type].range
         this.finalRange = this.range
         this.description = _TOWERS[this.type].description
@@ -28,7 +29,7 @@ export default class BoostDamageTower extends Tower {
     }
 
     upgrade(){
-        if(this.level >= 10){
+        if(this.level >= this.maxLevel){
             this.game.graphics.updateButtons()
             return
         }

@@ -129,9 +129,18 @@ export default class Enemy{
         })
         
     }
+
+    distance(x0,x1,y0,y1){
+        return Math.sqrt((x1-x0)*(x1-x0) + (y1-y0)*(y1-y0))
+    }
     
     update(){
 
+        this.statuses.forEach((status)=>{
+            if(this.distance(this.x,status.tower.x, this.y, status.tower.y) > status.tower.finalRange){
+                this.removeStatus("slow")
+            }
+        })
 
         let pointA = this.waypoints[this.currentWaypoint]
         let pointB = this.waypoints[this.targetWaypoint]

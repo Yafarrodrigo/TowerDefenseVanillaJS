@@ -123,9 +123,7 @@ export default class Graphics{
 
         for(let i = enemies.length-1; i >= 0; i--){
             if(enemies[i].dead === false && enemies[i].spawned === true){
-
-                
-                
+    
                 let healthPercent = Math.floor(enemies[i].health/enemies[i].maxHealth *100)
                 if(healthPercent > 66){
                     this.ctx.fillStyle = "green"
@@ -133,9 +131,10 @@ export default class Graphics{
                 else if (healthPercent > 33){
                     this.ctx.fillStyle = "orange"
                 }
-                else if (healthPercent <= 33){
+                else{
                     this.ctx.fillStyle = "red"
                 }
+
                 this.ctx.fillRect(enemies[i].x -5, enemies[i].y-10,healthPercent*0.3, 5)
 
                 this.ctx.fillStyle = "purple"
@@ -270,12 +269,16 @@ export default class Graphics{
                 this.extraCtx.translate(-tower.x, -tower.y); 
                 switch(tower.type){
                     case "slow":
-                    case "stop":
                         this.extraCtx.drawImage(this.slowTurretTile, tower.x-25, tower.y-25)
                         break
+                    case "stop":
+                        this.extraCtx.drawImage(this.stopTurretTile, tower.x-25, tower.y-25)
+                        break
                     case "laser":
-                    case "chainLaser":
                         this.extraCtx.drawImage(this.laserTurretTile, tower.x-25, tower.y-25)
+                        break
+                    case "chainLaser":
+                        this.extraCtx.drawImage(this.chainLaserTurretTile, tower.x-25, tower.y-25)
                         break
                     case "aoe":
                         this.extraCtx.drawImage(this.aoeTurretTile, tower.x-25, tower.y-25)
@@ -304,16 +307,18 @@ export default class Graphics{
             this.extraCtx.fill()
             this.extraCtx.stroke()
 
-            
-
             switch(this.game.placingTowerType){
                 case "slow":
-                case "stop":
                     this.ctx.drawImage(this.slowTurretTile, x, y)
                     break
+                case "stop":
+                    this.ctx.drawImage(this.stopTurretTile, x, y)
+                    break
                 case "laser":
-                case "chainLaser":
                     this.ctx.drawImage(this.laserTurretTile, x, y)
+                    break
+                case "chainLaser":
+                    this.ctx.drawImage(this.chainLaserTurretTile, x, y)
                     break
                 case "aoe":
                     this.ctx.drawImage(this.aoeTurretTile, x, y)
@@ -362,7 +367,7 @@ export default class Graphics{
             this.game.infoPanel.startButton.classList.add("disabledButton")
         }
 
-        if(this.game.towerSelected !== null && this.game.towerSelected.level < 10 ){
+        if(this.game.towerSelected !== null && this.game.towerSelected.level < this.game.towerSelected.maxLevel ){
             if(this.game.player.checkIfMoney(false , this.game.towerSelected.type)){
                 this.game.infoPanel.upgradeButton.classList.remove("disabledButton")
                 this.game.infoPanel.upgradeButton.innerHTML = `upgrade: $${this.game.towerSelected.upgradePrice}`
@@ -374,7 +379,7 @@ export default class Graphics{
             this.game.infoPanel.sellButton.innerHTML = `sell: $${this.game.towerSelected.sellPrice}`
 
         }
-        else if (this.game.towerSelected !== null && this.game.towerSelected.level > 9){
+        else if (this.game.towerSelected !== null && this.game.towerSelected.level >= this.game.towerSelected.maxLevel){
            
             this.game.infoPanel.upgradeButton.classList.add("disabledButton")
             this.game.infoPanel.sellButton.classList.remove("disabledButton")

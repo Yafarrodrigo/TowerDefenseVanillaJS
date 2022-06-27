@@ -2,6 +2,9 @@ import _PATHS from "../imgPaths.js"
 import _TOWERS from "../towersConfig.js"
 
 export default class InfoPanel{
+
+    cacheWarning = document.getElementById("cache-warning")
+
     level = document.getElementById("level")
     lives = document.getElementById("lives")
     money = document.getElementById("money")
@@ -196,7 +199,12 @@ export default class InfoPanel{
 
         switch(stat){
             case "type":
-                if(ref) this.infoCtx.fillText(`${tower.type} tower`, x, y)
+                if(ref) {
+                    this.infoCtx.fillText(`${tower.type} tower`, x, y)
+                    this.infoCtx.font = "15px Coda";
+                    this.infoCtx.fillText(`(Max: Lv${tower.maxLevel})`, x+15, y+20)
+                    this.infoCtx.font = "20px Coda";
+                }
                 else this.infoCtx.fillText(`${tower.type} tower (lv. ${tower.level})`, x, y)
                 break
 
@@ -266,17 +274,17 @@ export default class InfoPanel{
                 
                 if(tower.boosts){
                     this.displayStat(tower, true, "type",           25, 30)
-                    this.displayStat(tower, true, "boostDamage",    40 ,75)
-                    this.displayStat(tower, true, "boostRange",     180 ,75)
-                    this.displayStat(tower, true, "range",          40 ,120)
-                    this.displayStat(tower, true, "speed",          180, 120)
+                    this.displayStat(tower, true, "boostDamage",    40 ,85)
+                    this.displayStat(tower, true, "boostRange",     180 ,85)
+                    this.displayStat(tower, true, "range",          40 ,130)
+                    this.displayStat(tower, true, "speed",          180, 130)
                 }
                 else{
                     this.displayStat(tower, true, "type",         25, 30)
-                    this.displayStat(tower, true, "damage",       40, 75)
-                    this.displayStat(tower, true, "extraDamage",  180, 75)
-                    this.displayStat(tower, true, "range",        40, 120)
-                    this.displayStat(tower, true, "speed",        180, 120)
+                    this.displayStat(tower, true, "damage",       40, 85)
+                    this.displayStat(tower, true, "extraDamage",  180, 85)
+                    this.displayStat(tower, true, "range",        40, 130)
+                    this.displayStat(tower, true, "speed",        180, 130)
                 }
                 this.displayStat(tower,true, "buyCost", 200, 10)
                
@@ -287,25 +295,25 @@ export default class InfoPanel{
 
                 if(tower.boosts){
                     this.displayStat(tower, false, "type",           25, 30)
-                    this.displayStat(tower, false, "boostDamage",    40 ,75)
-                    this.displayStat(tower, false, "boostRange",     180 ,75)
-                    this.displayStat(tower, false, "range",          40 ,120)
-                    this.displayStat(tower, false, "speed",          180, 120)
+                    this.displayStat(tower, false, "boostDamage",    40 ,85)
+                    this.displayStat(tower, false, "boostRange",     180 ,85)
+                    this.displayStat(tower, false, "range",          40 ,130)
+                    this.displayStat(tower, false, "speed",          180, 130)
                 }
                 else{
                     this.displayStat(tower, false, "type",         25, 30)
-                    this.displayStat(tower, false, "damage",       40, 75)
-                    this.displayStat(tower, false, "extraDamage",  180, 75)
-                    this.displayStat(tower, false, "range",        40, 120)
-                    this.displayStat(tower, false, "speed",        180, 120)
+                    this.displayStat(tower, false, "damage",       40, 85)
+                    this.displayStat(tower, false, "extraDamage",  180, 85)
+                    this.displayStat(tower, false, "range",        40, 130)
+                    this.displayStat(tower, false, "speed",        180, 130)
                 }
             }
             
             if(upgrade){
                 if(!tower.boosts){
-                    this.displayUpgrade(tower, "damage", 110, 84)
-                    this.displayUpgrade(tower, "extraDamage", 240, 84)
-                    this.displayUpgrade(tower, "range", 110, 128)
+                    this.displayUpgrade(tower, "damage", 110, 94)
+                    this.displayUpgrade(tower, "extraDamage", 240, 94)
+                    this.displayUpgrade(tower, "range", 110, 138)
                 }
                 if(tower.upgradeDescription !== null){
                     this.displayStat(tower, true, "upgradeDescription", (this.infoCanvas.width/2), 190)
