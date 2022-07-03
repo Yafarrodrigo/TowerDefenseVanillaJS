@@ -15,16 +15,15 @@ export default class Game{
     debugMode = false
     paused = false
     debug = new Debug(this)
-    IdGen = new IdGenerator
+    IdGen = new IdGenerator()
     graphics = new Graphics(this)
-    map = new Map(this)
     player = new player(this)
     infoPanel = new InfoPanel(this)
     activeTowers = []
     activeBullets= []
-    allLevels = [new Level(this,1,5,{health: 100, speed: 1, reward: 5})]
-    level = this.allLevels[0]
-    enemiesToSpawn = this.createEnemies(this.level.enemyData)
+    firstLevel = new Level(this,1,5,{health: 100, speed: 1, reward: 5})
+    level = this.firstLevel
+    
     activeEnemies = []
     qtyEnemies = this.level.qtyEnemies
     levelStarted = false
@@ -35,6 +34,24 @@ export default class Game{
     placingTowerType = null
     cursorAt = {x:0, y:0}
     lost = false
+
+    constructor(gameParameters){
+        const {roadNumber} = gameParameters
+        if(!roadNumber){
+            this.map = new Map(this, 0)
+        }
+        else{
+            this.map = new Map(this, roadNumber)
+        }
+
+        this.enemiesToSpawn = this.createEnemies(this.level.enemyData)
+    }
+
+    setupAndStartGame(){
+        this.map.create()
+        this.player.addListeners()
+        this.startClock()
+    }
 
     upgradeEnemyData(){
         let oldEnemyData = this.level.enemyData

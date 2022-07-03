@@ -1,6 +1,12 @@
 import Game from "./Classes/Game.js"
 
-const game = new Game()
-game.map.create()
-game.player.addListeners()
-game.startClock()
+document.addEventListener("click", selectMapAndPlay)
+
+function selectMapAndPlay(e){
+    document.getElementById("levelSelectDiv").style.visibility = "hidden"
+    document.getElementById("container").style.visibility = "visible"
+    if(e.target.classList.contains("roadImg")){
+        const game = new Game({roadNumber:e.target.id})
+        game.setupAndStartGame()
+    }
+}

@@ -22,6 +22,47 @@ body{
     transform: translate(-50%, -50%) scale(1.25);
 }
 
+#levelSelectDiv{
+    z-index: 9999;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    position: fixed;
+    background-color: #666;
+    width: 850px;
+    height: 650px;
+    left: 50%;
+    top: 50%;
+    border-radius: 0.5rem;
+    transform: translate(-50%, -50%) scale(1.25);
+}
+
+#levelSelectH1{
+    top: -65px;
+    left: 300px;
+    letter-spacing: 0.5rem;
+    position: fixed;
+    color: white;
+}
+
+#levelSelectDiv > div > img{
+    pointer-events: none;
+}
+
+.roadImg{
+    align-self: center;
+    justify-self: center;
+    width: 400px;
+    height: 300px;
+    background-color: #ddd;
+    border: 5px #333 ridge;
+}
+
+.roadImg:hover{
+    border: 5px rgb(241, 254, 47) ridge;
+    cursor: pointer;
+}
+
 #cache-warning{
     color: rgb(255, 166, 166);
     position: absolute;

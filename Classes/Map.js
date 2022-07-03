@@ -1,8 +1,4 @@
-const roads = [
-    [[0,2],[12,2],[12,10],[5,10],[5,6],[15,6]],
-    [[0,1],[3,1],[3,8],[10,8],[10,3],[14,3],[14,9],[15,9]],
-    [[0,5],[5,5],[5,1],[10,1],[10,8],[5,8],[5,11]]
-]
+import roads from "../roads.js"
 
 export default class Map{
 
@@ -11,10 +7,10 @@ export default class Map{
     tileSize = 50
 
     tiles = []
-    road = roads[0]
 
-    constructor(game){
+    constructor(game,road){
         this.game = game
+        this.road = roads[road]
     }
 
     checkForRoad(x,y){
