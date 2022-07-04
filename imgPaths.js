@@ -1,5 +1,5 @@
 //let dir = "../Images/"
-dir = "/TowerDefenseVanillaJS/Images/"
+let dir = "/TowerDefenseVanillaJS/Images/"
 
 const _PATHS = {
 
