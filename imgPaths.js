@@ -1,5 +1,5 @@
-//let dir = "../Images/"
-let dir = "/TowerDefenseVanillaJS/Images/"
+let dir = "../Images/"
+//let dir = "/TowerDefenseVanillaJS/Images/"
 
 const _PATHS = {
 
@@ -8,7 +8,8 @@ const _PATHS = {
     // TOWERS
 
     floor:                  dir+"floorTile.jpg",
-    openFloor:              dir+"openFloorTile.jpg",
+    roadFloor:              dir+"roadFloorTile.jpg",
+    openFloor:              dir+"openFloorTileHD.jpg",
     laserTower:             dir+"laserTurret.png",
     laserTowerIcon:         dir+"laserTurretIcon.jpg",
     chainLaserTower:        dir+"chainLaserTurret.png",

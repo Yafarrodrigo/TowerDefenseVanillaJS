@@ -43,6 +43,7 @@ export default class Debug{
             this.game.updateInterval /= 2
             this.gameSpeedInfo.innerHTML = `${ ((16*100) / this.game.updateInterval)}%`
             this.game.startClock()
+
         }
     }
 
@@ -54,6 +55,7 @@ export default class Debug{
             this.game.updateInterval *= 2
             this.gameSpeedInfo.innerHTML = `${ ((16*100) / this.game.updateInterval)}%`
             this.game.startClock()
+
         }
     }
 

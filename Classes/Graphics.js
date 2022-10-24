@@ -9,6 +9,7 @@ export default class Graphics{
     extraCtx = this.extraCanvas.getContext("2d")
 
     floorTile = new Image()
+    roadFloor = new Image()
     openFloorTile = new Image()
     laserTurretTile = new Image()
     chainLaserTurretTile = new Image()
@@ -23,6 +24,7 @@ export default class Graphics{
     constructor(game){
         this.game = game
         this.floorTile.src = _PATHS.floor
+        this.roadFloor.src = _PATHS.roadFloor
         this.openFloorTile.src = _PATHS.openFloor
         this.laserTurretTile.src = _PATHS.laserTower
         this.chainLaserTurretTile.src = _PATHS.chainLaserTower
@@ -39,7 +41,7 @@ export default class Graphics{
 
         this.game.map.tiles[x][y].type = type
         if(type === "floor"){
-            this.ctx.drawImage(this.floorTile, x * this.game.map.tileSize, y * this.game.map.tileSize)
+            this.ctx.drawImage(this.floorTile, x * this.game.map.tileSize, y * this.game.map.tileSize, this.game.map.tileSize, this.game.map.tileSize)
         }
         else if(type === "boostDamage"){
             this.ctx.drawImage(this.boostDamageTile, x * this.game.map.tileSize, y * this.game.map.tileSize)
@@ -48,7 +50,7 @@ export default class Graphics{
             this.ctx.drawImage(this.boostRangeTile, x * this.game.map.tileSize, y * this.game.map.tileSize)
         }
         else{
-            this.ctx.drawImage(this.openFloorTile, x * this.game.map.tileSize, y * this.game.map.tileSize)
+            this.ctx.drawImage(this.openFloorTile, x * this.game.map.tileSize, y * this.game.map.tileSize, this.game.map.tileSize, this.game.map.tileSize)
         }
     }
 
@@ -68,7 +70,15 @@ export default class Graphics{
     }
     
     drawRoad(){
-        this.ctx.fillStyle = "#333"
+
+        // FIRST TILE
+        this.ctx.drawImage(
+            this.roadFloor,
+            this.game.map.road[0][0] *  this.game.map.tileSize,
+            this.game.map.road[0][1] *  this.game.map.tileSize,
+            this.game.map.tileSize,
+            this.game.map.tileSize)
+
         for(let i = 0; i < this.game.map.road.length-1; i++){
             let firstPoint = this.game.map.road[i]
             let secondPoint = this.game.map.road[i+1]
@@ -76,45 +86,58 @@ export default class Graphics{
             // VERTICAL
             if(firstPoint[0] === secondPoint[0]){
                 if(secondPoint[1] >= firstPoint[1]){
-                    this.ctx.fillRect(
-                        (firstPoint[0]* this.game.map.tileSize),
-                        (firstPoint[1]* this.game.map.tileSize),
-                        49,
-                        (Math.abs(firstPoint[1]-secondPoint[1]))* this.game.map.tileSize)
+                    for(let j = 1; j <= Math.abs(secondPoint[1]-firstPoint[1]); j++){
+                        this.ctx.drawImage(
+                            this.roadFloor,
+                            (firstPoint[0] * this.game.map.tileSize),
+                            (firstPoint[1] * this.game.map.tileSize) + j * this.game.map.tileSize,
+                            this.game.map.tileSize,
+                            this.game.map.tileSize)
+                    }
                 }else{
-                    this.ctx.fillRect(
-                        (secondPoint[0]* this.game.map.tileSize),
-                        (secondPoint[1]* this.game.map.tileSize) - this.game.map.tileSize * (secondPoint[1]-firstPoint[1]),
-                        49, 
-                        (secondPoint[1]-firstPoint[1])* this.game.map.tileSize)
+                    for(let j = Math.abs(secondPoint[1]-firstPoint[1]); j > 0 ; j--){
+                        this.ctx.drawImage(
+                            this.roadFloor,
+                            (firstPoint[0] * this.game.map.tileSize),
+                            (firstPoint[1] * this.game.map.tileSize) - j * this.game.map.tileSize,
+                            this.game.map.tileSize,
+                            this.game.map.tileSize)
+                    }
                 }
             }
             // HORIZONTAL
             else if (firstPoint[1] === secondPoint[1]){
                 if(secondPoint[0] >= firstPoint[0]){
-                    this.ctx.fillRect(
-                        (firstPoint[0]* this.game.map.tileSize),
-                        (firstPoint[1]* this.game.map.tileSize),
-                        (Math.abs(firstPoint[0]-secondPoint[0])) * this.game.map.tileSize +49,
-                        49)
+                    for(let j = 1; j <= Math.abs(secondPoint[0]-firstPoint[0]); j++){
+                        this.ctx.drawImage(
+                            this.roadFloor,
+                            (firstPoint[0] * this.game.map.tileSize) + j * this.game.map.tileSize,
+                            (firstPoint[1] * this.game.map.tileSize),
+                            this.game.map.tileSize,
+                            this.game.map.tileSize)
+                    }
                 }else{
-                    this.ctx.fillRect(
-                        (secondPoint[0]* this.game.map.tileSize),
-                        (secondPoint[1]* this.game.map.tileSize),
-                        Math.abs(secondPoint[0]-firstPoint[0]) * this.game.map.tileSize+49,
-                        49)
-                }
+                    for(let j = Math.abs(secondPoint[0]-firstPoint[0]); j > 0 ; j--){
+                        this.ctx.drawImage(
+                            this.roadFloor,
+                            (firstPoint[0] * this.game.map.tileSize)- j * this.game.map.tileSize,
+                            (firstPoint[1] * this.game.map.tileSize),
+                            this.game.map.tileSize,
+                            this.game.map.tileSize)
+                    }
+                 }
             }
+           
             else {console.log("error");}
         }
 
         // LAST TILE
-        this.ctx.fillRect(
+        this.ctx.drawImage(
+            this.roadFloor,
             this.game.map.road[this.game.map.road.length-1][0] *  this.game.map.tileSize,
             this.game.map.road[this.game.map.road.length-1][1] *  this.game.map.tileSize,
-            49,
-            49
-        )
+            this.game.map.tileSize,
+            this.game.map.tileSize)
     }
 
     displayEnemies(){
@@ -156,8 +179,6 @@ export default class Graphics{
     
         if(this.game.activeTowers.length !== 0){
             this.game.activeTowers.forEach((tower)=>{
-
-                //this.ctx.fillStyle = "green"
 
                 if(this.game.infoPanel.showRadiusCheckbox.checked){
 
