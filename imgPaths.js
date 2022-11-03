@@ -9,7 +9,7 @@ const _PATHS = {
 
     floor:                  dir+"floorTile.jpg",
     roadFloor:              dir+"roadFloorTile.jpg",
-    openFloor:              dir+"openFloorTileHD.jpg",
+    openFloor:              dir+"openFloorTile.jpg",
     laserTower:             dir+"laserTurret.png",
     laserTowerIcon:         dir+"laserTurretIcon.jpg",
     chainLaserTower:        dir+"chainLaserTurret.png",
