@@ -15,6 +15,8 @@ export default class InfoPanel{
     autoNextLevelCheckbox = document.getElementById("autoNextLevel")
     startButton = document.getElementById("startButton")
     
+    helpContainer = document.getElementById("helpContainer")
+    helpCloseButton = document.getElementById("helpCloseButton")
     helpButton = document.getElementById("help")
     blackScreen = document.getElementById("fadeToBlack")
     showingHelp = false
@@ -78,20 +80,19 @@ export default class InfoPanel{
 
         this.helpButton.addEventListener("click", (e)=>{
             e.preventDefault()
-            if(this.showingHelp){
-                this.blackScreen.style.opacity = "0"
-                this.helpScreen.style.opacity = "0"
-                this.blackScreen.style.pointerEvents = "none"
-            }else{
-                this.blackScreen.style.opacity = "0.75"
-                this.helpScreen.style.opacity = "1"
-                this.blackScreen.style.pointerEvents = "initial"
-            }
+            this.blackScreen.style.opacity = "0.75"
+            this.helpContainer.style.opacity = "1"
+            this.blackScreen.style.pointerEvents = "initial"
+            this.helpContainer.style.pointerEvents = "initial"
         })
 
-        this.blackScreen.addEventListener("click", (e)=> {
+        this.helpCloseButton.addEventListener("click", (e) =>{
+            e.preventDefault()
             this.blackScreen.style.opacity = "0"
             this.blackScreen.style.pointerEvents = "none"
+            this.helpContainer.style.opacity = "0"
+            this.helpContainer.style.pointerEvents = "none"
+            this.showingHelp = false
         })
 
         this.upgradeButton.addEventListener("click", (e)=>{
