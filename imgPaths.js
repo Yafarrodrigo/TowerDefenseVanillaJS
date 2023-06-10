@@ -4,6 +4,7 @@ let dir = "/TowerDefenseVanillaJS/Images/"
 const _PATHS = {
 
     helpScreen:             dir+"help.png",
+    helpPlaceholder:        dir+"helpPlaceholder.png",
 
     // TOWERS
 

@@ -126,18 +126,6 @@ export default class player{
         
         })
 
-        // DEBUG MODE (LETTER "D") 
-        document.addEventListener("keypress", (e) => {
-            if(e.code === "KeyD"){
-                if(this.game.debugMode === true){
-                    this.game.debugMode = false
-                }else{
-                    this.game.debugMode = true
-                }
-                this.game.debug.update()
-            }
-        })
-
         window.addEventListener('contextmenu',(e) => { 
             e.preventDefault(); 
             

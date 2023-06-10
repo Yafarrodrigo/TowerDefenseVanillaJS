@@ -50,7 +50,7 @@ export default class InfoPanel{
 
         this.blackScreen.append(this.helpScreen)
         
-        // clicking money in debugMode increases money
+/*         // clicking money in debugMode increases money
         this.money.addEventListener("click", (e)=>{
             if(this.game.debugMode === true){
                 this.game.player.addMoney(1000)
@@ -76,22 +76,24 @@ export default class InfoPanel{
                     this.levelStarted = true
                 }
             }
-        })
+        }) */
 
         this.helpButton.addEventListener("click", (e)=>{
             e.preventDefault()
-            this.blackScreen.style.opacity = "0.75"
-            this.helpContainer.style.opacity = "1"
-            this.blackScreen.style.pointerEvents = "initial"
-            this.helpContainer.style.pointerEvents = "initial"
+            this.blackScreen.classList.remove("notShown")
+            this.blackScreen.classList.add("shown")
+
+            this.helpContainer.classList.remove("notShown")
+            this.helpContainer.classList.add("shown")
         })
 
         this.helpCloseButton.addEventListener("click", (e) =>{
             e.preventDefault()
-            this.blackScreen.style.opacity = "0"
-            this.blackScreen.style.pointerEvents = "none"
-            this.helpContainer.style.opacity = "0"
-            this.helpContainer.style.pointerEvents = "none"
+            this.blackScreen.classList.add("notShown")
+            this.blackScreen.classList.remove("shown")
+
+            this.helpContainer.classList.add("notShown")
+            this.helpContainer.classList.remove("shown")
             this.showingHelp = false
         })
 

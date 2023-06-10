@@ -12,7 +12,7 @@ export default class Game {
   heigth = 600;
   updateInterval = 16;
   oldUpdateInterval = 16;
-  debugMode = false;
+  debugMode = true;
   paused = false;
   debug = new Debug(this);
   IdGen = new IdGenerator();

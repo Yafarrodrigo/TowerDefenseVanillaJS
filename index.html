@@ -12,36 +12,43 @@
     <title>TowerDefense</title>
 </head>
 <body>
+
+    <!-- MAIN MENU -->
+
+    <div id="mainMenu" class="shown">
+        <h2 style="color: white;">work in progress...</h2>
+        <button id="mainMenuPlayButton">PLAY</button>
+    </div>
     
     <!-- LEVEL SELECT -->
-    <div id="levelSelectDiv" style="visibility: visible">
-        <h1 id="levelSelectH1">Select MAP</h1>
-        <div class="roadImg" id="0"> <img src="./Images/road1img.jpg" alt="road1img"> </div>
-        <div class="roadImg" id="1"> <img src="./Images/road2img.jpg" alt="road2img"> </div>
-        <div class="roadImg" id="2"> <img src="./Images/road3img.jpg" alt="road3img"> </div>
-        <div class="roadImg" id="3"> <img src="./Images/road4img.jpg" alt="road4img"> </div>
+    <div id="levelSelectDiv" class="notShown" style="visibility: visible">
+        <h1 id="levelSelectH1" class="notShown">Select MAP</h1>
+        <div class="roadImg" id="0"> <img src="./Images/road1img.jpg" alt="map0"> </div>
+        <div class="roadImg" id="1"> <img src="./Images/road2img.jpg" alt="map1"> </div>
+        <div class="roadImg" id="2"> <img src="./Images/road3img.jpg" alt="map2"> </div>
+        <div class="roadImg" id="3"> <img src="./Images/road4img.jpg" alt="map3"> </div>
     </div>
 
-    <div id="helpContainer">
+    <!-- HELP  -->
+    <div id="helpContainer" class="notShown">
         <div id="helpHeader">
             <h2>Help</h2>
             <button id="helpCloseButton">x</button>
         </div>
         <div id="helpSection">
             <button id="helpButtonBack">-</button>
-            <div> help </div>
+            <div><img src="./Images/helpPlaceholder.png" alt=""></div>
             <button id="helpButtonNext">+</button>
         </div>
         <div id="helpPagination"> 1 / 10</div>
     </div>
 
     <!-- JUEGO EN SI -->
-    <div id="container" style="visibility: hidden">
+    <div id="container" class="notShown">
         <!-- <h1 id="cache-warning">*   if problems -> ctrl + F5 to clear cache *</h1> -->
-        <h1 id="devModeAlert" hidden class="pulses"> * Dev Mode *</h1>
         
         <!-- IMG para ayuda          -->
-        <div id="fadeToBlack"></div>
+        <div id="fadeToBlack" class="notShown"></div>
         <!--                         -->
         <div id="header">
             <div id="levelInfo">
@@ -53,7 +60,7 @@
                 <h1 id="lives">Lives: 10</h1>
                 <h1 id="money">Credits: 100</h1>
             </div>
-            <div id="debugSpeedMenu" hidden >
+            <div id="debugSpeedMenu" >
                 <button id="debug-play-pause"> Pause </button>
                 <button id="debug-speed-minus">-</button>
                 <button id="debug-speed-plus">+</button>
