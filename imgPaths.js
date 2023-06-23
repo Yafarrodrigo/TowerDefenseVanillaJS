@@ -3,8 +3,14 @@ let dir = "/TowerDefenseVanillaJS/Images/"
 
 const _PATHS = {
 
-    helpScreen:             dir+"help.png",
-    helpPlaceholder:        dir+"helpPlaceholder.png",
+    helpLevelInfo:          dir+"level info.jpg",
+    helpPlayerInfo:         dir+"player info.jpg",
+    helpSpeed:              dir+"speed.jpg",
+    helpOptions:            dir+"options.jpg",
+    helpStats:              dir+"stats.jpg",
+    helpUpgradeSell:        dir+"upgrade sell.jpg",
+    helpTowers1:            dir+"towers1.jpg",
+    helpTowers2:            dir+"towers2.jpg",
 
     // TOWERS
 

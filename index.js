@@ -2,11 +2,14 @@ import Game from "./Classes/Game.js"
 import _PATHS from "./imgPaths.js"
 
 const helpPages = [
-    {number: 1,img: _PATHS.helpPlaceholder},
-    {number: 2,img: _PATHS.helpPlaceholder},
-    {number: 3,img: _PATHS.helpPlaceholder},
-    {number: 4,img: _PATHS.helpPlaceholder},
-    {number: 5,img: _PATHS.helpPlaceholder},
+    {number: 1, title:"Level Info", img: _PATHS.helpLevelInfo},
+    {number: 2, title:"Lives and Credits", img: _PATHS.helpPlayerInfo},
+    {number: 3, title:"Speed Control", img: _PATHS.helpSpeed},
+    {number: 4, title:"Options", img: _PATHS.helpOptions},
+    {number: 5, title:"Tower Stats", img: _PATHS.helpStats},
+    {number: 6, title:"Upgrading & Selling Towers", img: _PATHS.helpUpgradeSell},
+    {number: 7, title:"Brief towers description", img: _PATHS.helpTowers1},
+    {number: 8, title:"Brief towers description", img: _PATHS.helpTowers2},
 ]
 let currentPage = 1
 const maxPage = helpPages.length
@@ -15,11 +18,15 @@ document.getElementById("helpPagination").innerText = currentPage + " / " + maxP
 document.getElementById("helpButtonBack").addEventListener("click", (e) => {
     (currentPage - 1) > 0 ? currentPage -= 1 : currentPage = 1
     document.getElementById("helpPagination").innerText = currentPage + " / " + maxPage
+    document.getElementById("helpPageTitle").innerText = helpPages[currentPage-1].title
+    document.getElementById("helpImage").src = helpPages[currentPage-1].img
 })
 
 document.getElementById("helpButtonNext").addEventListener("click", (e) => {
     (currentPage + 1) <= maxPage ? currentPage += 1 : currentPage = maxPage
     document.getElementById("helpPagination").innerText = currentPage + " / " + maxPage
+    document.getElementById("helpPageTitle").innerText = helpPages[currentPage-1].title
+    document.getElementById("helpImage").src = helpPages[currentPage-1].img
 })
 
 

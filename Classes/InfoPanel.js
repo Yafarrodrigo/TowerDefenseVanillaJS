@@ -45,38 +45,8 @@ export default class InfoPanel{
         this.bonusDamageIcon.src = _PATHS.bonusDamageIcon
         this.bonusRangeIcon.src = _PATHS.bonusRangeIcon
         this.speedIcon.src = _PATHS.speedIcon
-        this.helpScreen.src = _PATHS.helpScreen
-        this.helpScreen.style.opacity = "0"
 
         this.blackScreen.append(this.helpScreen)
-        
-/*         // clicking money in debugMode increases money
-        this.money.addEventListener("click", (e)=>{
-            if(this.game.debugMode === true){
-                this.game.player.addMoney(1000)
-            }
-        })
-
-        // clicking lives in debugMode increases money
-        this.lives.addEventListener("click", (e)=>{
-            if(this.game.debugMode === true){
-                this.game.player.addLives(10)
-            }
-        })
-
-        // clicking level in debugMode winsLevel
-        this.level.addEventListener("click", (e)=>{
-            if(this.game.debugMode === true){
-                this.game.stopClock()
-                this.game.enemiesToSpawn = []
-                this.game.activeEnemies.forEach( enemy => enemy.dead = true)
-                this.game.startClock()
-                this.game.nextLevel()
-                if(this.game.infoPanel.autoNextLevelCheckbox.checked){
-                    this.levelStarted = true
-                }
-            }
-        }) */
 
         this.helpButton.addEventListener("click", (e)=>{
             e.preventDefault()
