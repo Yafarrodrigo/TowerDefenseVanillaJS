@@ -12,6 +12,8 @@ const _PATHS = {
     helpTowers1:            dir+"towers1.jpg",
     helpTowers2:            dir+"towers2.jpg",
 
+    enemy:                  dir+"enemy.png",
+
     // TOWERS
 
     floor:                  dir+"floorTile.jpg",

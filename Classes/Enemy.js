@@ -18,6 +18,7 @@ export default class Enemy{
         this.spawned = false
         this.stopped = false
         this.reward = reward
+        this.animationStep = 0
     }   
 
     changeDirection(pointA, pointB){
@@ -136,6 +137,27 @@ export default class Enemy{
     }
     
     update(){
+
+        if(this.checkStatus("stop") === false){
+            if(this.checkStatus("slow")){
+                if(this.game.animationClock % 4 === 0){
+                    if(this.animationStep >= 5){
+                        this.animationStep = 0
+                    }else{
+                        this.animationStep++
+                    }
+                }
+            }
+            else{
+                if(this.game.animationClock % 2 === 0){
+                    if(this.animationStep >= 5){
+                        this.animationStep = 0
+                    }else{
+                        this.animationStep++
+                    }
+                }
+            }
+        }
 
         this.statuses.forEach((status)=>{
             if(this.distance(this.x,status.tower.x, this.y, status.tower.y) > status.tower.finalRange){

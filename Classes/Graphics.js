@@ -20,6 +20,7 @@ export default class Graphics{
     boostDamageTile = new Image()
     boostRangeTile = new Image()
     
+    enemy = new Image()
 
     constructor(game){
         this.game = game
@@ -34,6 +35,7 @@ export default class Graphics{
         this.sniperTurretTile.src = _PATHS.sniperTower
         this.boostDamageTile.src = _PATHS.boostDamageTower
         this.boostRangeTile.src = _PATHS.boostRangeTower
+        this.enemy.src = _PATHS.enemy
         
     }
 
@@ -158,12 +160,28 @@ export default class Graphics{
                     this.ctx.fillStyle = "red"
                 }
 
-                this.ctx.fillRect(enemies[i].x -5, enemies[i].y-10,healthPercent*0.3, 5)
+                this.ctx.fillRect(enemies[i].x -1, enemies[i].y-10,healthPercent*0.3, 5)
 
-                this.ctx.fillStyle = "purple"
-                this.ctx.fillRect(enemies[i].x, enemies[i].y, 20, 20)
+                this.ctx.save()
+                this.ctx.translate(enemies[i].x+15, enemies[i].y+15)
+                
+                if(enemies[i].direction === "up"){
+                    this.ctx.rotate(-Math.PI/2)
+                }else if(enemies[i].direction === "down"){
+                    this.ctx.rotate(Math.PI/2)
+                }else if(enemies[i].direction === "left"){
+                    this.ctx.rotate(Math.PI)
+                }
+                this.ctx.translate(-enemies[i].x-15, -enemies[i].y-15)
+                this.animateEnemy(enemies[i])
+                this.ctx.restore()
             }
         }
+    }
+
+    animateEnemy(enemy){
+        const s = enemy.animationStep
+        this.ctx.drawImage(this.enemy,0+(50*s),0,50,50,enemy.x, enemy.y, 30, 30)
     }
 
     displayBullets(){

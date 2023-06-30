@@ -12,6 +12,7 @@ export default class Game {
   heigth = 600;
   updateInterval = 16;
   oldUpdateInterval = 16;
+  animationClock = 1;
   debugMode = true;
   paused = false;
   debug = new Debug(this);
@@ -127,6 +128,13 @@ export default class Game {
   }
 
   update() {
+
+    if(this.animationClock >= 60){
+      this.animationClock = 0
+    }else{
+      this.animationClock++
+    }
+    
     // NO MORE LIVES -> LOST GAME
     if (this.player.lives === 0) {
       this.stopClock();
