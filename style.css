@@ -51,13 +51,35 @@ body{
     transform: translate(-50%, -50%) scale(1.25);
     z-index: 99999;
     background-color: #333;
-    background-image: Url("./Images/background.jpg");
+    opacity: 0.8;
+    backdrop-filter: blur(10px);
     box-shadow: 0px 0px 5px 1px black;
 }
 
 #mainMenuPlayButton{
-    width: 150px;
-    height: 100px;
+    width: 175px;
+    height: 75px;
+    opacity: 0.8;
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    border: 1px solid white;
+    box-shadow: 0px 0px 1px 1px white;
+    animation: pulsate 1s infinite;
+}
+
+#mainMenuPlayButton:hover{
+    border: solid 2px white;
+    animation: none;
+    opacity: 1;
+    box-shadow: 0px 0px 5px 1px white;
+}
+
+@keyframes pulsate {
+    50%{
+        opacity: 1;
+        border: 1px solid white;
+        box-shadow: 0px 0px 5px 1px white;
+    }
 }
 
 #container{
@@ -113,8 +135,10 @@ body{
 }
 
 .roadImg:hover{
-    border: 5px rgb(241, 254, 47) ridge;
+    box-shadow: 0px 0px 10px 1px white;
+    border: solid 2px white;
     cursor: pointer;
+    animation: pulsate 1s infinite;
 }
 
 #cache-warning{
