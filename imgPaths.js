@@ -27,7 +27,7 @@ const _PATHS = {
     slowTowerIcon:          dir+"slowTurretIcon.jpg",
     stopTower:              dir+"stopTurret2.png",
     stopTowerIcon:          dir+"stopTowerIcon.jpg",
-    aoeTower:               dir+"aoeTurret.png",
+    aoeTower:               dir+"aoeTurret2.png",
     aoeTowerIcon:           dir+"aoeTurretIcon.jpg",
     sniperTower:            dir+"sniperTurret2.png",
     sniperTowerIcon:        dir+"sniperTurretIcon.jpg",
