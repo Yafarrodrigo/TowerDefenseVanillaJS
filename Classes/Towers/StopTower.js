@@ -81,13 +81,7 @@ export default class StopTower extends Tower {
         }
 
         if(this.target !== null && this.target !== undefined){
-            if(this.nearEnemies.length > 0){
-                if(this.turretAngle >= Math.PI*2){
-                    this.turretAngle = 0
-                }else{
-                    this.turretAngle+=0.05
-                }
-            }
+            this.turretAngle = (Math.atan2((this.target.y+10 - this.y) , (this.target.x+10 - this.x)))
         }
     }
 }

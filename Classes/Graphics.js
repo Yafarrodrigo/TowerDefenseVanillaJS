@@ -52,7 +52,7 @@ export default class Graphics{
             this.ctx.drawImage(this.boostRangeTile, x * this.game.map.tileSize, y * this.game.map.tileSize)
         }
         else{
-            this.ctx.drawImage(this.openFloorTile, x * this.game.map.tileSize, y * this.game.map.tileSize, this.game.map.tileSize, this.game.map.tileSize)
+            this.ctx.drawImage(this.floorTile, x * this.game.map.tileSize, y * this.game.map.tileSize, this.game.map.tileSize, this.game.map.tileSize)
         }
     }
 
@@ -308,22 +308,22 @@ export default class Graphics{
                 this.extraCtx.translate(-tower.x, -tower.y); 
                 switch(tower.type){
                     case "slow":
-                        this.extraCtx.drawImage(this.slowTurretTile, tower.x-25, tower.y-25)
+                        this.extraCtx.drawImage(this.slowTurretTile, tower.x-25, tower.y-25, 50, 50)
                         break
                     case "stop":
-                        this.extraCtx.drawImage(this.stopTurretTile, tower.x-25, tower.y-25)
+                        this.extraCtx.drawImage(this.stopTurretTile, tower.x-25, tower.y-25, 50, 50)
                         break
                     case "laser":
-                        this.extraCtx.drawImage(this.laserTurretTile, tower.x-25, tower.y-25)
+                        this.extraCtx.drawImage(this.laserTurretTile, tower.x-25, tower.y-25, 50, 50)
                         break
                     case "chainLaser":
-                        this.extraCtx.drawImage(this.chainLaserTurretTile, tower.x-25, tower.y-25)
+                        this.extraCtx.drawImage(this.chainLaserTurretTile, tower.x-25, tower.y-25, 50, 50)
                         break
                     case "aoe":
-                        this.extraCtx.drawImage(this.aoeTurretTile, tower.x-25, tower.y-25)
+                        this.extraCtx.drawImage(this.aoeTurretTile, tower.x-25, tower.y-25, 50, 50)
                         break
                     case "sniper":
-                        this.extraCtx.drawImage(this.sniperTurretTile, tower.x-25, tower.y-25)
+                        this.extraCtx.drawImage(this.sniperTurretTile, tower.x-25, tower.y-25, 50, 50)
                         break
                 }
                 this.extraCtx.restore();
@@ -348,30 +348,30 @@ export default class Graphics{
 
             switch(this.game.placingTowerType){
                 case "slow":
-                    this.ctx.drawImage(this.slowTurretTile, x, y)
+                    this.ctx.drawImage(this.slowTurretTile, x, y, 50, 50)
                     break
                 case "stop":
-                    this.ctx.drawImage(this.stopTurretTile, x, y)
+                    this.ctx.drawImage(this.stopTurretTile, x, y, 50, 50)
                     break
                 case "laser":
-                    this.ctx.drawImage(this.laserTurretTile, x, y)
+                    this.ctx.drawImage(this.laserTurretTile, x, y, 50, 50)
                     break
                 case "chainLaser":
-                    this.ctx.drawImage(this.chainLaserTurretTile, x, y)
+                    this.ctx.drawImage(this.chainLaserTurretTile, x, y, 50, 50)
                     break
                 case "aoe":
-                    this.ctx.drawImage(this.aoeTurretTile, x, y)
+                    this.ctx.drawImage(this.aoeTurretTile, x, y, 50, 50)
                     break
                 case "sniper":
-                    this.ctx.drawImage(this.sniperTurretTile, x, y)
+                    this.ctx.drawImage(this.sniperTurretTile, x, y, 50, 50)
                     break
                 
                 case "boostDamage":
-                    this.ctx.drawImage(this.boostDamageTile, x, y)
+                    this.ctx.drawImage(this.boostDamageTile, x, y, 50, 50)
                     break
                 
                 case "boostRange":
-                this.ctx.drawImage(this.boostRangeTile, x, y)
+                this.ctx.drawImage(this.boostRangeTile, x, y, 50, 50)
                 break
             }
         }
