@@ -91,7 +91,7 @@ const _TOWERS = {
         bonusDamage: 0,
         bonusSecondaryDamage: 0,
         bonusRange: 0,
-        range: 120
+        range: 150
     },
 
     

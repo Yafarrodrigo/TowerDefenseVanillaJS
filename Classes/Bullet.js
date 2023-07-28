@@ -15,8 +15,8 @@ export default class Bullet{
         const angle = Math.atan2(dy,dx)
 
         return {
-            x: Math.abs(Math.cos(angle)) * 5,
-            y: Math.abs(Math.sin(angle)) * 5
+            x: Math.abs(Math.cos(angle)) * 10,
+            y: Math.abs(Math.sin(angle)) * 10
         }
     }
 

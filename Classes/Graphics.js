@@ -323,7 +323,7 @@ export default class Graphics{
                         this.extraCtx.drawImage(this.aoeTurretTile, tower.x-25, tower.y-25, 50, 50)
                         break
                     case "sniper":
-                        this.extraCtx.drawImage(this.sniperTurretTile, tower.x-25, tower.y-25, 50, 50)
+                        this.extraCtx.drawImage(this.sniperTurretTile, tower.x-37.5, tower.y-37.5, 75, 75)
                         break
                 }
                 this.extraCtx.restore();
@@ -363,7 +363,7 @@ export default class Graphics{
                     this.ctx.drawImage(this.aoeTurretTile, x, y, 50, 50)
                     break
                 case "sniper":
-                    this.ctx.drawImage(this.sniperTurretTile, x, y, 50, 50)
+                    this.ctx.drawImage(this.sniperTurretTile, x-10, y-10, 75, 75)
                     break
                 
                 case "boostDamage":
