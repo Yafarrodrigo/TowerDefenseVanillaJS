@@ -54,6 +54,62 @@
         <button id="playAgainButton">Play Again!</button>
     </div>
 
+    <div id="masteriesContainer" class="notShown">
+        
+        <div id="masteriesHeader"><span>Masteries</span> <div id="unusedPoints">mastery points available: 0</div> <button id="masteriesCloseButton">X</button> </div>
+        <div class="masteryRank" id="rankOneMasteries">
+            <div class="mastery">
+                <div class="masteryImg">img</div>
+                <div class="masteryName">Laser Mastery (0 / 5)</div>
+                <div class="masteryDesc">All your laser turrets do more damage</div>
+            </div>
+            <div class="mastery">
+                <div class="masteryImg">img</div>
+                <div class="masteryName">AoE Mastery (0 / 5)</div>
+                <div class="masteryDesc">All your AoE turrets have bigger AoE</div>
+            </div>
+            <div class="mastery">
+                <div class="masteryImg">img</div>
+                <div class="masteryName">Slow Mastery (0 / 5)</div>
+                <div class="masteryDesc">All your slow turrets have bigger range</div>
+            </div>
+        </div>
+        <div class="masteryRank" id="rankTwoMasteries">
+            <div class="mastery">
+                <div class="masteryImg">img</div>
+                <div class="masteryName">Laser Credits (0 / 3)</div>
+                <div class="masteryDesc">Enemies destroyed by laser turrets award 1 extra credit</div>
+            </div>
+            <div class="mastery">
+                <div class="masteryImg">img</div>
+                <div class="masteryName">AoE Credits (0 / 3)</div>
+                <div class="masteryDesc">Enemies destroyed by AoE turrets award 2 extra credit</div>
+            </div>
+            <div class="mastery">
+                <div class="masteryImg">img</div>
+                <div class="masteryName">Sniper Credits (0 / 3)</div>
+                <div class="masteryDesc">Enemies destroyed by Sniper turrets award 3 extra credit</div>
+            </div>
+        </div>
+        <div class="masteryRank" id="rankThreeMasteries">
+            <div class="mastery">
+                <div class="masteryImg">img</div>
+                <div class="masteryName">Sniper Life (0 / 1)</div>
+                <div class="masteryDesc">Enemies destroyed by Sniper turrets award 1 extra life</div>
+            </div>
+            <div class="mastery">
+                <div class="masteryImg">img</div>
+                <div class="masteryName">Credits Before Life (0 / 1)</div>
+                <div class="masteryDesc">Lose 5 credits instead of 1 life for each enemy that escapes</div>
+            </div>
+            <div class="mastery">
+                <div class="masteryImg">img</div>
+                <div class="masteryName">Freeze Three (0 / 1)</div>
+                <div class="masteryDesc">Freeze turrets freezes up to 3 enemies insead of 1</div>
+            </div>
+        </div>
+    </div>
+
     <!-- JUEGO EN SI -->
     <div id="container" class="notShown">
         <!-- <h1 id="cache-warning">*   if problems -> ctrl + F5 to clear cache *</h1> -->
@@ -68,6 +124,7 @@
                 <h3 id="enemyReward">Reward:</h3><span id="enemyRewardSpan">5 credits</span>
             </div>
             <div id="h1Group">
+                <button id="masteriesOpenButton">⩓</button>
                 <h1 id="lives">Lives: 10</h1>
                 <h1 id="money">Credits: 100</h1>
             </div>

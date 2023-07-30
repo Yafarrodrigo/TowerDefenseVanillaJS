@@ -6,8 +6,10 @@ import Level from "./Level.js";
 import InfoPanel from "./InfoPanel.js";
 import IdGenerator from "../Classes/IdGen.js";
 import Debug from "../Classes/Debug.js";
+import Masteries from "./Masteries.js";
 
 export default class Game {
+
   width = 800;
   heigth = 600;
   updateInterval = 16;
@@ -24,7 +26,7 @@ export default class Game {
   activeBullets = [];
   firstLevel = new Level(this, 1, 5, { health: 100, speed: 1, reward: 5 });
   level = this.firstLevel;
-
+  
   activeEnemies = [];
   qtyEnemies = this.level.qtyEnemies;
   levelStarted = false;
@@ -35,7 +37,8 @@ export default class Game {
   placingTowerType = null;
   cursorAt = { x: 0, y: 0 };
   lost = false;
-
+  masteries = new Masteries(this)
+  
   constructor(gameParameters) {
     const { roadNumber } = gameParameters;
     if (!roadNumber) {
@@ -105,10 +108,21 @@ export default class Game {
       newEnemyData
     );
 
+    if(this.level.id % 5 === 0){
+      this.masteries.addPoints(1)
+    }
+
     this.level = newLevel;
     this.infoPanel.updateHeader(newLevel);
     this.enemiesToSpawn = this.createEnemies(newLevel.enemyData);
     this.activeEnemies = [];
+
+
+    if(this.masteries.masteryPoints > 0){
+      this.infoPanel.masteriesOpenButton.classList.add('masteriesAvailable')
+    }else{
+      this.infoPanel.masteriesOpenButton.classList.remove('masteriesAvailable')
+    }
   }
 
   startClock(interval) {
