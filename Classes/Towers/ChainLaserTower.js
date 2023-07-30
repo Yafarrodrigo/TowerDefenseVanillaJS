@@ -48,7 +48,10 @@ export default class ChainLaserTower extends Tower{
     }
 
     shoot(){
-        if(this.validTarget(this.target)){      
+        if(this.validTarget(this.target)){     
+            
+            this.target.attacker = this
+            
             if(this.nearEnemies.length >= 3){
                 if(this.nearEnemies[2].health - this.finalSecondaryDamage >= 0){
                     this.nearEnemies[2].health -= this.finalSecondaryDamage

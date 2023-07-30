@@ -32,6 +32,9 @@ export default class AoeTower extends Tower {
 
     shoot(){
         if(this.target && this.target.dead === false){
+            
+            this.target.attacker = this
+
             const newBullet = new Bullet(this.game, this, this.target)
             this.game.activeBullets.push(newBullet)
         }else{

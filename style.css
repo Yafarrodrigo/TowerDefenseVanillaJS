@@ -756,6 +756,7 @@ body{
     display: grid;
     grid-template-areas: "img name" "img desc";
     grid-template-columns: min-content auto;
+    cursor: pointer;
 }
 
 .mastery:hover{
@@ -767,6 +768,8 @@ body{
     grid-area: img;
     width: 100px;
     background-color: #555;
+    user-select: none;
+    pointer-events: none;
 }
 .masteryName{
     box-sizing: border-box;
@@ -776,6 +779,8 @@ body{
     height: 25px;
     background-color: #555;
     border: 1px solid black;
+    user-select: none;
+    pointer-events: none;
 }
 .masteryDesc{
     box-sizing: border-box;
@@ -785,6 +790,14 @@ body{
     height: 75px;
     background-color: #777;
     border: 1px solid black;
+    user-select: none;
+    pointer-events: none;
+}
+
+.mastery-disabled{
+    filter: brightness(0.33);
+    user-select: none;
+    pointer-events: none;
 }
 
 

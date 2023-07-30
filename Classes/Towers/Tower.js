@@ -146,6 +146,18 @@ export default class Tower{
             this.finalSecondaryDamage = this.secondaryDamage
             this.finalRange = this.range
         }
+
+        let dmgBoost = 1.5
+        let rangeBoost = 1.5
+
+        // check for masteries
+        if(this.game.masteries.check('laserMastery') && this.type === "laser"){
+            this.finalDamage = parseFloat(((Math.floor(this.finalDamage*100) * (Math.floor( dmgBoost *100)))/10000).toFixed(2))
+        }
+        if(this.game.masteries.check('slowMastery') && this.type === "slow"){
+            this.finalRange = parseFloat(((Math.floor(this.finalRange*100) * (Math.floor( rangeBoost *100)))/10000).toFixed(2))
+        }
+
     }
 
 }

@@ -32,6 +32,11 @@ export default class player{
     }
 
     removeLives(qty){
+
+        // check masteries !
+        if(this.game.masteries.check('sacrificeMastery')){
+            this.addMoney(100)
+        }
         this.lives -= qty
         this.game.infoPanel.updateHeader()
     }

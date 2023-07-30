@@ -19,6 +19,7 @@ export default class Enemy{
         this.stopped = false
         this.reward = reward
         this.animationStep = 0
+        this.attacker = null
     }   
 
     changeDirection(pointA, pointB){
@@ -70,11 +71,37 @@ export default class Enemy{
         if(this.dead === false && outOfBounds === false){
             this.dead = true
             this.game.player.addMoney(this.reward)
+
+            // check masteries !
+            if(this.game.masteries.check('laserCreditsMastery') && this.attacker.type === "laser"){
+                this.game.player.addMoney(1)
+            }
+            else if(this.game.masteries.check('AoECreditsMastery') && this.attacker.type === "aoe"){
+                this.game.player.addMoney(2)
+            }
+            else if(this.game.masteries.check('sniperCreditsMastery') && this.attacker.type === "sniper"){
+                this.game.player.addMoney(3)
+            }
+
+            if(this.game.masteries.check('sniperLifeMastery') && this.attacker.type === "sniper"){
+                this.game.player.addLives(1)
+            }
+
         }
         // DIE OUTSIDE MAP
         else if (this.dead === false && outOfBounds === true){
             this.dead = true
-            this.game.player.removeLives(1)
+
+            //check masteries
+            if(this.game.masteries.check('creditsBeforeLifeMastery')){
+                if(this.game.player.money - 5 >= 0){
+                    this.game.player.removeMoney(5)
+                }else{
+                    this.game.player.removeLives(1)
+                }
+            }else{
+                this.game.player.removeLives(1)
+            }
             return
         }
 

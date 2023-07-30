@@ -31,6 +31,8 @@ export default class LaserTower extends Tower {
     shoot(){
         if(this.validTarget(this.target)){
 
+            this.target.attacker = this
+
             if(this.target.health - this.finalDamage >= 0){
                 this.target.health -= this.finalDamage
             }else{
