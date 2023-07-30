@@ -409,7 +409,50 @@ body{
     border-radius: 5px;
     font-size: 1.5rem;
     background-color: #777;
+}
 
+#endingContainer{
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    height: 400px;
+    left: 50%;
+    top: 50%;
+    background-color: #333;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    box-shadow: 0 0 250px 250px black;
+    text-align: center;
+    color: white;
+    font-weight: 800;
+    font-size: 2rem;
+    border-radius: 0.5rem;
+    border: #999 ridge 5px;
+}
+
+#youLostText{
+    padding: 50px 0;
+}
+
+#playAgainButton{
+    margin: 50px 0;
+    align-self: center;
+    height: 75px;
+    width: 25%;
+    opacity: 0.8;
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    border: 2px solid white;
+    box-shadow: 0px 0px 1px 1px white;
+    animation: pulsate 1s infinite;
+}
+
+#playAgainButton:hover{
+    border: solid 2px white;
+    animation: none;
+    opacity: 1;
+    box-shadow: 0px 0px 5px 1px white;
 }
 
 #panel{
@@ -564,7 +607,7 @@ body{
     border-radius: 5px;
     background-repeat:no-repeat;
     background-size: contain;
-    
+    background-color: #555;
 }
 
 #towerButtons button:hover{

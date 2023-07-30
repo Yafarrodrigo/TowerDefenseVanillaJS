@@ -378,7 +378,12 @@ export default class Graphics{
     }
 
     lostGame(){
-        this.extraCtx.clearRect(0, 0, this.extraCanvas.width, this.extraCanvas.height);
+        let container = document.getElementById('endingContainer')
+        container.classList.remove('notShown')
+        container.classList.add('shown')
+        let maxLevel = document.getElementById('maxLevelAchievedValue')
+        maxLevel.innerText = this.game.level.id
+        /* this.extraCtx.clearRect(0, 0, this.extraCanvas.width, this.extraCanvas.height);
         this.extraCtx.fillStyle = "darkred"
         this.extraCtx.fillRect(100,100,600,400)
 
@@ -394,7 +399,7 @@ export default class Graphics{
 
         this.extraCtx.font = "35px Arial";
         this.extraCtx.fillStyle = "black"
-        this.extraCtx.fillText("Go !", 550, 345);
+        this.extraCtx.fillText("Go !", 550, 345); */
     }
 
     updateButtons(){

@@ -14,6 +14,8 @@ export default class InfoPanel{
     showRadiusCheckbox = document.getElementById("showRadius")
     autoNextLevelCheckbox = document.getElementById("autoNextLevel")
     startButton = document.getElementById("startButton")
+
+    playAgainButton = document.getElementById('playAgainButton')
     
     helpContainer = document.getElementById("helpContainer")
     helpCloseButton = document.getElementById("helpCloseButton")
@@ -47,6 +49,11 @@ export default class InfoPanel{
         this.speedIcon.src = _PATHS.speedIcon
 
         this.blackScreen.append(this.helpScreen)
+
+        this.playAgainButton.addEventListener("click", (e)=>{
+            e.preventDefault()
+            location.reload()
+        })
 
         this.helpButton.addEventListener("click", (e)=>{
             e.preventDefault()
@@ -107,6 +114,10 @@ export default class InfoPanel{
 
             this.game.map.tiles[tower.tile.x][tower.tile.y].tower = false
             this.game.graphics.changeTile(tower.tile.x, tower.tile.y, "grey")
+
+            if(tower.type === "stop" && tower.target !== null){
+                tower.target.removeStatus("stop")
+            }
 
             this.game.player.addMoney(tower.sellPrice)
 
@@ -364,7 +375,7 @@ export default class InfoPanel{
             if(this.game.player.checkIfMoney(true, button.id)){
                 button.style.opacity = "1"
             }else{
-                button.style.opacity = "0.5"
+                button.style.opacity = "0.33"
             }
         })
     }
