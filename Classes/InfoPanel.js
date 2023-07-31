@@ -23,6 +23,10 @@ export default class InfoPanel{
     blackScreen = document.getElementById("fadeToBlack")
     showingHelp = false
     helpScreen = new Image()
+    
+    masteriesOpenButton = document.getElementById("masteriesOpenButton")
+    masteriesContainer = document.getElementById("masteriesContainer")
+    masteriesCloseButton = document.getElementById("masteriesCloseButton")
 
     damageIcon = new Image()
     extraDamageIcon = new Image()
@@ -53,6 +57,19 @@ export default class InfoPanel{
         this.playAgainButton.addEventListener("click", (e)=>{
             e.preventDefault()
             location.reload()
+        })
+
+        this.masteriesOpenButton.addEventListener('click', (e) => {
+            e.preventDefault()
+            this.masteriesContainer.classList.toggle('notShown')
+            this.masteriesContainer.classList.toggle('shown')
+            this.masteriesOpenButton.classList.remove('masteriesAvailable')
+        })
+
+        this.masteriesCloseButton.addEventListener('click', (e) => {
+            e.preventDefault()
+            this.masteriesContainer.classList.remove('shown')
+            this.masteriesContainer.classList.add('notShown')
         })
 
         this.helpButton.addEventListener("click", (e)=>{

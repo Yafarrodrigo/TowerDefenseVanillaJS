@@ -217,16 +217,61 @@ body{
     left: 15px;
 }
 
+#masteriesOpenButton{
+    position: absolute;
+    left: 325px;
+    top: 5px;
+    font-size: 2rem;
+    line-height: 8px;
+    font-weight: 800;
+    color: green;
+    background: #999;
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid #111;
+}
+
+#masteriesOpenButton:hover{
+    animation: none;
+    color: limegreen;
+    border: 1px solid rgb(195, 247, 117);
+}
+
+.masteriesAvailable{
+    animation: pulsateGreen 2s infinite;
+}
+
+@keyframes pulsateGreen{
+
+    0% {
+        color: green;
+        border: 1px solid #111;
+    }
+    50%{
+        color: limegreen;
+        border: 1px solid rgb(195, 247, 117);
+        box-shadow: 0 0 5px 1px limegreen;
+    }
+    100% {
+        color: green;
+        border: 1px solid #111;
+    }
+}
+
 #lives{
     position: absolute;
-    left: 350px;
+    left: 380px;
     top: -17px;
+    font-size: 1.9rem;
 }
 
 #money{
     position: absolute;
-    left: 500px;
+    left: 515px;
     top: -17px;
+    font-size: 1.9rem;
 }
 
 #debugSpeedMenu{
@@ -278,6 +323,10 @@ body{
     border: 1 solid #333;
     width: 100px;
     font-size: 1.5rem;
+}
+
+#debug-speed-minus:hover, #debug-play-pause:hover, #debug-speed-plus:hover, #debug-speed-reset:hover{
+    background-color: #aaa;
 }
 
 #gameSpeed{
@@ -642,7 +691,121 @@ body{
     0% {
         opacity: 1;
     }
-
 }
+
+#masteriesContainer{
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    width: 1200px;
+    height: 500px;
+    left: 50%;
+    top: 50%;
+    background-color: #333;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    border-radius: 0.5rem;
+    border: #999 ridge 5px;
+    box-shadow: 0 0 100px 200px rgba(0, 0, 0, 0.66);
+}
+
+#masteriesHeader{
+    display: flex;
+    color: white;
+    background-color: #555;
+    height: 40px;
+    padding: 5px;
+    font-size: 1.75rem;
+    text-align: center;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+}
+
+#unusedPoints{
+    color: #ddd;
+    width: 80%;
+}
+
+#masteriesCloseButton{
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    outline: none;
+    font-size: 1.2rem;
+    background-color: crimson;
+    color: white;
+    margin-left: auto;
+}
+
+#masteriesCloseButton:hover{
+    background-color: rgb(238, 66, 100);
+}
+
+.masteryRank{
+    width: auto;
+    background-color: #555;
+    margin: 15px;
+    padding: 0 10px;
+    display: flex;
+    border-radius: 5px;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.mastery{
+    margin: 5px;
+    background-color: #999;
+    border: 2px solid #333;
+    width: 100%;
+    height: 100px;
+    display: grid;
+    grid-template-areas: "img name" "img desc";
+    grid-template-columns: min-content auto;
+    cursor: pointer;
+}
+
+.mastery:hover{
+    background-color: #ddd;
+    border: 2px solid #aaa;
+}
+
+.masteryImg{
+    grid-area: img;
+    width: 100px;
+    background-color: #555;
+    user-select: none;
+    pointer-events: none;
+}
+.masteryName{
+    box-sizing: border-box;
+    color: white;
+    padding-left: 5px;
+    grid-area: name;
+    height: 25px;
+    background-color: #555;
+    border: 1px solid black;
+    user-select: none;
+    pointer-events: none;
+}
+.masteryDesc{
+    box-sizing: border-box;
+    color: white;
+    padding: 5px;
+    grid-area: desc;
+    height: 75px;
+    background-color: #777;
+    border: 1px solid black;
+    user-select: none;
+    pointer-events: none;
+}
+
+.mastery-disabled{
+    filter: brightness(0.25);
+    user-select: none;
+    pointer-events: none;
+}
+
+
+
 
   

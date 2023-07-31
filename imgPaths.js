@@ -45,6 +45,18 @@ const _PATHS = {
     bonusRangeIcon:         dir+"bonusRangeIcon.png",
     speedIcon:              dir+"speedIcon.png",
 
+    // MASTERIES
+
+    laserMastery:           dir+"laserMastery.png",
+    aoeMastery:             dir+"aoeMastery.png",
+    slowMastery:            dir+"slowMastery.png",
+    laserCreditsMastery:    dir+"laserCreditsMastery.png",
+    AoECreditsMastery:      dir+"AoECreditsMastery.png",
+    sniperCreditsMastery:   dir+"sniperCreditsMastery.png",
+    sniperLifeMastery:      dir+"sniperLifeMastery.png",
+    creditsBeforeLifeMastery:dir+"creditsBeforeLifeMastery.png",
+    sacrificeMastery:       dir+"sacrificeMastery.png",
+
 }
 
 export default _PATHS

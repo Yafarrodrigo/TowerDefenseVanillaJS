@@ -36,10 +36,17 @@ export default class Bullet{
         let nearEnemies = []
         //  no enemies -> no problem
         if(this.game.activeEnemies.length === 0) return
+        
+        // check for AoE mastery
+        let finalAoERadius = this.tower.aoeRadius
+        if(this.game.masteries.check('aoeMastery')){
+            let aoeBoost = 1.5
+            finalAoERadius = parseFloat(((Math.floor(finalAoERadius*100) * (Math.floor( aoeBoost *100)))/10000).toFixed(2))
+        }
 
         // check distance to other enemies
         this.game.activeEnemies.forEach((enemy)=>{
-            if(this.distance(this.target.x,enemy.x,this.target.y,enemy.y) <= this.tower.aoeRadius
+            if(this.distance(this.target.x,enemy.x,this.target.y,enemy.y) <= finalAoERadius
                 && enemy.id !== this.target.id){ 
                 
                     nearEnemies.push(enemy)
@@ -50,6 +57,7 @@ export default class Bullet{
         if(nearEnemies.length !== 0){
             nearEnemies.forEach((enemy)=>{
                 if(enemy.health - this.tower.secondaryDamage >= 0){
+                    enemy.attacker = this.tower
                     enemy.health -= this.tower.secondaryDamage
                 }else{
                     enemy.health = 0
@@ -84,6 +92,8 @@ export default class Bullet{
             if(this.hit()){
                 if(this.tower.type === "aoe"){
                     this.damageNearEnemies()
+                }else if(this.tower.type === "sniper"){
+                    this.target.attacker = this.tower
                 }
 
                 if(this.target.health - this.tower.finalDamage >= 0){

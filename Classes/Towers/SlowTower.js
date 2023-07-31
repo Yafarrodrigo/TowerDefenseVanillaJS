@@ -54,6 +54,9 @@ export default class SlowTower extends Tower {
 
             this.nearEnemies.forEach( enemy => {
                 if(this.validTarget(enemy)){
+                    
+                    this.target.attacker = this
+
                     if(enemy.health - this.finalDamage >= 0){
                         enemy.health -= this.finalDamage
                     }else{
