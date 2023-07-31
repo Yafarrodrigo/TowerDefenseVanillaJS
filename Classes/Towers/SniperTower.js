@@ -71,7 +71,7 @@ export default class SniperTower extends Tower {
         
 
         if(this.nearEnemies.length > 0){
-            if(this.timer === 120){
+            if(this.timer === 100){
                 this.timer = 1
                 this.shoot()
             }else{

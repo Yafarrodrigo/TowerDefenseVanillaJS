@@ -17,7 +17,11 @@ export default class player{
     }
 
     addMoney(qty){
-        this.money += qty
+        if(this.money + qty > 999){
+            this.money = 999
+        }else{
+            this.money += qty
+        }
         this.game.infoPanel.updateHeader()
     }
 
@@ -27,7 +31,11 @@ export default class player{
     }
 
     addLives(qty){
-        this.lives += qty
+        if(this.lives + qty > 100){
+            this.lives = 100
+        }else{
+            this.lives += qty
+        }
         this.game.infoPanel.updateHeader()
     }
 
@@ -35,7 +43,7 @@ export default class player{
 
         // check masteries !
         if(this.game.masteries.check('sacrificeMastery')){
-            this.addMoney(100)
+            this.addMoney(500)
         }
         this.lives -= qty
         this.game.infoPanel.updateHeader()

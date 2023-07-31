@@ -60,6 +60,14 @@ export default class StopTower extends Tower {
         if(this.nearEnemies.length > 0){
             if(this.timer === 1 && this.stoppingEnemy === false){
                 this.targetNearestEnemy()
+
+                // safety pal while
+                let safetyCounter = 0
+                while(this.target.checkStatus("stop") && safetyCounter < 100){
+                    this.targetNearestEnemy()
+                    safetyCounter++
+                }
+
                 let newStatus = new Status("stop",this,this.slow)
                 this.target && this.target.applyStatus(newStatus)
                 this.stoppingEnemy = true

@@ -62,9 +62,20 @@ export default class Game {
     let level = this.level.id + 1;
 
     if (level % 3 === 0) {
-      newEnemyData.speed = parseFloat(
-        ((oldEnemyData.speed * 100 + 0.15 * 100) / 100).toFixed(2)
-      );
+      if(this.level.id < 15){
+        newEnemyData.speed = parseFloat(
+          ((oldEnemyData.speed * 100 + 0.15 * 100) / 100).toFixed(2)
+        );
+      }
+      else if(this.level.id < 30){
+        newEnemyData.speed = parseFloat(
+          ((oldEnemyData.speed * 100 + 0.125 * 100) / 100).toFixed(2)
+        );
+      }else{
+        newEnemyData.speed = parseFloat(
+          ((oldEnemyData.speed * 100 + 0.1 * 100) / 100).toFixed(2)
+        );
+      }
     }
     if (level % 5 === 0) {
       if (this.spawnFreq - 5 >= 10) {
@@ -75,7 +86,15 @@ export default class Game {
       }
     }
 
-    newEnemyData.health += 75;
+    if(this.level.id < 15){
+      newEnemyData.health += 75;
+    }
+    else if(this.level.id < 30){
+      newEnemyData.health += 70;
+    }
+    else{
+      newEnemyData.health += 65;
+    }
 
     return newEnemyData;
   }

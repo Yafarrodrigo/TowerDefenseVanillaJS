@@ -3,7 +3,7 @@ import _MASTERIES from '../masteriesConfig.js'
 export default class Masteries {
     constructor(game){
         this.game = game
-        this.masteryPoints = 5
+        this.masteryPoints = 0
         this.availablePointsText = document.getElementById('unusedPoints')
         this.allMasteries = _MASTERIES
         this.purshasedRanks = {
@@ -123,6 +123,7 @@ export default class Masteries {
     }
 
     addPoints(q){
+        if(this.currentRank === "rankFour") return
         this.masteryPoints += q
         this.availablePointsText.innerText = `mastery points available: ${this.masteryPoints}`
     }

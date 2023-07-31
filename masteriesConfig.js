@@ -1,3 +1,5 @@
+import _PATHS from './imgPaths.js'
+
 const _MASTERIES = {
 
     rankOne:{
@@ -8,7 +10,7 @@ const _MASTERIES = {
             desc: "Your simple laser turrets do more damage (+50%)",
             level: 0,
             maxLevel: 1,
-            img: "./Images/laserTurret2.png"
+            img: _PATHS.laserMastery
         },
         aoeMastery:{
             id: "aoeMastery",
@@ -17,7 +19,7 @@ const _MASTERIES = {
             desc: "Your AoE turrets have bigger AoE (+50%)",
             level: 0,
             maxLevel: 1,
-            img: "./Images/laserTurret2.png"
+            img: _PATHS.aoeMastery
         },
         slowMastery:{
             id: "slowMastery",
@@ -26,7 +28,7 @@ const _MASTERIES = {
             desc: "Your slow turrets have bigger range (+50%)",
             level: 0,
             maxLevel: 1,
-            img: "./Images/laserTurret2.png"
+            img: _PATHS.slowMastery
         }
     },
     rankTwo:{
@@ -34,10 +36,10 @@ const _MASTERIES = {
             id: "laserCreditsMastery",
             rank: "rankTwo",
             name: "Laser Credits Mastery",
-            desc: "Enemies destroyed by laser turrets award 1 extra credit",
+            desc: "Enemies destroyed by your basic laser turrets award 1 extra credit",
             level: 0,
             maxLevel: 1,
-            img: "./Images/laserTurret2.png"
+            img: _PATHS.laserCreditsMastery
         },
         AoECreditsMastery:{
             id: "AoECreditsMastery",
@@ -46,7 +48,7 @@ const _MASTERIES = {
             desc: "Enemies destroyed by AoE turrets award 2 extra credit",
             level: 0,
             maxLevel: 1,
-            img: "./Images/laserTurret2.png"
+            img: _PATHS.AoECreditsMastery
         },
         sniperCreditsMastery:{
             id: "sniperCreditsMastery",
@@ -55,7 +57,7 @@ const _MASTERIES = {
             desc: "Enemies destroyed by Sniper turrets award 3 extra credit",
             level: 0,
             maxLevel: 1,
-            img: "./Images/laserTurret2.png"
+            img: _PATHS.sniperCreditsMastery
         }
     },
     rankThree:{
@@ -66,7 +68,7 @@ const _MASTERIES = {
             desc: "Enemies destroyed by Sniper turrets award 1 extra life",
             level: 0,
             maxLevel: 1,
-            img: "./Images/laserTurret2.png"
+            img: _PATHS.sniperLifeMastery
         },
         creditsBeforeLifeMastery:{
             id: "creditsBeforeLifeMastery",
@@ -75,16 +77,16 @@ const _MASTERIES = {
             desc: "Lose 5 credits instead of 1 life for each enemy that escapes",
             level: 0,
             maxLevel: 1,
-            img: "./Images/laserTurret2.png"
+            img: _PATHS.creditsBeforeLifeMastery
         },
         sacrificeMastery:{
             id: "sacrificeMastery",
             rank: "rankThree",
             name: "Sacrifice Mastery",
-            desc: "Gain 100 credits for each life you lose",
+            desc: "Gain 500 credits for each life you lose",
             level: 0,
             maxLevel: 1,
-            img: "./Images/laserTurret2.png"
+            img: _PATHS.sacrificeMastery
         }
         
     }
