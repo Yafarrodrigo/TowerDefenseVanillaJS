@@ -6,7 +6,7 @@
 
 body{
     background-color: #111;
-    
+    overflow: hidden;
 }
 
 #bgImage{
@@ -201,6 +201,7 @@ body{
     margin: 0;
     top: 0px;
     left: 150px;
+    pointer-events: none;
 }
 
 #enemyReward{
@@ -209,12 +210,14 @@ body{
     margin: 0;
     top: 17px;
     left: 150px;
+    pointer-events: none;
 }
 
 #level{
     position: absolute;
     top: -22px;
     left: 15px;
+    pointer-events: none;
 }
 
 #masteriesOpenButton{
@@ -828,11 +831,11 @@ body{
     left: 0;
     padding: 5px;
     width: fit-content;
-    background-color: #999;
-    border: 2px ridge #666;
+    background-color: #ddd;
+    border: 3px ridge #666;
     border-radius: 5px;
     opacity: 0;
-    transition: opacity 0.2s;
+    transition: opacity 0.1s;
     transition-delay: 1s;
 }
 
