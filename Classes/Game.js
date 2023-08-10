@@ -7,6 +7,7 @@ import InfoPanel from "./InfoPanel.js";
 import IdGenerator from "../Classes/IdGen.js";
 import Debug from "../Classes/Debug.js";
 import Masteries from "./Masteries.js";
+import Tooltip from "./Tooltip.js";
 
 export default class Game {
 
@@ -22,6 +23,7 @@ export default class Game {
   graphics = new Graphics(this);
   player = new player(this);
   infoPanel = new InfoPanel(this);
+  tooltip = new Tooltip();
   activeTowers = [];
   activeBullets = [];
   firstLevel = new Level(this, 1, 5, { health: 100, speed: 1, reward: 5 });
