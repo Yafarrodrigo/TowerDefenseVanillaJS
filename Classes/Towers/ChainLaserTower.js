@@ -92,7 +92,7 @@ export default class ChainLaserTower extends Tower{
         this.updateFinalDamageAndRange()
 
         this.updateNearEnemies()
-        this.targetNearestEnemy()
+        this.targetRandomEnemy()
         
 
         if(this.nearEnemies.length > 0){

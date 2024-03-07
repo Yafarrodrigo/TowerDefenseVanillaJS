@@ -67,12 +67,12 @@ export default class SniperTower extends Tower {
         this.updateFinalDamageAndRange()
         
         this.updateNearEnemies()
-        this.targetNearestEnemy()
-        
+        this.targetLowestHealthEnemy()
 
         if(this.nearEnemies.length > 0){
             if(this.timer === 100){
                 this.timer = 1
+                this.targetLowestHealthEnemy()
                 this.shoot()
             }else{
                 this.timer += 1

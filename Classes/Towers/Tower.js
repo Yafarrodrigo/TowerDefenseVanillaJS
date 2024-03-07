@@ -121,6 +121,30 @@ export default class Tower{
         }
     }
 
+    targetRandomEnemy(){
+
+        if(this.nearEnemies.length > 0){
+            if(this.target === null){
+                this.target = this.nearEnemies[Math.floor(Math.random()*this.nearEnemies.length)]
+            }
+        }
+    }
+
+    targetLowestHealthEnemy(){
+
+        if(this.nearEnemies.length > 0){
+            if(this.target === null){
+                let lower = this.nearEnemies[0]
+                
+                this.nearEnemies.forEach( enemy => {
+                    if(enemy.health < lower.health) lower = enemy
+                })
+                
+                this.target = lower
+            }
+        }
+    }
+
     distance(x0,x1,y0,y1){
         return Math.sqrt((x1-x0)*(x1-x0) + (y1-y0)*(y1-y0))
     }
