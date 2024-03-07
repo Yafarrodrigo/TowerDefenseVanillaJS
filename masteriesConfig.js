@@ -83,7 +83,7 @@ const _MASTERIES = {
             id: "sacrificeMastery",
             rank: "rankThree",
             name: "Sacrifice Mastery",
-            desc: "Gain 500 credits for each life you lose",
+            desc: "Gain 1000 credits for each life you lose",
             level: 0,
             maxLevel: 1,
             img: _PATHS.sacrificeMastery

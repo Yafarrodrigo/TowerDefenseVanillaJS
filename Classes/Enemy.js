@@ -20,6 +20,7 @@ export default class Enemy{
         this.reward = reward
         this.animationStep = 0
         this.attacker = null
+        this.alreadyEnteredMap = false
     }   
 
     changeDirection(pointA, pointB){
@@ -55,8 +56,10 @@ export default class Enemy{
 
     checkIfDead(){
         if(this.spawned === true){
-            if(this.x > this.game.width || this.y > this.game.heigth){
-                this.death(true)
+            if(this.x > this.game.width+25 || this.y > this.game.heigth+25 || this.x < -25 || this.y < -25){
+                if(this.alreadyEnteredMap === true){
+                    this.death(true)
+                }
             }
             else if(this.health <= 0){
                 this.death(false)
@@ -164,6 +167,12 @@ export default class Enemy{
     }
     
     update(){
+
+        if(this.alreadyEnteredMap === false){
+            if(this.x > 0 && this.x < this.game.width && this.y > 0 && this.y < this.game.heigth){
+                this.alreadyEnteredMap = true
+            }
+        }
 
         if(this.checkStatus("stop") === false){
             if(this.checkStatus("slow")){

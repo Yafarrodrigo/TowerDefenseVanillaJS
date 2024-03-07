@@ -33,6 +33,7 @@ export default class Debug{
     
     increaseGameSpeed(e){
         e.preventDefault()
+        if(this.game.paused === true) return
         if((this.game.updateInterval / 2) >= 1){
             this.game.stopClock()
             this.game.oldUpdateInterval = this.game.updateInterval
@@ -45,6 +46,7 @@ export default class Debug{
 
     decreaseGameSpeed(e){
         e.preventDefault()
+        if(this.game.paused === true) return
         if((this.game.updateInterval * 2) < 65){
             this.game.stopClock()
             this.game.oldUpdateInterval = this.game.updateInterval
@@ -57,6 +59,7 @@ export default class Debug{
 
     resetGameSpeed(e){
         e.preventDefault()
+        if(this.game.paused === true) return
         this.game.stopClock()
         this.game.oldUpdateInterval = 16
         this.game.updateInterval = 16

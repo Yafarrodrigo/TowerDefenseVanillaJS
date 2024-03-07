@@ -13,7 +13,7 @@ export default class player{
     constructor(game){
         this.game = game
         this.lives = 10
-        this.money = 1000
+        this.money = 100
     }
 
     addMoney(qty){
@@ -43,7 +43,7 @@ export default class player{
 
         // check masteries !
         if(this.game.masteries.check('sacrificeMastery')){
-            this.addMoney(500)
+            this.addMoney(1000)
         }
         this.lives -= qty
         this.game.infoPanel.updateHeader()
