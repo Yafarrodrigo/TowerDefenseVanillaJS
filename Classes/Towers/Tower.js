@@ -130,11 +130,24 @@ export default class Tower{
         }
     }
 
+    targetHighestHealthEnemy(){
+
+        if(this.nearEnemies.length > 0){
+            let higher = this.target || this.nearEnemies[0]
+            
+            this.nearEnemies.forEach( enemy => {
+                if(enemy.health > higher.health) higher = enemy
+            })
+            
+            this.target = higher
+        }
+    }
+
     targetLowestHealthEnemy(){
 
         if(this.nearEnemies.length > 0){
             if(this.target === null){
-                let lower = this.nearEnemies[0]
+                let lower = this.target || this.nearEnemies[0]
                 
                 this.nearEnemies.forEach( enemy => {
                     if(enemy.health < lower.health) lower = enemy
@@ -175,7 +188,7 @@ export default class Tower{
         let rangeBoost = 1.5
 
         // check for masteries
-        if(this.game.masteries.check('laserMastery') && this.type === "laser"){
+        if(this.game.masteries.check('laserMastery') && (this.type === "laser" || this.type === "chainLaser")){
             this.finalDamage = parseFloat(((Math.floor(this.finalDamage*100) * (Math.floor( dmgBoost *100)))/10000).toFixed(2))
         }
         if(this.game.masteries.check('slowMastery') && this.type === "slow"){

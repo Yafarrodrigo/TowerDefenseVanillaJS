@@ -14,6 +14,9 @@ export default class player{
         this.game = game
         this.lives = 10
         this.money = 100
+        this.keys = {
+            shift: false
+        }
     }
 
     addMoney(qty){
@@ -85,8 +88,11 @@ export default class player{
                 }
                 this.game.activeTowers.push(newTower)
                 newTower.create()
-                this.game.placingTower = false
-                this.game.placingTowerType = null
+
+                if(this.keys.shift === false || this.money - _TOWERS[type].buyCost < 0){
+                    this.game.placingTower = false
+                    this.game.placingTowerType = null
+                }
 
                 // SELECT TOWER
             }else{
@@ -148,6 +154,49 @@ export default class player{
             this.game.infoPanel.updateInfoDisplay()
 
           }, false);
+
+        document.addEventListener('keydown', (e) => {
+            if(e.key === "Shift"){
+                this.keys["shift"] = true
+            }
+        })
+        document.addEventListener('keyup', (e) => {
+            if(e.key === "Shift"){
+                this.keys["shift"] = false
+            }
+        })
+
+        document.addEventListener("keypress", (e)=>{
+
+            if(e.key === " "){
+                if(this.game.levelStarted === true){
+                    this.game.debug.pauseOrPlay(e)
+                }else{
+                    this.game.levelStarted = true
+                    this.game.infoPanel.startButton.innerText = "Next Wave"
+                }
+                return
+            }
+
+            const nums = ["1","2","3","4","5","6","7","8"]
+            if(!nums.includes(e.key)) return
+
+            this.game.placingTower = false
+            this.game.placingTowerType = false
+            this.game.towerSelected = null
+
+            switch(e.key){
+                case "1": this.game.infoPanel.buyTower(_TOWERS["laser"].type); break;
+                case "2": this.game.infoPanel.buyTower(_TOWERS["slow"].type); break;
+                case "3": this.game.infoPanel.buyTower(_TOWERS["aoe"].type); break;
+                case "4": this.game.infoPanel.buyTower(_TOWERS["sniper"].type); break;
+                case "5": this.game.infoPanel.buyTower(_TOWERS["chainLaser"].type); break;
+                case "6": this.game.infoPanel.buyTower(_TOWERS["stop"].type); break;
+                case "7": this.game.infoPanel.buyTower(_TOWERS["boostDamage"].type); break;
+                case "8": this.game.infoPanel.buyTower(_TOWERS["boostRange"].type); break;
+                default: this.game.infoPanel.buyTower(_TOWERS["laser"].type); break;
+            }
+        })
     }
 
     getMousePos(evt){

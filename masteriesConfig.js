@@ -7,7 +7,7 @@ const _MASTERIES = {
             id: "laserMastery",
             rank: "rankOne",
             name: "Laser Mastery",
-            desc: "Your simple laser turrets do more damage (+50%)",
+            desc: "Your lasers turrets do more damage (+50%)",
             level: 0,
             maxLevel: 1,
             img: _PATHS.laserMastery
@@ -36,7 +36,7 @@ const _MASTERIES = {
             id: "laserCreditsMastery",
             rank: "rankTwo",
             name: "Laser Credits Mastery",
-            desc: "Enemies destroyed by your basic laser turrets award 1 extra credit",
+            desc: "Enemies destroyed by your lasers turrets award 1 extra credit",
             level: 0,
             maxLevel: 1,
             img: _PATHS.laserCreditsMastery

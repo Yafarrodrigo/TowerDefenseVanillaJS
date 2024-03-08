@@ -70,7 +70,7 @@ export default class AoeTower extends Tower {
         this.updateFinalDamageAndRange()
 
         this.updateNearEnemies()
-        this.targetNearestEnemy()
+        this.targetHighestHealthEnemy()
 
         if(this.nearEnemies.length > 0){
             if(this.timer === 30){
