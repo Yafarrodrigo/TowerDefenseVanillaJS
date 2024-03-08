@@ -99,7 +99,7 @@ export default class Map{
             }
                             
             else{
-                console.log("error");
+                console.log("error in MAP");
             }
         }
     }

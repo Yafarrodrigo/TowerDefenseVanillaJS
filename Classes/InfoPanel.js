@@ -184,7 +184,7 @@ export default class InfoPanel{
             break
 
             case "description":
-            console.log("description");
+                console.log("description");
             break
         }
     }

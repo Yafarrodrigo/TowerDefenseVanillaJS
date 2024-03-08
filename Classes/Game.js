@@ -49,7 +49,6 @@ export default class Game {
       this.map = new Map(this, roadNumber);
     }
 
-    console.log(this.map);
     let startingPos = {x:0,y:0}
     let dir = "right"
 
@@ -173,7 +172,6 @@ export default class Game {
       newEnemyData.health = Math.floor(oldEnemyData.health * 1.05);
     }
 
-    console.log(newEnemyData);
     return newEnemyData;
   }
 

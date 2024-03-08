@@ -130,7 +130,7 @@ export default class Graphics{
                  }
             }
            
-            else {console.log("error");}
+            else {console.log("error in graphics!");}
         }
 
         // LAST TILE
