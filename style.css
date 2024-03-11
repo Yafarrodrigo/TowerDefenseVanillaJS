@@ -38,6 +38,7 @@ body{
 }
 
 #mainMenu{
+    color: white;
     position: fixed;
     display: grid;
     align-items: center;
@@ -54,6 +55,27 @@ body{
     opacity: 0.8;
     backdrop-filter: blur(10px);
     box-shadow: 0px 0px 5px 1px black;
+}
+
+#mainMenu > div{
+    padding: 0 15px;
+    width: 90%;
+    height: 100%;
+}
+
+#mainMenu h3{
+    margin: 0;
+    padding: 0;
+    text-decoration: underline;
+}
+
+#mainMenu ul{
+    margin: 0px;
+    height: 95%;
+    border-radius: 10px;
+    list-style: none;
+    border: #999 solid 1px;
+    background-color: #111;
 }
 
 #mainMenuPlayButton{

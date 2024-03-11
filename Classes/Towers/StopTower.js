@@ -43,6 +43,7 @@ export default class StopTower extends Tower {
             }
             this.sellPrice += Math.round(_TOWERS[this.type].upgradePrice/2)
             this.stopDuration += 20
+            this.range += _TOWERS[this.type].upgradeRange
             this.game.player.removeMoney(_TOWERS[this.type].upgradePrice)
             this.game.infoPanel.updateInfoDisplay(this,true,false)
         }  

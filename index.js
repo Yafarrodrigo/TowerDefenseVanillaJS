@@ -2,6 +2,25 @@ import Game from "./Classes/Game.js"
 import roads from "./roads.js"
 import _PATHS from "./imgPaths.js"
 
+// RECENT CHANGES
+const changes = [
+    "Improved map selection screen",
+    "Added support for different starting sides",
+    "Added keyboard shortcuts",
+    "Tweaked some towers numbers"
+]
+
+const changesContainer = document.getElementById("recentChanges")
+changes.forEach( change => {
+    const newLi = document.createElement("li")
+    const txt = document.createElement("h2")
+    txt.innerText = " - " + change
+    newLi.append(txt)
+    changesContainer.append(newLi)
+})
+
+
+// GAME HELP 
 const helpPages = [
     {number: 1, title:"Level Info", img: _PATHS.helpLevelInfo},
     {number: 2, title:"Lives and Credits", img: _PATHS.helpPlayerInfo},
@@ -64,6 +83,9 @@ document.getElementById("mainMenuPlayButton").addEventListener("click", (e) => {
     })
 })
 
+
+
+// STARTS GAME
 function selectMapAndPlay(mapId){
     document.getElementById("levelSelectDiv").classList.remove("shown")
     document.getElementById("levelSelectDiv").classList.add("notShown")
@@ -78,6 +100,8 @@ function selectMapAndPlay(mapId){
     game.setupAndStartGame()
 }
 
+
+// DISPLAY MAP IN THE MAP SELECTION SCREEN
 function displayRoad(ctx,road){
 
     const {width,height} = ctx.canvas

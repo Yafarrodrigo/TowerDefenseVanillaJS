@@ -331,11 +331,13 @@ export default class Graphics{
             })
         }
 
+        if(this.game.map.checkForTower(this.game.cursorAt.x,this.game.cursorAt.y)) return
+        
         if(this.game.placingTower === true && this.game.map.tiles[this.game.cursorAt.x][this.game.cursorAt.y].road === false){
             
             const x = this.game.cursorAt.x * this.game.map.tileSize
             const y = this.game.cursorAt.y * this.game.map.tileSize
-            
+
             this.extraCtx.beginPath();
             this.extraCtx.lineWidth = 0.5
             this.extraCtx.setLineDash([]);
@@ -383,23 +385,6 @@ export default class Graphics{
         container.classList.add('shown')
         let maxLevel = document.getElementById('maxLevelAchievedValue')
         maxLevel.innerText = this.game.level.id
-        /* this.extraCtx.clearRect(0, 0, this.extraCanvas.width, this.extraCanvas.height);
-        this.extraCtx.fillStyle = "darkred"
-        this.extraCtx.fillRect(100,100,600,400)
-
-        this.extraCtx.fillStyle = "white"
-        this.extraCtx.font = "65px Comic Sans MS";
-        this.extraCtx.textAlign = "center";
-        
-        this.extraCtx.fillText("YOU LOST", this.extraCanvas.width/2, (this.extraCanvas.height/2) -75);
-        this.extraCtx.fillText("play again?", this.extraCanvas.width/2 - 100 , (this.extraCanvas.height/2) + 50);
-
-        this.extraCtx.fillStyle = "white"
-        this.extraCtx.fillRect(500,307, 100,50)
-
-        this.extraCtx.font = "35px Arial";
-        this.extraCtx.fillStyle = "black"
-        this.extraCtx.fillText("Go !", 550, 345); */
     }
 
     updateButtons(){

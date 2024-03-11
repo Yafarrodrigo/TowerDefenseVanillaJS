@@ -133,7 +133,7 @@ const _TOWERS = {
         secondaryDamage: 0,
         upgradeSecondaryDamage: 0,
         upgradeDamage: 0,
-        upgradeRange: 15,
+        upgradeRange: 10,
         upgradeSlow: 0.,
         bonusDamage: 0,
         bonusSecondaryDamage: 0,

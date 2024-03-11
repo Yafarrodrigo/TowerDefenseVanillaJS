@@ -80,10 +80,11 @@ export default class SlowTower extends Tower {
         this.updateFinalDamageAndRange()
         
         this.updateNearEnemies()
-        this.targetNearestEnemy()
+        //this.targetNearestEnemy()
         
 
         if(this.nearEnemies.length > 0){
+            this.target = this.nearEnemies[0]
             this.shoot()
         }else{
             this.target = null
