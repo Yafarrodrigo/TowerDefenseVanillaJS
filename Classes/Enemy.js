@@ -30,12 +30,12 @@ export default class Enemy{
         if(pointA[1] === pointB[1]){
             // second waypoint is to the right?
             if(pointB[0] > pointA[0]){
-                this.direction = "right"
+                this.direction = 'right'
                 this.stopped = false
             }
             // left
             else{
-                this.direction = "left"
+                this.direction = 'left'
                 this.stopped = false
             }
         }
@@ -43,12 +43,12 @@ export default class Enemy{
         else if(pointA[0] === pointB[0]){
             // second waypoint is lower?
             if(pointB[1] > pointA[1]){
-                this.direction = "down"
+                this.direction = 'down'
                 this.stopped = false
             }
             // up
             else{
-                this.direction = "up"
+                this.direction = 'up'
                 this.stopped = false
             }
         }
@@ -76,17 +76,17 @@ export default class Enemy{
             this.game.player.addMoney(this.reward)
 
             // check masteries !
-            if(this.game.masteries.check('laserCreditsMastery') && this.attacker.type === "laser"){
+            if(this.game.masteries.check('laserCreditsMastery') && this.attacker.type === 'laser'){
                 this.game.player.addMoney(1)
             }
-            else if(this.game.masteries.check('AoECreditsMastery') && this.attacker.type === "aoe"){
+            else if(this.game.masteries.check('AoECreditsMastery') && this.attacker.type === 'aoe'){
                 this.game.player.addMoney(2)
             }
-            else if(this.game.masteries.check('sniperCreditsMastery') && this.attacker.type === "sniper"){
+            else if(this.game.masteries.check('sniperCreditsMastery') && this.attacker.type === 'sniper'){
                 this.game.player.addMoney(3)
             }
 
-            if(this.game.masteries.check('sniperLifeMastery') && this.attacker.type === "sniper"){
+            if(this.game.masteries.check('sniperLifeMastery') && this.attacker.type === 'sniper'){
                 this.game.player.addLives(1)
             }
 
@@ -150,10 +150,10 @@ export default class Enemy{
         }
         this.statuses.forEach((status)=>{
 
-            if(status.type === "stop"){
+            if(status.type === 'stop'){
                 this.currentSpeed = 0  
             }
-            else if(status.type === "slow"){
+            else if(status.type === 'slow'){
                 this.currentSpeed = parseFloat(((this.maxSpeed*100 - status.qtySlow*100)/100).toFixed(2))  
             }else{
                 this.currentSpeed = this.maxSpeed
@@ -174,8 +174,8 @@ export default class Enemy{
             }
         }
 
-        if(this.checkStatus("stop") === false){
-            if(this.checkStatus("slow")){
+        if(this.checkStatus('stop') === false){
+            if(this.checkStatus('slow')){
                 if(this.game.animationClock % 4 === 0){
                     if(this.animationStep >= 5){
                         this.animationStep = 0
@@ -197,7 +197,7 @@ export default class Enemy{
 
         this.statuses.forEach((status)=>{
             if(this.distance(this.x,status.tower.x, this.y, status.tower.y) > status.tower.finalRange){
-                this.removeStatus("slow")
+                this.removeStatus('slow')
             }
         })
 
@@ -205,7 +205,7 @@ export default class Enemy{
         let pointB = this.waypoints[this.targetWaypoint]
         
         // CHECK IF NEXT WAYPOINT
-        if(this.direction === "right" && this.targetWaypoint !== this.waypoints.length-1 && this.stopped === false){
+        if(this.direction === 'right' && this.targetWaypoint !== this.waypoints.length-1 && this.stopped === false){
             if(this.x > (pointB[0] * this.game.map.tileSize) +12){
                 if((this.targetWaypoint + 1) <= this.waypoints.length-1){
                     this.targetWaypoint += 1
@@ -215,7 +215,7 @@ export default class Enemy{
                 return
             }
         }
-        else if(this.direction === "down" && this.targetWaypoint !== this.waypoints.length-1 && this.stopped === false){
+        else if(this.direction === 'down' && this.targetWaypoint !== this.waypoints.length-1 && this.stopped === false){
             if(this.y > (pointB[1] * this.game.map.tileSize) +12){
                 if((this.targetWaypoint + 1) <= this.waypoints.length-1){
                     this.targetWaypoint += 1
@@ -225,7 +225,7 @@ export default class Enemy{
                 return
             }
         }
-        else if(this.direction === "up" && this.targetWaypoint !== this.waypoints.length-1 && this.stopped === false){
+        else if(this.direction === 'up' && this.targetWaypoint !== this.waypoints.length-1 && this.stopped === false){
             if(this.y < (pointB[1] * this.game.map.tileSize) +12){
                 if((this.targetWaypoint + 1) <= this.waypoints.length-1){
                     this.targetWaypoint += 1
@@ -235,7 +235,7 @@ export default class Enemy{
                 return
             }
         }
-        else if(this.direction === "left" && this.targetWaypoint !== this.waypoints.length-1 && this.stopped === false){
+        else if(this.direction === 'left' && this.targetWaypoint !== this.waypoints.length-1 && this.stopped === false){
             if(this.x < (pointB[0] * this.game.map.tileSize) +12){
                 if((this.targetWaypoint + 1) <= this.waypoints.length-1){
                     this.targetWaypoint += 1
@@ -257,16 +257,16 @@ export default class Enemy{
         }
 
         // MOVE
-        if(this.direction === "right"){
+        if(this.direction === 'right'){
             this.x += this.currentSpeed
         }
-        else if(this.direction === "left"){
+        else if(this.direction === 'left'){
             this.x -= this.currentSpeed
         }
-        else if(this.direction === "up"){
+        else if(this.direction === 'up'){
             this.y -= this.currentSpeed
         }
-        else if(this.direction === "down"){
+        else if(this.direction === 'down'){
             this.y += this.currentSpeed
         }
         else return

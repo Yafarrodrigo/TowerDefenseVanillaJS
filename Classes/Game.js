@@ -1,13 +1,13 @@
-import Enemy from "./Enemy.js";
-import Graphics from "./Graphics.js";
-import Map from "./Map.js";
-import player from "./Player.js";
-import Level from "./Level.js";
-import InfoPanel from "./InfoPanel.js";
-import IdGenerator from "../Classes/IdGen.js";
-import Debug from "../Classes/Debug.js";
-import Masteries from "./Masteries.js";
-import Tooltip from "./Tooltip.js";
+import Enemy from './Enemy.js';
+import Graphics from './Graphics.js';
+import Map from './Map.js';
+import player from './Player.js';
+import Level from './Level.js';
+import InfoPanel from './InfoPanel.js';
+import IdGenerator from '../Classes/IdGen.js';
+import Debug from '../Classes/Debug.js';
+import Masteries from './Masteries.js';
+import Tooltip from './Tooltip.js';
 
 export default class Game {
 
@@ -50,27 +50,27 @@ export default class Game {
     }
 
     let startingPos = {x:0,y:0}
-    let dir = "right"
+    let dir = 'right'
 
     if(this.map.road[0][0] === 0){
       startingPos.x = -25
       startingPos.y = this.map.road[0][1] * this.map.tileSize + 12
-      dir = "right"
+      dir = 'right'
     }
     else if(this.map.road[0][1] === 0){
       startingPos.y = -25
       startingPos.x = this.map.road[0][0] * this.map.tileSize + 12
-      dir = "down"
+      dir = 'down'
     }
     else if(this.map.road[0][0] === 15){
       startingPos.x = this.width + 25
       startingPos.y = this.map.road[0][1] * this.map.tileSize + 12
-      dir = "left"
+      dir = 'left'
     }
     else {
       startingPos.y = this.heigth + 25
       startingPos.x = this.map.road[0][0] * this.map.tileSize + 12
-      dir = "up"
+      dir = 'up'
     }
 
     this.spawnInfo = {

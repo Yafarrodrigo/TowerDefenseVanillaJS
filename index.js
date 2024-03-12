@@ -1,20 +1,20 @@
-import Game from "./Classes/Game.js"
-import roads from "./roads.js"
-import _PATHS from "./imgPaths.js"
+import Game from './Classes/Game.js'
+import allMaps from './allMaps.js'
+import _PATHS from './imgPaths.js'
 
 // RECENT CHANGES
 const changes = [
-    "Improved map selection screen",
-    "Added support for different starting sides",
-    "Added keyboard shortcuts",
-    "Tweaked some towers numbers"
+    'Improved map selection screen',
+    'Added support for different starting sides',
+    'Added keyboard shortcuts',
+    'Tweaked some towers numbers'
 ]
 
-const changesContainer = document.getElementById("recentChanges")
+const changesContainer = document.getElementById('recentChanges')
 changes.forEach( change => {
-    const newLi = document.createElement("li")
-    const txt = document.createElement("h2")
-    txt.innerText = " - " + change
+    const newLi = document.createElement('li')
+    const txt = document.createElement('h2')
+    txt.innerText = ' - ' + change
     newLi.append(txt)
     changesContainer.append(newLi)
 })
@@ -22,64 +22,61 @@ changes.forEach( change => {
 
 // GAME HELP 
 const helpPages = [
-    {number: 1, title:"Level Info", img: _PATHS.helpLevelInfo},
-    {number: 2, title:"Lives and Credits", img: _PATHS.helpPlayerInfo},
-    {number: 3, title:"Speed Control", img: _PATHS.helpSpeed},
-    {number: 4, title:"Options", img: _PATHS.helpOptions},
-    {number: 5, title:"Tower Stats", img: _PATHS.helpStats},
-    {number: 6, title:"Upgrading & Selling Towers", img: _PATHS.helpUpgradeSell},
-    {number: 7, title:"Brief towers description", img: _PATHS.helpTowers1},
-    {number: 8, title:"Brief towers description", img: _PATHS.helpTowers2},
+    {number: 1, title:'Level Info', img: _PATHS.helpLevelInfo},
+    {number: 2, title:'Lives and Credits', img: _PATHS.helpPlayerInfo},
+    {number: 3, title:'Speed Control', img: _PATHS.helpSpeed},
+    {number: 4, title:'Options', img: _PATHS.helpOptions},
+    {number: 5, title:'Tower Stats', img: _PATHS.helpStats},
+    {number: 6, title:'Upgrading & Selling Towers', img: _PATHS.helpUpgradeSell},
+    {number: 7, title:'Brief towers description', img: _PATHS.helpTowers1},
+    {number: 8, title:'Brief towers description', img: _PATHS.helpTowers2},
 ]
 let currentPage = 1
 const maxPage = helpPages.length
-document.getElementById("helpPagination").innerText = currentPage + " / " + maxPage
+document.getElementById('helpPagination').innerText = currentPage + ' / ' + maxPage
 
-document.getElementById("helpButtonBack").addEventListener("click", (e) => {
+document.getElementById('helpButtonBack').addEventListener('click', (e) => {
     (currentPage - 1) > 0 ? currentPage -= 1 : currentPage = 1
-    document.getElementById("helpPagination").innerText = currentPage + " / " + maxPage
-    document.getElementById("helpPageTitle").innerText = helpPages[currentPage-1].title
-    document.getElementById("helpImage").src = helpPages[currentPage-1].img
+    document.getElementById('helpPagination').innerText = currentPage + ' / ' + maxPage
+    document.getElementById('helpPageTitle').innerText = helpPages[currentPage-1].title
+    document.getElementById('helpImage').src = helpPages[currentPage-1].img
 })
 
-document.getElementById("helpButtonNext").addEventListener("click", (e) => {
+document.getElementById('helpButtonNext').addEventListener('click', (e) => {
     (currentPage + 1) <= maxPage ? currentPage += 1 : currentPage = maxPage
-    document.getElementById("helpPagination").innerText = currentPage + " / " + maxPage
-    document.getElementById("helpPageTitle").innerText = helpPages[currentPage-1].title
-    document.getElementById("helpImage").src = helpPages[currentPage-1].img
-})
-
-// LEVEL SELECT
-document.addEventListener("click", (e)=>{
-    if(e.target.classList.contains("roadImg")){
-        selectMapAndPlay(e.target.id)
-    }
+    document.getElementById('helpPagination').innerText = currentPage + ' / ' + maxPage
+    document.getElementById('helpPageTitle').innerText = helpPages[currentPage-1].title
+    document.getElementById('helpImage').src = helpPages[currentPage-1].img
 })
 
 // MAIN MENU PLAY BUTTON
-document.getElementById("mainMenuPlayButton").addEventListener("click", (e) => {
+document.getElementById('mainMenuPlayButton').addEventListener('click', (e) => {
     e.preventDefault()
     const lvlSelectDiv = document.getElementById('levelSelectDiv')
-    document.getElementById("mainMenu").classList.remove("shown")
-    document.getElementById("mainMenu").classList.add("notShown")
-    lvlSelectDiv.classList.remove("notShown")
-    lvlSelectDiv.classList.add("shown")
-    document.getElementById("levelSelectH1").classList.remove("notShown")
-    document.getElementById("levelSelectH1").classList.add("shown")
+    document.getElementById('mainMenu').classList.remove('shown')
+    document.getElementById('mainMenu').classList.add('notShown')
+    lvlSelectDiv.classList.remove('notShown')
+    lvlSelectDiv.classList.add('shown')
+    document.getElementById('levelSelectH1').classList.remove('notShown')
+    document.getElementById('levelSelectH1').classList.add('shown')
 
-    roads.forEach( (road,index) => {
+    allMaps.forEach( (map,index) => {
         const newRoad = document.createElement('canvas')
         newRoad.classList.add('roadImg')
         newRoad.id = index
         newRoad.width = 400
         newRoad.height = 300
         const ctx = newRoad.getContext('2d')
+        newRoad.addEventListener('click', (e) => {
+            selectMapAndPlay(index)
+        })
         lvlSelectDiv.append(newRoad)
 
-        ctx.fillStyle = "#222"
+        ctx.fillStyle = '#222'
         ctx.fillRect(0,0,400,300)
 
-        displayRoad(ctx, road)
+        displayRoad(ctx, map.road)
+
     })
 })
 
@@ -87,14 +84,14 @@ document.getElementById("mainMenuPlayButton").addEventListener("click", (e) => {
 
 // STARTS GAME
 function selectMapAndPlay(mapId){
-    document.getElementById("levelSelectDiv").classList.remove("shown")
-    document.getElementById("levelSelectDiv").classList.add("notShown")
+    document.getElementById('levelSelectDiv').classList.remove('shown')
+    document.getElementById('levelSelectDiv').classList.add('notShown')
 
-    document.getElementById("container").classList.remove("notShown")
-    document.getElementById("container").classList.add("shown")
+    document.getElementById('container').classList.remove('notShown')
+    document.getElementById('container').classList.add('shown')
 
-    document.getElementById("levelSelectH1").classList.add("notShown")
-    document.getElementById("levelSelectH1").classList.remove("shown")
+    document.getElementById('levelSelectH1').classList.add('notShown')
+    document.getElementById('levelSelectH1').classList.remove('shown')
     
     const game = new Game({roadNumber:mapId})
     game.setupAndStartGame()
@@ -119,17 +116,20 @@ function displayRoad(ctx,road){
 
     for(let x = 0; x < qtyTilesX; x++){
         for(let y = 0; y < qtyTilesY; y++){
-            ctx.strokeStyle = "black"
+            ctx.strokeStyle = 'black'
             ctx.strokeRect(x*tileSizeX,y*tileSizeY,tileSizeX,tileSizeY)
         }
     }
 
     
     // FIRST TILE
-    ctx.fillStyle = "green"
+    ctx.fillStyle = 'green'
     ctx.fillRect(road[0][0] * tileSizeX,road[0][1] * tileSizeY,tileSizeX,tileSizeY)
+    ctx.fillStyle = 'white'
+    ctx.font = '10px Coda'
+    ctx.fillText( 'start', road[0][0] * tileSizeX + 2,road[0][1] * tileSizeY + 15) 
 
-    ctx.fillStyle = "#555"
+    ctx.fillStyle = '#555'
     
     for(let i = 0; i < road.length-1; i++){
         let firstPoint = road[i]
@@ -162,6 +162,9 @@ function displayRoad(ctx,road){
     }
 
     // LAST TILE
-    ctx.fillStyle = "red"
+    ctx.fillStyle = 'red'
     ctx.fillRect(road[road.length-1][0] * tileSizeX,road[road.length-1][1] * tileSizeY,tileSizeX,tileSizeY)
+
+    ctx.fillStyle = 'white'
+    ctx.fillText( 'end', road[road.length-1][0] * tileSizeX + 2,road[road.length-1][1] * tileSizeY + 15) 
 }

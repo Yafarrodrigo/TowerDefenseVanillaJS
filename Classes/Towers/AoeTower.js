@@ -1,6 +1,6 @@
-import Tower from "./Tower.js";
-import Bullet from "../Bullet.js"
-import _TOWERS from "../../towersConfig.js";
+import Tower from './Tower.js';
+import Bullet from '../Bullet.js'
+import _TOWERS from '../../towersConfig.js';
 
 export default class AoeTower extends Tower {
     constructor(game,x, y){
@@ -8,7 +8,7 @@ export default class AoeTower extends Tower {
         this.game = game,
         this.x = (x * this.game.map.tileSize) + 25
         this.y = (y * this.game.map.tileSize) + 25
-        this.type = "aoe"
+        this.type = 'aoe'
         
         this.maxLevel = _TOWERS[this.type].maxLevel
         this.damage = _TOWERS[this.type].damage

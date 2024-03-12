@@ -11,7 +11,7 @@ export default class Masteries {
             rankTwo: false,
             rankThree: false
         }
-        this.currentRank = "rankOne"
+        this.currentRank = 'rankOne'
         
         this.activeMasteries = {}
         for(const rank in this.allMasteries){
@@ -31,17 +31,17 @@ export default class Masteries {
 
             const rankContainer = document.createElement('div')
             rankContainer.classList.add('masteryRank')
-            rankContainer.id = rank+"Masteries"
+            rankContainer.id = rank+'Masteries'
 
             for(let mastery in _MASTERIES[rank]){
                 const m = _MASTERIES[rank][mastery]
 
                 const masteryContainer = document.createElement('div')
                 masteryContainer.classList.add('mastery')
-                if(m.rank === "rankTwo" || m.rank === "rankThree"){
+                if(m.rank === 'rankTwo' || m.rank === 'rankThree'){
                     masteryContainer.classList.add('mastery-disabled')
                 }
-                masteryContainer.id = mastery+"-"+rank
+                masteryContainer.id = mastery+'-'+rank
 
                 masteryContainer.addEventListener('click', (e) => {
                     e.preventDefault()
@@ -89,9 +89,9 @@ export default class Masteries {
         }
 
         this.purshasedRanks[rank] = true
-        if(rank === "rankOne") this.currentRank = "rankTwo"
-        else if(rank === "rankTwo") this.currentRank = "rankThree"
-        else if(rank === "rankThree") this.currentRank = "rankFour"
+        if(rank === 'rankOne') this.currentRank = 'rankTwo'
+        else if(rank === 'rankTwo') this.currentRank = 'rankThree'
+        else if(rank === 'rankThree') this.currentRank = 'rankFour'
         this.masteryPoints -= 1
         this.updateUI()
 
@@ -123,7 +123,7 @@ export default class Masteries {
     }
 
     addPoints(q){
-        if(this.currentRank === "rankFour") return
+        if(this.currentRank === 'rankFour') return
         this.masteryPoints += q
         this.availablePointsText.innerText = `mastery points available: ${this.masteryPoints}`
     }

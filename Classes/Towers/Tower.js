@@ -1,4 +1,4 @@
-import _TOWERS from "../../towersConfig.js"
+import _TOWERS from '../../towersConfig.js'
 
 export default class Tower{
     constructor(game,x, y){
@@ -45,7 +45,7 @@ export default class Tower{
 
             this.game.activeTowers.forEach((tower)=>{
 
-                if(tower.type === "boostDamage" || tower.type === "boostRange"){
+                if(tower.type === 'boostDamage' || tower.type === 'boostRange'){
                     let distance = this.distance(this.x+12,tower.x+12,this.y+12,tower.y+12)
 
                     if( distance <= tower.range+5){
@@ -87,8 +87,8 @@ export default class Tower{
                 }
                 else{
                     if(nearby.hasOwnProperty(enemy.id)){
-                        enemy.removeStatus("slow")
-                        enemy.removeStatus("stop")
+                        enemy.removeStatus('slow')
+                        enemy.removeStatus('stop')
                         delete nearby[enemy.id]
                         if(this.target && this.target.id === enemy.id){
                             this.target = null
@@ -188,10 +188,10 @@ export default class Tower{
         let rangeBoost = 1.5
 
         // check for masteries
-        if(this.game.masteries.check('laserMastery') && (this.type === "laser" || this.type === "chainLaser")){
+        if(this.game.masteries.check('laserMastery') && (this.type === 'laser' || this.type === 'chainLaser')){
             this.finalDamage = parseFloat(((Math.floor(this.finalDamage*100) * (Math.floor( dmgBoost *100)))/10000).toFixed(2))
         }
-        if(this.game.masteries.check('slowMastery') && this.type === "slow"){
+        if(this.game.masteries.check('slowMastery') && this.type === 'slow'){
             this.finalRange = parseFloat(((Math.floor(this.finalRange*100) * (Math.floor( rangeBoost *100)))/10000).toFixed(2))
         }
 

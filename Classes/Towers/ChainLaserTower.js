@@ -1,5 +1,5 @@
-import _TOWERS from "../../towersConfig.js"
-import Tower from "./Tower.js"
+import _TOWERS from '../../towersConfig.js'
+import Tower from './Tower.js'
 
 export default class ChainLaserTower extends Tower{
     constructor(game,x, y){
@@ -7,7 +7,7 @@ export default class ChainLaserTower extends Tower{
         this.game = game,
         this.x = (x * this.game.map.tileSize) + 25
         this.y = (y * this.game.map.tileSize) + 25
-        this.type = "chainLaser"
+        this.type = 'chainLaser'
 
         this.maxLevel = _TOWERS[this.type].maxLevel
         this.damage = _TOWERS[this.type].damage
