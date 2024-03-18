@@ -71,7 +71,7 @@ export default class Bullet{
             this.target === null || this.target === undefined ||
             this.x < 0 || this.x > this.game.width || this.y < 0 || this.y > this.game.heigth){
 
-                if(this.tower.type !== "projectiles"){
+                if(this.tower.type !== 'projectiles'){
                     this.dead = true
                     return
                 }
@@ -90,9 +90,9 @@ export default class Bullet{
         }else{
 
             if(this.hit()){
-                if(this.tower.type === "aoe"){
+                if(this.tower.type === 'aoe'){
                     this.damageNearEnemies()
-                }else if(this.tower.type === "sniper"){
+                }else if(this.tower.type === 'sniper'){
                     this.target.attacker = this.tower
                 }
 

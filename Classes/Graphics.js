@@ -1,12 +1,12 @@
-import _TOWERS from "../towersConfig.js"
-import _PATHS from "../imgPaths.js"
+import _TOWERS from '../towersConfig.js'
+import _PATHS from '../imgPaths.js'
 
 export default class Graphics{
-    canvas = document.getElementById("canvas")
-    ctx = this.canvas.getContext("2d")
+    canvas = document.getElementById('canvas')
+    ctx = this.canvas.getContext('2d')
 
-    extraCanvas = document.getElementById("extra-canvas")
-    extraCtx = this.extraCanvas.getContext("2d")
+    extraCanvas = document.getElementById('extra-canvas')
+    extraCtx = this.extraCanvas.getContext('2d')
 
     floorTile = new Image()
     roadFloor = new Image()
@@ -42,13 +42,13 @@ export default class Graphics{
     changeTile(x, y, type){
 
         this.game.map.tiles[x][y].type = type
-        if(type === "floor"){
+        if(type === 'floor'){
             this.ctx.drawImage(this.floorTile, x * this.game.map.tileSize, y * this.game.map.tileSize, this.game.map.tileSize, this.game.map.tileSize)
         }
-        else if(type === "boostDamage"){
+        else if(type === 'boostDamage'){
             this.ctx.drawImage(this.boostDamageTile, x * this.game.map.tileSize, y * this.game.map.tileSize)
         }
-        else if(type === "boostRange"){
+        else if(type === 'boostRange'){
             this.ctx.drawImage(this.boostRangeTile, x * this.game.map.tileSize, y * this.game.map.tileSize)
         }
         else{
@@ -57,13 +57,13 @@ export default class Graphics{
     }
 
     drawBg(){
-        this.ctx.fillStyle = "black"
+        this.ctx.fillStyle = 'black'
         this.ctx.fillRect(0,0,800,600)
 
         for(let x = 0; x < 16; x++){
             for(let y = 0; y < 12; y++){
                 if(this.game.map.tiles[x][y].tower !== true){
-                    this.changeTile(x,y,"floor")
+                    this.changeTile(x,y,'floor')
                 }else{
                     this.changeTile(x,y, this.game.map.tiles[x][y].type)
                 }
@@ -130,7 +130,7 @@ export default class Graphics{
                  }
             }
            
-            else {console.log("error");}
+            else {console.log('error in graphics!');}
         }
 
         // LAST TILE
@@ -151,13 +151,13 @@ export default class Graphics{
     
                 let healthPercent = Math.floor(enemies[i].health/enemies[i].maxHealth *100)
                 if(healthPercent > 66){
-                    this.ctx.fillStyle = "green"
+                    this.ctx.fillStyle = 'green'
                 }
                 else if (healthPercent > 33){
-                    this.ctx.fillStyle = "orange"
+                    this.ctx.fillStyle = 'orange'
                 }
                 else{
-                    this.ctx.fillStyle = "red"
+                    this.ctx.fillStyle = 'red'
                 }
 
                 this.ctx.fillRect(enemies[i].x -1, enemies[i].y-10,healthPercent*0.3, 5)
@@ -165,11 +165,11 @@ export default class Graphics{
                 this.ctx.save()
                 this.ctx.translate(enemies[i].x+15, enemies[i].y+15)
                 
-                if(enemies[i].direction === "up"){
+                if(enemies[i].direction === 'up'){
                     this.ctx.rotate(-Math.PI/2)
-                }else if(enemies[i].direction === "down"){
+                }else if(enemies[i].direction === 'down'){
                     this.ctx.rotate(Math.PI/2)
-                }else if(enemies[i].direction === "left"){
+                }else if(enemies[i].direction === 'left'){
                     this.ctx.rotate(Math.PI)
                 }
                 this.ctx.translate(-enemies[i].x-15, -enemies[i].y-15)
@@ -187,7 +187,7 @@ export default class Graphics{
     displayBullets(){
         if(this.game.activeBullets.length !== 0){
             this.game.activeBullets.forEach((bullet)=>{
-                this.ctx.fillStyle = "red"
+                this.ctx.fillStyle = 'red'
                 this.ctx.fillRect(bullet.x,bullet.y,5,5)
             })
         }
@@ -205,14 +205,14 @@ export default class Graphics{
                         this.extraCtx.beginPath();
                         this.extraCtx.lineWidth = 2
                         this.extraCtx.setLineDash([10, 10]);
-                        this.extraCtx.strokeStyle = "red"  
-                        this.extraCtx.fillStyle = "rgba(255,0,0,0.15)"
+                        this.extraCtx.strokeStyle = 'red'  
+                        this.extraCtx.fillStyle = 'rgba(255,0,0,0.15)'
                     }else{
                         this.extraCtx.beginPath();
                         this.extraCtx.lineWidth = 0.5
                         this.extraCtx.setLineDash([]);
-                        this.extraCtx.strokeStyle = "green"
-                        this.extraCtx.fillStyle = "rgba(0,255,0,0)"
+                        this.extraCtx.strokeStyle = 'green'
+                        this.extraCtx.fillStyle = 'rgba(0,255,0,0)'
                     }
 
                     // range
@@ -227,8 +227,8 @@ export default class Graphics{
                         this.extraCtx.beginPath();
                         this.extraCtx.lineWidth = 2
                         this.extraCtx.setLineDash([10, 10]);
-                        this.extraCtx.strokeStyle = "red" 
-                        this.extraCtx.fillStyle = "rgba(255,0,0,0.15)"
+                        this.extraCtx.strokeStyle = 'red' 
+                        this.extraCtx.fillStyle = 'rgba(255,0,0,0.15)'
 
                          // range
                         this.extraCtx.beginPath()
@@ -240,8 +240,8 @@ export default class Graphics{
                             this.extraCtx.beginPath();
                             this.extraCtx.lineWidth = 0.5
                             this.extraCtx.setLineDash([]);
-                            this.extraCtx.strokeStyle = "green"
-                            this.extraCtx.fillStyle = "rgba(0,255,0,0.15)"
+                            this.extraCtx.strokeStyle = 'green'
+                            this.extraCtx.fillStyle = 'rgba(0,255,0,0.15)'
                             this.extraCtx.beginPath()
                             this.extraCtx.arc(tower.x, tower.y, tower.finalRange, 0, 2*Math.PI)
                             this.extraCtx.fill()
@@ -253,15 +253,15 @@ export default class Graphics{
 
                 // attacks
                 if(tower.target !== null && tower.target !== undefined && tower.projectiles === false && 
-                    tower.type !== "slow" && tower.type !== "boostDamage"){
+                    tower.type !== 'slow' && tower.type !== 'boostDamage'){
 
                     this.extraCtx.beginPath();
-                    if(tower.type === "stop"){
-                        this.extraCtx.strokeStyle = "lightblue"
+                    if(tower.type === 'stop'){
+                        this.extraCtx.strokeStyle = 'lightblue'
                         this.extraCtx.lineWidth = 3
                     }
                     else{
-                        this.extraCtx.strokeStyle = "gold"
+                        this.extraCtx.strokeStyle = 'gold'
                         this.extraCtx.lineWidth = 1
                     }    
                     this.extraCtx.setLineDash([]);
@@ -270,11 +270,11 @@ export default class Graphics{
                     this.extraCtx.lineTo(tower.target.x+12, tower.target.y+12);
                     this.extraCtx.stroke();
                 }
-                if(tower.type === "chainLaser" && this.game.activeEnemies.length >= 3){
+                if(tower.type === 'chainLaser' && this.game.activeEnemies.length >= 3){
                     this.extraCtx.beginPath();
                     this.extraCtx.lineWidth = 1
                     this.extraCtx.setLineDash([]);
-                    this.extraCtx.strokeStyle = "gold"
+                    this.extraCtx.strokeStyle = 'gold'
                     this.extraCtx.beginPath();
                     if(tower.nearEnemies.length >= 2){
                         this.extraCtx.moveTo(tower.target.x+12, tower.target.y+12);
@@ -287,13 +287,13 @@ export default class Graphics{
                     this.extraCtx.stroke();
                 }
 
-                if(tower.nearEnemies.length >= 1 && tower.type === "slow"){
+                if(tower.nearEnemies.length >= 1 && tower.type === 'slow'){
 
                     tower.nearEnemies.forEach((enemy)=>{
                         this.extraCtx.beginPath();
                         this.extraCtx.lineWidth = 1
                         this.extraCtx.setLineDash([]);
-                        this.extraCtx.strokeStyle = "lightblue"
+                        this.extraCtx.strokeStyle = 'lightblue'
                         this.extraCtx.beginPath();
                         this.extraCtx.moveTo(tower.x, tower.y);
                         this.extraCtx.lineTo(enemy.x+12, enemy.y+12);
@@ -307,22 +307,22 @@ export default class Graphics{
                 this.extraCtx.rotate(tower.turretAngle)
                 this.extraCtx.translate(-tower.x, -tower.y); 
                 switch(tower.type){
-                    case "slow":
+                    case 'slow':
                         this.extraCtx.drawImage(this.slowTurretTile, tower.x-25, tower.y-25, 50, 50)
                         break
-                    case "stop":
+                    case 'stop':
                         this.extraCtx.drawImage(this.stopTurretTile, tower.x-25, tower.y-25, 50, 50)
                         break
-                    case "laser":
+                    case 'laser':
                         this.extraCtx.drawImage(this.laserTurretTile, tower.x-25, tower.y-25, 50, 50)
                         break
-                    case "chainLaser":
+                    case 'chainLaser':
                         this.extraCtx.drawImage(this.chainLaserTurretTile, tower.x-25, tower.y-25, 50, 50)
                         break
-                    case "aoe":
+                    case 'aoe':
                         this.extraCtx.drawImage(this.aoeTurretTile, tower.x-25, tower.y-25, 50, 50)
                         break
-                    case "sniper":
+                    case 'sniper':
                         this.extraCtx.drawImage(this.sniperTurretTile, tower.x-37.5, tower.y-37.5, 75, 75)
                         break
                 }
@@ -331,46 +331,48 @@ export default class Graphics{
             })
         }
 
+        if(this.game.map.checkForTower(this.game.cursorAt.x,this.game.cursorAt.y)) return
+        
         if(this.game.placingTower === true && this.game.map.tiles[this.game.cursorAt.x][this.game.cursorAt.y].road === false){
             
             const x = this.game.cursorAt.x * this.game.map.tileSize
             const y = this.game.cursorAt.y * this.game.map.tileSize
-            
+
             this.extraCtx.beginPath();
             this.extraCtx.lineWidth = 0.5
             this.extraCtx.setLineDash([]);
-            this.extraCtx.strokeStyle = "green"
+            this.extraCtx.strokeStyle = 'green'
             this.extraCtx.beginPath()
             this.extraCtx.arc(x+25,y+25, _TOWERS[this.game.placingTowerType].range, 0, 2*Math.PI)
-            this.extraCtx.fillStyle = "rgba(0,255,0,0.15)"
+            this.extraCtx.fillStyle = 'rgba(0,255,0,0.15)'
             this.extraCtx.fill()
             this.extraCtx.stroke()
 
             switch(this.game.placingTowerType){
-                case "slow":
+                case 'slow':
                     this.ctx.drawImage(this.slowTurretTile, x, y, 50, 50)
                     break
-                case "stop":
+                case 'stop':
                     this.ctx.drawImage(this.stopTurretTile, x, y, 50, 50)
                     break
-                case "laser":
+                case 'laser':
                     this.ctx.drawImage(this.laserTurretTile, x, y, 50, 50)
                     break
-                case "chainLaser":
+                case 'chainLaser':
                     this.ctx.drawImage(this.chainLaserTurretTile, x, y, 50, 50)
                     break
-                case "aoe":
+                case 'aoe':
                     this.ctx.drawImage(this.aoeTurretTile, x, y, 50, 50)
                     break
-                case "sniper":
+                case 'sniper':
                     this.ctx.drawImage(this.sniperTurretTile, x-10, y-10, 75, 75)
                     break
                 
-                case "boostDamage":
+                case 'boostDamage':
                     this.ctx.drawImage(this.boostDamageTile, x, y, 50, 50)
                     break
                 
-                case "boostRange":
+                case 'boostRange':
                 this.ctx.drawImage(this.boostRangeTile, x, y, 50, 50)
                 break
             }
@@ -383,59 +385,42 @@ export default class Graphics{
         container.classList.add('shown')
         let maxLevel = document.getElementById('maxLevelAchievedValue')
         maxLevel.innerText = this.game.level.id
-        /* this.extraCtx.clearRect(0, 0, this.extraCanvas.width, this.extraCanvas.height);
-        this.extraCtx.fillStyle = "darkred"
-        this.extraCtx.fillRect(100,100,600,400)
-
-        this.extraCtx.fillStyle = "white"
-        this.extraCtx.font = "65px Comic Sans MS";
-        this.extraCtx.textAlign = "center";
-        
-        this.extraCtx.fillText("YOU LOST", this.extraCanvas.width/2, (this.extraCanvas.height/2) -75);
-        this.extraCtx.fillText("play again?", this.extraCanvas.width/2 - 100 , (this.extraCanvas.height/2) + 50);
-
-        this.extraCtx.fillStyle = "white"
-        this.extraCtx.fillRect(500,307, 100,50)
-
-        this.extraCtx.font = "35px Arial";
-        this.extraCtx.fillStyle = "black"
-        this.extraCtx.fillText("Go !", 550, 345); */
     }
 
     updateButtons(){
 
         if(!this.game.levelStarted){
-            this.game.infoPanel.startButton.classList.remove("disabledButton")
+            this.game.infoPanel.startButton.classList.remove('disabledButton')
         }
         else{
-            this.game.infoPanel.startButton.classList.add("disabledButton")
+            this.game.infoPanel.startButton.classList.add('disabledButton')
         }
 
         if(this.game.towerSelected !== null && this.game.towerSelected.level < this.game.towerSelected.maxLevel ){
             if(this.game.player.checkIfMoney(false , this.game.towerSelected.type)){
-                this.game.infoPanel.upgradeButton.classList.remove("disabledButton")
+                this.game.infoPanel.upgradeButton.classList.remove('disabledButton')
                 this.game.infoPanel.upgradeButton.innerHTML = `upgrade: $${this.game.towerSelected.upgradePrice}`
             }else{
-                this.game.infoPanel.upgradeButton.classList.add("disabledButton")
+                this.game.infoPanel.upgradeButton.classList.add('disabledButton')
                 this.game.infoPanel.upgradeButton.innerHTML = `upgrade $${this.game.towerSelected.upgradePrice}`
             }
-            this.game.infoPanel.sellButton.classList.remove("disabledButton")
+            this.game.infoPanel.sellButton.classList.remove('disabledButton')
             this.game.infoPanel.sellButton.innerHTML = `sell: $${this.game.towerSelected.sellPrice}`
 
         }
         else if (this.game.towerSelected !== null && this.game.towerSelected.level >= this.game.towerSelected.maxLevel){
            
-            this.game.infoPanel.upgradeButton.classList.add("disabledButton")
-            this.game.infoPanel.sellButton.classList.remove("disabledButton")
+            this.game.infoPanel.upgradeButton.classList.add('disabledButton')
+            this.game.infoPanel.sellButton.classList.remove('disabledButton')
             this.game.infoPanel.sellButton.innerHTML = `sell: $${this.game.towerSelected.sellPrice}`
         }
         else{
 
-            if(!this.game.infoPanel.upgradeButton.classList.contains("disabledButton")){
-                this.game.infoPanel.upgradeButton.classList.add("disabledButton")
+            if(!this.game.infoPanel.upgradeButton.classList.contains('disabledButton')){
+                this.game.infoPanel.upgradeButton.classList.add('disabledButton')
             }
-            if(!this.game.infoPanel.sellButton.classList.contains("disabledButton")){
-                this.game.infoPanel.sellButton.classList.add("disabledButton")
+            if(!this.game.infoPanel.sellButton.classList.contains('disabledButton')){
+                this.game.infoPanel.sellButton.classList.add('disabledButton')
             }
             this.game.infoPanel.upgradeButton.innerHTML = `upgrade`
             this.game.infoPanel.sellButton.innerHTML = `sell`

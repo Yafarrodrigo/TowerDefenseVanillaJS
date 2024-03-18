@@ -1,6 +1,6 @@
-import Tower from "./Tower.js";
-import _TOWERS from "../../towersConfig.js";
-import Status from "../Status.js";
+import Tower from './Tower.js';
+import _TOWERS from '../../towersConfig.js';
+import Status from '../Status.js';
 
 export default class StopTower extends Tower {
     constructor(game,x, y){
@@ -8,7 +8,7 @@ export default class StopTower extends Tower {
         this.game = game,
         this.x = (x * this.game.map.tileSize) + 25
         this.y = (y * this.game.map.tileSize) + 25
-        this.type = "stop"
+        this.type = 'stop'
         this.stoppingEnemy = false
         this.stopDuration = 100
 
@@ -39,10 +39,11 @@ export default class StopTower extends Tower {
         else {
             this.level += 1
             if(this.level == this.maxLevel){
-                this.speed = "slow"
+                this.speed = 'slow'
             }
             this.sellPrice += Math.round(_TOWERS[this.type].upgradePrice/2)
             this.stopDuration += 20
+            this.range += _TOWERS[this.type].upgradeRange
             this.game.player.removeMoney(_TOWERS[this.type].upgradePrice)
             this.game.infoPanel.updateInfoDisplay(this,true,false)
         }  
@@ -63,18 +64,18 @@ export default class StopTower extends Tower {
 
                 // safety pal while
                 let safetyCounter = 0
-                while(this.target.checkStatus("stop") && safetyCounter < 100){
+                while(this.target.checkStatus('stop') && safetyCounter < 100){
                     this.targetNearestEnemy()
                     safetyCounter++
                 }
 
-                let newStatus = new Status("stop",this,this.slow)
+                let newStatus = new Status('stop',this,this.slow)
                 this.target && this.target.applyStatus(newStatus)
                 this.stoppingEnemy = true
             }
             else if(this.timer === this.stopDuration){
 
-                this.target && this.target.removeStatus("stop")
+                this.target && this.target.removeStatus('stop')
                 this.target = null
                 this.stoppingEnemy = false
             }

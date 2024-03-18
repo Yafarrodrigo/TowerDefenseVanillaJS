@@ -1,6 +1,6 @@
-import Tower from "./Tower.js";
-import _TOWERS from "../../towersConfig.js";
-import Status from "../Status.js";
+import Tower from './Tower.js';
+import _TOWERS from '../../towersConfig.js';
+import Status from '../Status.js';
 
 export default class SlowTower extends Tower {
     constructor(game,x, y){
@@ -8,7 +8,7 @@ export default class SlowTower extends Tower {
         this.game = game,
         this.x = (x * this.game.map.tileSize) + 25
         this.y = (y * this.game.map.tileSize) + 25
-        this.type = "slow"
+        this.type = 'slow'
 
         this.maxLevel = _TOWERS[this.type].maxLevel
         this.damage = _TOWERS[this.type].damage
@@ -62,7 +62,7 @@ export default class SlowTower extends Tower {
                     }else{
                         enemy.health = 0
                     }
-                    let newStatus = new Status("slow",this,this.slow)
+                    let newStatus = new Status('slow',this,this.slow)
                     enemy.applyStatus(newStatus)
                 }
             })
@@ -80,10 +80,11 @@ export default class SlowTower extends Tower {
         this.updateFinalDamageAndRange()
         
         this.updateNearEnemies()
-        this.targetNearestEnemy()
+        //this.targetNearestEnemy()
         
 
         if(this.nearEnemies.length > 0){
+            this.target = this.nearEnemies[0]
             this.shoot()
         }else{
             this.target = null

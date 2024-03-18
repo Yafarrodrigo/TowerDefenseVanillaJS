@@ -1,4 +1,4 @@
-import roads from "../roads.js"
+import allMaps from '../allMaps.js'
 
 export default class Map{
 
@@ -10,7 +10,7 @@ export default class Map{
 
     constructor(game,road){
         this.game = game
-        this.road = roads[road]
+        this.road = allMaps.find(map => map.id === road).road
     }
 
     checkForRoad(x,y){
@@ -40,7 +40,7 @@ export default class Map{
             let midArray = []
             for(let y = 0; y <= this.qtyTilesY; y++){
                 
-                let newTile = {x:x, y:y, color: "grey", road: false, tower: false}  
+                let newTile = {x:x, y:y, color: 'grey', road: false, tower: false}  
                 midArray.push(newTile)
             }
             bigArray.push(midArray)
@@ -99,7 +99,7 @@ export default class Map{
             }
                             
             else{
-                console.log("error");
+                console.log('error in MAP');
             }
         }
     }
@@ -112,3 +112,12 @@ export default class Map{
 
 // NO ME ACUERDO
 // [[0,5],[5,5],[5,1],[10,1],[10,8],[5,8],[5,11]]
+
+// TEST VERTICAL
+// [[4,0],[4,11]]
+
+// TEST VERTICAL 2
+// [[4,11],[4,0]]
+
+// TEST RIGHT 2 LEFT
+// [[15,6],[5,6],[5,10],[12,10],[12,2],[0,2]]

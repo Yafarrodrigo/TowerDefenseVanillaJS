@@ -1,13 +1,13 @@
-import Enemy from "./Enemy.js";
-import Graphics from "./Graphics.js";
-import Map from "./Map.js";
-import player from "./Player.js";
-import Level from "./Level.js";
-import InfoPanel from "./InfoPanel.js";
-import IdGenerator from "../Classes/IdGen.js";
-import Debug from "../Classes/Debug.js";
-import Masteries from "./Masteries.js";
-import Tooltip from "./Tooltip.js";
+import Enemy from './Enemy.js';
+import Graphics from './Graphics.js';
+import Map from './Map.js';
+import player from './Player.js';
+import Level from './Level.js';
+import InfoPanel from './InfoPanel.js';
+import IdGenerator from '../Classes/IdGen.js';
+import Debug from '../Classes/Debug.js';
+import Masteries from './Masteries.js';
+import Tooltip from './Tooltip.js';
 
 export default class Game {
 
@@ -49,7 +49,35 @@ export default class Game {
       this.map = new Map(this, roadNumber);
     }
 
-    this.enemiesToSpawn = this.createEnemies(this.level.enemyData);
+    let startingPos = {x:0,y:0}
+    let dir = 'right'
+
+    if(this.map.road[0][0] === 0){
+      startingPos.x = -25
+      startingPos.y = this.map.road[0][1] * this.map.tileSize + 12
+      dir = 'right'
+    }
+    else if(this.map.road[0][1] === 0){
+      startingPos.y = -25
+      startingPos.x = this.map.road[0][0] * this.map.tileSize + 12
+      dir = 'down'
+    }
+    else if(this.map.road[0][0] === 15){
+      startingPos.x = this.width + 25
+      startingPos.y = this.map.road[0][1] * this.map.tileSize + 12
+      dir = 'left'
+    }
+    else {
+      startingPos.y = this.heigth + 25
+      startingPos.x = this.map.road[0][0] * this.map.tileSize + 12
+      dir = 'up'
+    }
+
+    this.spawnInfo = {
+      pos: startingPos,
+      dir: dir
+    }
+    this.enemiesToSpawn = this.createEnemies(this.level.enemyData,startingPos,dir);
   }
 
   setupAndStartGame() {
@@ -101,16 +129,62 @@ export default class Game {
     return newEnemyData;
   }
 
-  createEnemies(enemyData) {
+  NEW_upgradeEnemyData() {
+    let oldEnemyData = this.level.enemyData;
+    let newEnemyData = { ...oldEnemyData };
+    let level = this.level.id + 1;
+
+    if (level % 3 === 0) {
+      if(this.level.id < 15){
+        newEnemyData.speed = parseFloat(
+          ((oldEnemyData.speed * 100 + 0.15 * 100) / 100).toFixed(2)
+        );
+      }
+      else if(this.level.id < 30){
+        newEnemyData.speed = parseFloat(
+          ((oldEnemyData.speed * 100 + 0.125 * 100) / 100).toFixed(2)
+        );
+      }else{
+        newEnemyData.speed = parseFloat(
+          ((oldEnemyData.speed * 100 + 0.1 * 100) / 100).toFixed(2)
+        );
+      }
+    }
+    if (level % 5 === 0) {
+      if (this.spawnFreq - 5 >= 10) {
+        this.spawnFreq -= 5;
+      }
+    }
+
+    if(level % 10 === 0){
+      if (oldEnemyData.reward - 1 >= 1) {
+        newEnemyData.reward -= 1;
+      }
+    }
+
+    if(this.level.id < 10){
+      newEnemyData.health = Math.floor(oldEnemyData.health * 1.25);
+    } 
+    else if(this.level.id < 25){
+      newEnemyData.health = Math.floor(oldEnemyData.health * 1.15);
+    }
+    else{
+      newEnemyData.health = Math.floor(oldEnemyData.health * 1.05);
+    }
+
+    return newEnemyData;
+  }
+
+  createEnemies(enemyData, startingPos, dir) {
     const { health, speed, reward } = enemyData;
     let array = [];
     for (let i = 0; i < this.level.qtyEnemies; i++) {
       let newEnemy = new Enemy(
         this,
-        -25,
-        this.map.road[0][1] * this.map.tileSize + 12,
+        startingPos.x,//-25,
+        startingPos.y,//this.map.road[0][1] * this.map.tileSize + 12,
         health,
-        "right",
+        dir,
         speed,
         reward
       );
@@ -120,7 +194,7 @@ export default class Game {
   }
 
   nextLevel() {
-    let newEnemyData = this.upgradeEnemyData();
+    let newEnemyData = this.NEW_upgradeEnemyData();
 
     let newLevel = new Level(
       this,
@@ -135,7 +209,7 @@ export default class Game {
 
     this.level = newLevel;
     this.infoPanel.updateHeader(newLevel);
-    this.enemiesToSpawn = this.createEnemies(newLevel.enemyData);
+    this.enemiesToSpawn = this.createEnemies(newLevel.enemyData,this.spawnInfo.pos,this.spawnInfo.dir);
     this.activeEnemies = [];
 
 

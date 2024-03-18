@@ -1,6 +1,6 @@
-import Tower from "./Tower.js";
-import _TOWERS from "../../towersConfig.js";
-import Bullet from "../Bullet.js";
+import Tower from './Tower.js';
+import _TOWERS from '../../towersConfig.js';
+import Bullet from '../Bullet.js';
 
 export default class SniperTower extends Tower {
     constructor(game,x, y){
@@ -8,7 +8,7 @@ export default class SniperTower extends Tower {
         this.game = game,
         this.x = (x * this.game.map.tileSize) + 25
         this.y = (y * this.game.map.tileSize) + 25
-        this.type = "sniper"
+        this.type = 'sniper'
 
         this.maxLevel = _TOWERS[this.type].maxLevel
         this.damage = _TOWERS[this.type].damage
@@ -67,12 +67,12 @@ export default class SniperTower extends Tower {
         this.updateFinalDamageAndRange()
         
         this.updateNearEnemies()
-        this.targetNearestEnemy()
-        
+        this.targetLowestHealthEnemy()
 
         if(this.nearEnemies.length > 0){
             if(this.timer === 100){
                 this.timer = 1
+                this.targetLowestHealthEnemy()
                 this.shoot()
             }else{
                 this.timer += 1

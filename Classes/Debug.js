@@ -2,30 +2,30 @@ export default class Debug{
     constructor(game){
         this.game = game
 
-        this.speedMinusButton = document.getElementById("debug-speed-minus")
-        this.speedPlusButton = document.getElementById("debug-speed-plus")
-        this.speedResetButton = document.getElementById("debug-speed-reset")
-        this.playPauseButtom = document.getElementById("debug-play-pause")
+        this.speedMinusButton = document.getElementById('debug-speed-minus')
+        this.speedPlusButton = document.getElementById('debug-speed-plus')
+        this.speedResetButton = document.getElementById('debug-speed-reset')
+        this.playPauseButtom = document.getElementById('debug-play-pause')
         
-        this.gameSpeedPanel = document.getElementById("debugSpeedMenu")
-        this.gameSpeedInfo = document.getElementById("gameSpeed")   
+        this.gameSpeedPanel = document.getElementById('debugSpeedMenu')
+        this.gameSpeedInfo = document.getElementById('gameSpeed')   
         
-        this.playPauseButtom.addEventListener("click", (e) => this.pauseOrPlay(e))
-        this.speedMinusButton.addEventListener("click", (e)=> this.decreaseGameSpeed(e))
-        this.speedPlusButton.addEventListener("click", (e)=> this.increaseGameSpeed(e))
-        this.speedResetButton.addEventListener("click", (e)=> this.resetGameSpeed(e))
+        this.playPauseButtom.addEventListener('click', (e) => this.pauseOrPlay(e))
+        this.speedMinusButton.addEventListener('click', (e)=> this.decreaseGameSpeed(e))
+        this.speedPlusButton.addEventListener('click', (e)=> this.increaseGameSpeed(e))
+        this.speedResetButton.addEventListener('click', (e)=> this.resetGameSpeed(e))
         
     }
 
     pauseOrPlay(e){
         e.preventDefault()
-        this.playPauseButtom.innerText = "Reanude"
+        this.playPauseButtom.innerText = 'Reanude'
         if(this.game.paused === false){
             this.game.paused = true
             this.game.stopClock()
         }
         else{
-            this.playPauseButtom.innerText = "Pause"
+            this.playPauseButtom.innerText = 'Pause'
             this.game.paused = false
             this.game.startClock(this.game.oldUpdateInterval)
         }
@@ -33,6 +33,7 @@ export default class Debug{
     
     increaseGameSpeed(e){
         e.preventDefault()
+        if(this.game.paused === true) return
         if((this.game.updateInterval / 2) >= 1){
             this.game.stopClock()
             this.game.oldUpdateInterval = this.game.updateInterval
@@ -45,6 +46,7 @@ export default class Debug{
 
     decreaseGameSpeed(e){
         e.preventDefault()
+        if(this.game.paused === true) return
         if((this.game.updateInterval * 2) < 65){
             this.game.stopClock()
             this.game.oldUpdateInterval = this.game.updateInterval
@@ -57,6 +59,7 @@ export default class Debug{
 
     resetGameSpeed(e){
         e.preventDefault()
+        if(this.game.paused === true) return
         this.game.stopClock()
         this.game.oldUpdateInterval = 16
         this.game.updateInterval = 16
