@@ -1,3 +1,5 @@
+import Road from "./Road.js"
+
 export default class EditorMap{
 
     qtyTilesX = 15
@@ -5,21 +7,12 @@ export default class EditorMap{
     tileSize = 50
 
     tiles = []
-    road = [[0,1],[14,1],[14,5],[1,5],[1,10],[15,10]]
+    road = []
+    newRoad = new Road()
 
     checkForRoad(x,y){
         if(x >= 0 && x <= this.qtyTilesX && y >= 0 && y <= this.qtyTilesY){
             if(this.tiles[x][y].road === true){
-                return true
-            }else{
-                return false
-            }
-        }
-    }
-
-    checkForTower(x,y){
-        if(x >= 0 && x <= this.qtyTilesX && y >= 0 && y <= this.qtyTilesY){
-            if(this.tiles[x][y].tower === true){
                 return true
             }else{
                 return false

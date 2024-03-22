@@ -5,6 +5,7 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <link rel='stylesheet' href='style.css'>
+    <link rel='stylesheet' href='editor-style.css'>
     <link rel='preconnect' href='https://fonts.googleapis.com'>
     <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
     <link href='https://fonts.googleapis.com/css2?family=Coda&display=swap' rel='stylesheet'>
@@ -39,45 +40,21 @@
         <!--                         -->
         <div id='header'>
             <div id='levelInfo'>
-                <h1 id='level'>Level: 1</h1>
-                <h3 id='enemyHealth'>Health:</h3><span id='enemyHealthSpan'>100 hp</span>
-                <h3 id='enemyReward'>Reward:</h3><span id='enemyRewardSpan'>5 credits</span>
-            </div>
-            <div id='h1Group'>
-                <button id='masteriesOpenButton'>⩓</button>
-                <h1 id='lives'>Lives: 10</h1>
-                <h1 id='money'>Credits: 100</h1>
-            </div>
-            <div id='debugSpeedMenu' >
-                <button id='debug-play-pause'> Pause </button>
-                <button id='debug-speed-minus'>-</button>
-                <button id='debug-speed-plus'>+</button>
-                <button id='debug-speed-reset'>Reset</button>
-                <span id='gameSpeed'> 100% </span>
+                <h1 id='level'>Level Editor</h1>
             </div>
             <button id='help'>?</button>
         </div>
 
         <div id='canvas-group'>
             <canvas width='800' height='600' id='canvas'></canvas>
-            <canvas width='800' height='600' id='extra-canvas' style="opacity: 0;"></canvas>
+            <canvas width='800' height='600' id='extra-canvas'></canvas>
         </div>
     
         <div id='panel'>
-            <label id='showRadiusLabel' for='showRadius'>Show Tower Ranges <input type='checkbox' name='showRadius' id='showRadius' checked></label>
-            <label id='autoNextLevelLabel' for='autoNextLevel'>Keep Passing Level <input type='checkbox' name='autoNextLevel' id='autoNextLevel' checked></label>
             
             <form id='towerSpawner'>
-                <button id='startButton'>START GAME</button>
-                <div id='towerInfo'>
-                    <canvas id='infoCanvas' height='200' width='295'></canvas>
-
-                    <div id='twobuttons'>
-                        <button class='disabledButton' id='upgradeTower'>UPGRADE</button>
-                        <button class='disabledButton' id='sellTower'>SELL</button>
-                    </div>
-                </div>
-                <did id='towerButtons'></did>
+                <button id='startButton'>Play!</button>
+                <div id='floorButtons'></div>
             </form>
         </div>
     </div>

@@ -1,0 +1,30 @@
+#floorButtons{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 240px;
+    margin: auto;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: #777;
+}
+
+#floorButtons button{
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
+    background-repeat:no-repeat;
+    background-size: contain;
+    background-color: #555;
+    margin: 2px;
+    cursor: pointer;
+}
+
+#floorButtons button:hover{
+    border: 2px solid yellow;
+}
+
+.tileSelected{
+    border: 2px solid yellow;
+}
+

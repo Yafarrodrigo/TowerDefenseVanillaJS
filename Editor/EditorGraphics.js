@@ -21,7 +21,7 @@ export default class EditorGraphics{
 
         this.map.tiles[x][y].type = type
         if(type === 'road'){
-            this.ctx.drawImage(this.roadTile, x * this.map.tileSize, y * this.map.tileSize, this.map.tileSize, this.map.tileSize)
+            this.ctx.drawImage(this.roadFloor, x * this.map.tileSize, y * this.map.tileSize, this.map.tileSize, this.map.tileSize)
         }
         else{
             this.ctx.drawImage(this.floorTile, x * this.map.tileSize, y * this.map.tileSize, this.map.tileSize, this.map.tileSize)
@@ -34,85 +34,20 @@ export default class EditorGraphics{
 
         for(let x = 0; x < 16; x++){
             for(let y = 0; y < 12; y++){
-                if(this.map.tiles[x][y].road !== true){
-                    this.changeTile(x,y,'floor')
-                }else{
-                    this.changeTile(x,y, 'road')
-                }
+                this.changeTile(x,y,'floor')
             }
         }
     }
     
     drawRoad(){
-        if(this.map.road.length < 1) return
-
-        // FIRST TILE
-        this.ctx.drawImage(
-            this.roadFloor,
-            this.map.road[0][0] *  this.map.tileSize,
-            this.map.road[0][1] *  this.map.tileSize,
-            this.map.tileSize,
-            this.map.tileSize)
-
-        for(let i = 0; i < this.map.road.length-1; i++){
-            let firstPoint = this.map.road[i]
-            let secondPoint = this.map.road[i+1]
-
-            // VERTICAL
-            if(firstPoint[0] === secondPoint[0]){
-                if(secondPoint[1] >= firstPoint[1]){
-                    for(let j = 1; j <= Math.abs(secondPoint[1]-firstPoint[1]); j++){
-                        this.ctx.drawImage(
-                            this.roadFloor,
-                            (firstPoint[0] * this.map.tileSize),
-                            (firstPoint[1] * this.map.tileSize) + j * this.map.tileSize,
-                            this.map.tileSize,
-                            this.map.tileSize)
-                    }
-                }else{
-                    for(let j = Math.abs(secondPoint[1]-firstPoint[1]); j > 0 ; j--){
-                        this.ctx.drawImage(
-                            this.roadFloor,
-                            (firstPoint[0] * this.map.tileSize),
-                            (firstPoint[1] * this.map.tileSize) - j * this.map.tileSize,
-                            this.map.tileSize,
-                            this.map.tileSize)
-                    }
-                }
-            }
-            // HORIZONTAL
-            else if (firstPoint[1] === secondPoint[1]){
-                if(secondPoint[0] >= firstPoint[0]){
-                    for(let j = 1; j <= Math.abs(secondPoint[0]-firstPoint[0]); j++){
-                        this.ctx.drawImage(
-                            this.roadFloor,
-                            (firstPoint[0] * this.map.tileSize) + j * this.map.tileSize,
-                            (firstPoint[1] * this.map.tileSize),
-                            this.map.tileSize,
-                            this.map.tileSize)
-                    }
-                }else{
-                    for(let j = Math.abs(secondPoint[0]-firstPoint[0]); j > 0 ; j--){
-                        this.ctx.drawImage(
-                            this.roadFloor,
-                            (firstPoint[0] * this.map.tileSize)- j * this.map.tileSize,
-                            (firstPoint[1] * this.map.tileSize),
-                            this.map.tileSize,
-                            this.map.tileSize)
-                    }
-                 }
-            }
-           
-            else {console.log('error in graphics!');}
-        }
-
-        // LAST TILE
-        this.ctx.drawImage(
-            this.roadFloor,
-            this.map.road[this.map.road.length-1][0] *  this.map.tileSize,
-            this.map.road[this.map.road.length-1][1] *  this.map.tileSize,
-            this.map.tileSize,
-            this.map.tileSize)
+        this.map.newRoad.getRoad().forEach( tile => {
+            this.ctx.drawImage(
+                this.roadFloor,
+                tile[0] *  this.map.tileSize,
+                tile[1] *  this.map.tileSize,
+                this.map.tileSize,
+                this.map.tileSize)
+        })
     }
 
     displayEnemies(){
@@ -207,13 +142,86 @@ export default class EditorGraphics{
         }
     }
 
-    update(){
+    displayCursorRoad(x,y){
+        this.extraCtx.drawImage(
+            this.roadFloor,
+            x * this.map.tileSize,
+            y * this.map.tileSize,
+            this.map.tileSize,
+            this.map.tileSize
+            )
+
+        
+        if(this.map.road.length < 1) return
+
+        const firstPoint = this.map.road[this.map.road.length-1]
+        const secondPoint = [x,y]
+
+        if(firstPoint[0] === secondPoint[0]){
+            if(secondPoint[1] >= firstPoint[1]){
+                for(let j = 1; j <= Math.abs(secondPoint[1]-firstPoint[1]); j++){
+                    this.ctx.drawImage(
+                        this.roadFloor,
+                        (firstPoint[0] * this.map.tileSize),
+                        (firstPoint[1] * this.map.tileSize) + j * this.map.tileSize,
+                        this.map.tileSize,
+                        this.map.tileSize)
+                }
+            }else{
+                for(let j = Math.abs(secondPoint[1]-firstPoint[1]); j > 0 ; j--){
+                    this.ctx.drawImage(
+                        this.roadFloor,
+                        (firstPoint[0] * this.map.tileSize),
+                        (firstPoint[1] * this.map.tileSize) - j * this.map.tileSize,
+                        this.map.tileSize,
+                        this.map.tileSize)
+                }
+            }
+        }
+        // HORIZONTAL
+        else if (firstPoint[1] === secondPoint[1]){
+            if(secondPoint[0] >= firstPoint[0]){
+                for(let j = 1; j <= Math.abs(secondPoint[0]-firstPoint[0]); j++){
+                    this.ctx.drawImage(
+                        this.roadFloor,
+                        (firstPoint[0] * this.map.tileSize) + j * this.map.tileSize,
+                        (firstPoint[1] * this.map.tileSize),
+                        this.map.tileSize,
+                        this.map.tileSize)
+                }
+            }else{
+                for(let j = Math.abs(secondPoint[0]-firstPoint[0]); j > 0 ; j--){
+                    this.ctx.drawImage(
+                        this.roadFloor,
+                        (firstPoint[0] * this.map.tileSize)- j * this.map.tileSize,
+                        (firstPoint[1] * this.map.tileSize),
+                        this.map.tileSize,
+                        this.map.tileSize)
+                }
+                }
+        }
+    }
+
+    update(x,y,placingTile,placingTileType){
 
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.extraCtx.clearRect(0, 0, this.extraCanvas.width, this.extraCanvas.height);
 
         this.drawBg()
         this.drawRoad()
+        if(placingTile && placingTileType === 'road'){
+            this.displayCursorRoad(x,y)
+        }
+
+        const lastTile = this.map.newRoad.getLastNode()
+        if(lastTile){
+            this.ctx.fillStyle = "rgba(0,255,0,0.5)"
+            this.ctx.fillRect(
+            lastTile.x * this.map.tileSize,
+            lastTile.y * this.map.tileSize,
+            this.map.tileSize,
+            this.map.tileSize)
+        }
     }
 
 }
