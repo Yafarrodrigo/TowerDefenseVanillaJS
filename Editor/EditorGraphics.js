@@ -152,9 +152,10 @@ export default class EditorGraphics{
             )
 
         
-        if(this.map.road.length < 1) return
+        if(this.map.newRoad.size < 1) return
 
-        const firstPoint = this.map.road[this.map.road.length-1]
+        const lastNode = this.map.newRoad.getLastNode()
+        const firstPoint = [lastNode.x,lastNode.y]
         const secondPoint = [x,y]
 
         if(firstPoint[0] === secondPoint[0]){
