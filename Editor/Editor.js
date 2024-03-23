@@ -55,18 +55,20 @@ export default class Editor{
             if(x === 0 || x === 15 || y === 0 || y === 11){
                 this.graphics.changeTile(x,y,this.placingTileType)
                 this.map.newRoad.addNode(x,y)
+                this.map.newRoad.addWaypoint(x,y)
                 this.map.tiles[x][y].type = this.placingTileType
                 this.map.tiles[x][y].road = 'road'
             }
-            // cant place second tile in border
-        }else if(this.map.newRoad.size === 1 && (x === 0 || x === 15 || y === 0 || y === 11)){
-            return
         }else if(this.map.newRoad.size > 0 && (x === 0 || x === 15 || y === 0 || y === 11)){
+            // if last
+            const lastPoint = this.map.newRoad.getLastNode()
             this.graphics.changeTile(x,y,this.placingTileType)
-            this.map.newRoad.addNode(x,y)
             this.map.tiles[x][y].type = this.placingTileType
             this.map.tiles[x][y].road = 'road'
             this.placingTile = false
+            this.addTilesBetweenPoints([lastPoint.x,lastPoint.y],[x,y])
+            const newLast = this.map.newRoad.getLastNode()
+            this.map.newRoad.addWaypoint(newLast.x,newLast.y)
         }else{
             // rest
             const lastPoint = this.map.newRoad.getLastNode()
@@ -89,8 +91,12 @@ export default class Editor{
                 
 
                 this.addTilesBetweenPoints([lastPoint.x,lastPoint.y],[x,y])
+
+                const newLast = this.map.newRoad.getLastNode()
+                this.map.newRoad.addWaypoint(newLast.x,newLast.y)
             }
         }
+        console.log(this.map.newRoad);
     }
 
 

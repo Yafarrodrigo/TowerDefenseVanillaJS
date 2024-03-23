@@ -54,5 +54,11 @@ helpCloseButton.addEventListener('click', (e) =>{
 })
 
 const editor = new Editor()
-
 editor.start()
+
+document.getElementById('startButton').addEventListener('click', (e) => {
+    e.preventDefault()
+    const mapToPlay = editor.map.newRoad.getWaypoints()
+    localStorage.setItem('TD_MAP_INFO', JSON.stringify(mapToPlay))
+    window.location.href = '/index.html'
+})

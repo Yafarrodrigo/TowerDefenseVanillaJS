@@ -2,6 +2,11 @@ export default class Road{
     constructor(){
         this.firstTile = null
         this.size = 0
+        this.waypoints = []
+    }
+
+    addWaypoint(x,y){
+        this.waypoints.push([x,y])
     }
 
     addNode(x,y){
@@ -14,8 +19,6 @@ export default class Road{
             lastNode.next = new TileNode(x,y,lastNode.index+1)
         }
         this.size += 1
-
-        console.log(this);
     }
 
     getLastNode(){
@@ -57,6 +60,10 @@ export default class Road{
         }
 
         return result
+    }
+
+    getWaypoints(){
+        return this.waypoints
     }
 }
 

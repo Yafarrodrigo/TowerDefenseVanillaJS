@@ -10,7 +10,12 @@ export default class Map{
 
     constructor(game,road){
         this.game = game
-        this.road = allMaps.find(map => map.id === road).road
+        console.log(road);
+        if(road instanceof Array){
+            this.road = road
+        }else{
+            this.road = allMaps.find(map => map.id === road).road
+        }
     }
 
     checkForRoad(x,y){
