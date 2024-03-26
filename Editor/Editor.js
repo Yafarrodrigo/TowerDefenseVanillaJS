@@ -47,9 +47,11 @@ export default class Editor{
         })
     }
 
+    // FAIL SI EL SEGUNDO PUNTO ESTA EN EL MISMO BORDE DE EMPEZAR
+    
     placeTile(x,y){
         if(this.placingTile === false) return
-
+        console.log(x,y);
         // placing first tile
         if(this.map.newRoad.size === 0){
             if(x === 0 || x === 15 || y === 0 || y === 11){
@@ -59,17 +61,21 @@ export default class Editor{
                 this.map.tiles[x][y].type = this.placingTileType
                 this.map.tiles[x][y].road = 'road'
             }
-        }else if(this.map.newRoad.size > 0 && (x === 0 || x === 15 || y === 0 || y === 11)){
-            // if last
+         // if last
+        }else if(this.map.newRoad.size > 1 && (x === 0 || x === 15 || y === 0 || y === 11)){
             const lastPoint = this.map.newRoad.getLastNode()
+            // check for adjacents
+            if(x !== lastPoint.x && y !== lastPoint.y) return
+            
             this.graphics.changeTile(x,y,this.placingTileType)
             this.map.tiles[x][y].type = this.placingTileType
             this.map.tiles[x][y].road = 'road'
             this.placingTile = false
             this.addTilesBetweenPoints([lastPoint.x,lastPoint.y],[x,y])
-            const newLast = this.map.newRoad.getLastNode()
-            this.map.newRoad.addWaypoint(newLast.x,newLast.y)
+            this.map.newRoad.addWaypoint(x,y)
         }else{
+            // seond one not in finish line
+            if(this.map.newRoad.size === 1 && (x === 0 || x === 15 || y === 0 || y === 11)) return
             // rest
             const lastPoint = this.map.newRoad.getLastNode()
             if(x === lastPoint.x || y === lastPoint.y){
