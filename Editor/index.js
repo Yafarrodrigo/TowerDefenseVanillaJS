@@ -58,6 +58,7 @@ editor.start()
 
 document.getElementById('startButton').addEventListener('click', (e) => {
     e.preventDefault()
+    if(editor.done === false) return
     const mapToPlay = editor.map.newRoad.getWaypoints()
     localStorage.setItem('TD_MAP_INFO', JSON.stringify(mapToPlay))
     window.location.href = '/index.html'

@@ -9,6 +9,7 @@ export default class Editor{
         this.placingTile = true
         this.placingTileType = 'road'
         this.history = []
+        this.done = false
     }
 
     start(){
@@ -17,7 +18,7 @@ export default class Editor{
         this.createFloorTiles()
         this.addListeners()
         setInterval(()=>{
-            this.graphics.update(this.cursorAt.x,this.cursorAt.y, this.placingTile,this.placingTileType)
+            this.graphics.update(this)
         },32)
     }
 
@@ -46,12 +47,9 @@ export default class Editor{
             if(x < 0 || x > 800 || y < 0 || y > 600) return
         })
     }
-
-    // FAIL SI EL SEGUNDO PUNTO ESTA EN EL MISMO BORDE DE EMPEZAR
     
     placeTile(x,y){
         if(this.placingTile === false) return
-        console.log(x,y);
         // placing first tile
         if(this.map.newRoad.size === 0){
             if(x === 0 || x === 15 || y === 0 || y === 11){
@@ -71,6 +69,7 @@ export default class Editor{
             this.map.tiles[x][y].type = this.placingTileType
             this.map.tiles[x][y].road = 'road'
             this.placingTile = false
+            this.done = true
             this.addTilesBetweenPoints([lastPoint.x,lastPoint.y],[x,y])
             this.map.newRoad.addWaypoint(x,y)
         }else{
@@ -102,7 +101,6 @@ export default class Editor{
                 this.map.newRoad.addWaypoint(newLast.x,newLast.y)
             }
         }
-        console.log(this.map.newRoad);
     }
 
 

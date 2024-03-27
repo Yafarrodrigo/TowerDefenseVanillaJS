@@ -203,25 +203,52 @@ export default class EditorGraphics{
         }
     }
 
-    update(x,y,placingTile,placingTileType){
+    lightBorderTiles(){
+        for(let x = 0; x < 16; x++){
+            for(let y = 0; y < 12; y++){
+                if(this.map.newRoad.getNodeAt(x,y)) continue
+                if(x === 0 || x === 15 || y === 0 || y === 11){
+                    this.ctx.fillStyle = "rgba(0,255,0,0.25)"
+                    this.ctx.fillRect(x*this.map.tileSize,y*this.map.tileSize,this.map.tileSize,this.map.tileSize)
+                }
+            }
+        }
+    }
 
+    update(editor){
+
+        const {cursorAt:{x,y},done,placingTile,placingTileType,map:{newRoad:{size}}} = editor
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.extraCtx.clearRect(0, 0, this.extraCanvas.width, this.extraCanvas.height);
 
         this.drawBg()
         this.drawRoad()
+        
         if(placingTile && placingTileType === 'road'){
+            if(size === 0){
+                this.lightBorderTiles()
+            }
             this.displayCursorRoad(x,y)
         }
-
-        const lastTile = this.map.newRoad.getLastNode()
-        if(lastTile){
-            this.ctx.fillStyle = "rgba(0,255,0,0.5)"
-            this.ctx.fillRect(
-            lastTile.x * this.map.tileSize,
-            lastTile.y * this.map.tileSize,
-            this.map.tileSize,
-            this.map.tileSize)
+        if(done){
+            const lastTile = this.map.newRoad.getLastNode()
+            if(lastTile){
+                this.ctx.fillStyle = "rgba(255,0,0,0.5)"
+                this.ctx.fillRect(
+                lastTile.x * this.map.tileSize,
+                lastTile.y * this.map.tileSize,
+                this.map.tileSize,
+                this.map.tileSize)
+            }
+            const firstTile = this.map.newRoad.firstTile
+            if(firstTile){
+                this.ctx.fillStyle = "rgba(0,255,0,0.5)"
+                this.ctx.fillRect(
+                firstTile.x * this.map.tileSize,
+                firstTile.y * this.map.tileSize,
+                this.map.tileSize,
+                this.map.tileSize)
+            }
         }
     }
 
