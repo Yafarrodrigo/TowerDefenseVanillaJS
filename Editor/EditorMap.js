@@ -7,8 +7,30 @@ export default class EditorMap{
     tileSize = 50
 
     tiles = []
-    road = []
-    newRoad = new Road()
+    newRoad = new Road(this)
+    history = []
+
+    addHistory(){
+        this.history.push({waypoints: [...this.newRoad.waypoints], size: this.newRoad.size, tiles: structuredClone(this.tiles)})
+    }
+
+    getLastHistory(){
+        if(this.history.length > 0) return this.history[this.history.length-1]
+        else return false
+    }
+
+    getSecondLastHistory(){
+        if(this.history.length > 1) return this.history[this.history.length-2]
+        else if (this.history.length === 1) return this.getLastHistory()
+        else return false
+    }
+
+    removeLastHistory(qty = 1){
+        if(this.getLastHistory() === false) return
+        for(let i = 0; i < qty; i++){
+            this.history.pop()
+        }
+    }
 
     checkForRoad(x,y){
         if(x >= 0 && x <= this.qtyTilesX && y >= 0 && y <= this.qtyTilesY){

@@ -1,12 +1,15 @@
 export default class Road{
-    constructor(){
+    constructor(map){
         this.firstTile = null
         this.size = 0
         this.waypoints = []
+        this.map = map
     }
 
     addWaypoint(x,y){
         this.waypoints.push([x,y])
+        this.map.addHistory()
+        console.log(this.map.history[this.map.history.length-1].waypoints);
     }
 
     addNode(x,y){

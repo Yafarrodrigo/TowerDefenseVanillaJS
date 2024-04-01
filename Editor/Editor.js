@@ -30,10 +30,12 @@ export default class Editor{
             this.placeTile(x,y)
         })
 
+        // UNDO PLACEMENT (CTRL + Z)
         this.graphics.canvas.addEventListener('contextmenu', (e)=>{
             e.preventDefault()
     
             const {x,y} = this.getMousePos(e)
+            this.undo()
         })
 
         this.graphics.canvas.addEventListener('mousemove', (e)=>{
@@ -48,6 +50,35 @@ export default class Editor{
         })
     }
     
+    undo(){
+        const lastHistory = this.map.getLastHistory()
+        if(lastHistory === false) return
+        console.log(lastHistory.waypoints);
+
+        let waypointToCut
+        if(this.map.history.length > 1) waypointToCut = lastHistory.waypoints[lastHistory.waypoints.length-2]
+        else if(this.map.history.length === 1) waypointToCut = lastHistory.waypoints[0]
+        else return
+
+        if(this.map.history.length === 1){
+            this.map.newRoad.firstTile = null
+            this.map.newRoad.size = 0
+            this.map.tiles = lastHistory.tiles
+            this.map.newRoad.waypoints = []
+        }else{
+            const nodeToCut = this.map.newRoad.getNodeAt(waypointToCut[0],waypointToCut[1])
+            if(nodeToCut !== false) nodeToCut.next = null
+            this.map.tiles = lastHistory.tiles
+            this.map.newRoad.waypoints = [...lastHistory.waypoints.slice(0, -1)]
+            this.map.newRoad.size = lastHistory.size
+        }
+
+        this.map.removeLastHistory()
+
+        this.placingTile = true
+        this.done = false
+    }
+
     placeTile(x,y){
         if(this.placingTile === false) return
         // placing first tile
@@ -68,10 +99,10 @@ export default class Editor{
             this.graphics.changeTile(x,y,this.placingTileType)
             this.map.tiles[x][y].type = this.placingTileType
             this.map.tiles[x][y].road = 'road'
-            this.placingTile = false
-            this.done = true
             this.addTilesBetweenPoints([lastPoint.x,lastPoint.y],[x,y])
             this.map.newRoad.addWaypoint(x,y)
+            this.placingTile = false
+            this.done = true
         }else{
             // seond one not in finish line
             if(this.map.newRoad.size === 1 && (x === 0 || x === 15 || y === 0 || y === 11)) return

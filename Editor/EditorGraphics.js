@@ -230,7 +230,7 @@ export default class EditorGraphics{
             }
             this.displayCursorRoad(x,y)
         }
-        if(done){
+        if(done === true){
             const lastTile = this.map.newRoad.getLastNode()
             if(lastTile){
                 this.ctx.fillStyle = "rgba(255,0,0,0.5)"
