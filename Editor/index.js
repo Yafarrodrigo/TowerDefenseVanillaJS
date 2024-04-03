@@ -61,5 +61,5 @@ document.getElementById('startButton').addEventListener('click', (e) => {
     if(editor.done === false) return
     const mapToPlay = editor.map.newRoad.getWaypoints()
     localStorage.setItem('TD_MAP_INFO', JSON.stringify(mapToPlay))
-    window.location.href = '/index.html'
+    window.location.href = 'https://yafarrodrigo.github.io/index.html'
 })
