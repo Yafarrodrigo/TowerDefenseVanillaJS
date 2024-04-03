@@ -78,6 +78,13 @@ body{
     background-color: #111;
 }
 
+#mainMenuButtonsContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
 #mainMenuPlayButton{
     width: 175px;
     height: 75px;
@@ -87,6 +94,18 @@ body{
     border: 1px solid white;
     box-shadow: 0px 0px 1px 1px white;
     animation: pulsate 1s infinite;
+}
+
+#mainMenuPlayCustomButton{
+    width: 175px;
+    height: 75px;
+    opacity: 0.8;
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    border: 1px solid white;
+    box-shadow: 0px 0px 1px 1px white;
+    animation: pulsate 1s infinite;
+    
 }
 
 #mainMenuPlayButton:hover{

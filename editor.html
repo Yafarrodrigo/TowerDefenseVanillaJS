@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <link rel='stylesheet' href='style.css'>
+    <link rel='stylesheet' href='editor-style.css'>
+    <link rel='preconnect' href='https://fonts.googleapis.com'>
+    <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
+    <link href='https://fonts.googleapis.com/css2?family=Coda&display=swap' rel='stylesheet'>
+    <script defer type='module' src='./Editor/index.js'></script>
+    <title>TowerDefense Editor</title>
+</head>
+<body>
+
+    <div id='bgImage'></div>
+
+    <!-- HELP  -->
+    <div id='helpContainer' class='notShown'>
+        <div id='helpHeader'>
+            <h2>Help</h2>
+            <h1 id='helpPageTitle'>Level Info</h1>
+            <button id='helpCloseButton'>x</button>
+        </div>
+        <div id='helpSection'>
+            <button id='helpButtonBack'>←</button>
+            <div><img id='helpImage' src='./Images/level info.jpg' alt=''></div>
+            <button id='helpButtonNext'>→</button>
+        </div>
+        <div id='helpPagination'> 1 / 10</div>
+    </div>
+
+    <!-- JUEGO EN SI -->
+    <div id='container' class='shown'>
+        <!-- <h1 id='cache-warning'>*   if problems -> ctrl + F5 to clear cache *</h1> -->
+        
+        <!-- IMG para ayuda          -->
+        <div id='fadeToBlack' class='notShown'></div>
+        <!--                         -->
+        <div id='header'>
+            <div id='levelInfo'>
+                <h1 id='level'>Level Editor</h1>
+            </div>
+            <button id='help'>?</button>
+        </div>
+
+        <div id='canvas-group'>
+            <canvas width='800' height='600' id='canvas'></canvas>
+            <canvas width='800' height='600' id='extra-canvas'></canvas>
+        </div>
+    
+        <div id='panel'>
+            
+            <form id='towerSpawner'>
+                <button id='startButton'>Play!</button>
+                <div id='floorButtons'></div>
+            </form>
+        </div>
+    </div>
+    <div id='tooltipDiv'>
+        TOOLTIP...
+    </div>
+</body>
+</html>

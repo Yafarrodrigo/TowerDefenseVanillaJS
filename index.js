@@ -7,7 +7,8 @@ const changes = [
     'Improved map selection screen',
     'Added support for different starting sides',
     'Added keyboard shortcuts',
-    'Tweaked some towers numbers'
+    'Tweaked some towers numbers',
+    'Now you can create nad play a custom map!'
 ]
 
 const changesContainer = document.getElementById('recentChanges')
@@ -52,6 +53,10 @@ document.getElementById('helpButtonNext').addEventListener('click', (e) => {
 // MAIN MENU PLAY BUTTON
 document.getElementById('mainMenuPlayButton').addEventListener('click', (e) => {
     e.preventDefault()
+    
+     // resets customMAP in localstorage
+     localStorage.removeItem('TD_MAP_INFO')
+
     const lvlSelectDiv = document.getElementById('levelSelectDiv')
     document.getElementById('mainMenu').classList.remove('shown')
     document.getElementById('mainMenu').classList.add('notShown')
@@ -80,10 +85,28 @@ document.getElementById('mainMenuPlayButton').addEventListener('click', (e) => {
     })
 })
 
+// CUSTOM START GAME BUTTON
+document.getElementById('mainMenuPlayCustomButton').addEventListener('click', (e) => {
+    e.preventDefault()
+    window.location.href = '/editor.html'
+})
 
+////////////////////////////////////////////////////////////////////////////////////
+// IF LOCALSTORAGE HAS MAP INFO START CUSTOM RIGHT AWAY
+const customMap = localStorage.getItem('TD_MAP_INFO')
+const parsedMap = JSON.parse(customMap) || null
+if(parsedMap !== null){
+    document.getElementById('mainMenu').classList.remove('shown')
+    document.getElementById('mainMenu').classList.add('notShown')
+    selectMapAndPlay(0,parsedMap)
+
+    // resets customMAP in localstorage
+    localStorage.removeItem('TD_MAP_INFO')
+}
+////////////////////////////////////////////////////////////////////////////////////
 
 // STARTS GAME
-function selectMapAndPlay(mapId){
+function selectMapAndPlay(mapId,customMap = null){
     document.getElementById('levelSelectDiv').classList.remove('shown')
     document.getElementById('levelSelectDiv').classList.add('notShown')
 
@@ -93,7 +116,7 @@ function selectMapAndPlay(mapId){
     document.getElementById('levelSelectH1').classList.add('notShown')
     document.getElementById('levelSelectH1').classList.remove('shown')
     
-    const game = new Game({roadNumber:mapId})
+    const game = new Game({roadNumber:mapId, customMap})
     game.setupAndStartGame()
 }
 

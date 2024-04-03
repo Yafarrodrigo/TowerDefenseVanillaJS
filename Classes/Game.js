@@ -42,11 +42,16 @@ export default class Game {
   masteries = new Masteries(this)
   
   constructor(gameParameters) {
-    const { roadNumber } = gameParameters;
-    if (!roadNumber) {
-      this.map = new Map(this, 0);
-    } else {
-      this.map = new Map(this, roadNumber);
+    const { roadNumber,customMap } = gameParameters;
+    if(customMap === null){
+      if (!roadNumber) {
+        this.map = new Map(this, 0);
+      } else {
+        this.map = new Map(this, roadNumber);
+      }
+    }else{
+      console.log(customMap);
+      this.map = new Map(this, customMap)
     }
 
     let startingPos = {x:0,y:0}
