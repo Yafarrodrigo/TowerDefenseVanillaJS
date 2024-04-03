@@ -88,7 +88,7 @@ document.getElementById('mainMenuPlayButton').addEventListener('click', (e) => {
 // CUSTOM START GAME BUTTON
 document.getElementById('mainMenuPlayCustomButton').addEventListener('click', (e) => {
     e.preventDefault()
-    window.location.href = 'https://yafarrodrigo.github.io/editor.html'
+    window.location.href = 'https://yafarrodrigo.github.io/TowerDefenseVanillaJS/editor.html'
 })
 
 ////////////////////////////////////////////////////////////////////////////////////
